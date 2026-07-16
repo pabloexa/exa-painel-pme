@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0B1210">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Exa PME">
+<title>Exa — Painel PME Frio · Uberlândia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+  :root{
+    --bg:#0B1210; --panel:#121A17; --panel2:#0F1614; --line:#1E2B26;
+    --txt:#E7EFEA; --mut:#8FA69C; --verde:#22C55E; --verde-esc:#15803D;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--txt);font-family:'Inter',sans-serif;font-size:14px}
+  h1,h2,h3{font-family:'Oxanium',sans-serif}
+  header{position:sticky;top:0;z-index:1100;background:var(--panel);border-bottom:1px solid var(--line);padding:14px 20px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between}
+  .brand{display:flex;align-items:baseline;gap:10px}
+  .brand .logo{font-family:'Oxanium';font-weight:700;font-size:20px;color:var(--verde);letter-spacing:1px}
+  .brand .tit{font-family:'Oxanium';font-weight:600;font-size:16px}
+  .brand .sub{color:var(--mut);font-size:12px}
+  .meta{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+  .kpi{text-align:right}
+  .kpi .v{font-family:'Oxanium';font-weight:700;font-size:18px;color:var(--verde)}
+  .kpi .l{color:var(--mut);font-size:11px;text-transform:uppercase;letter-spacing:.5px}
+  .goal{min-width:230px}
+  .goal .bar{height:8px;background:var(--line);border-radius:4px;overflow:hidden;margin-top:5px}
+  .goal .fill{height:100%;background:var(--verde);width:0%}
+  .goal .lbl{display:flex;justify-content:space-between;font-size:11px;color:var(--mut)}
+  .goal .lbl b{color:var(--txt)}
+  .controls{padding:12px 20px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;background:var(--panel2);border-bottom:1px solid var(--line)}
+  input[type=text],select{background:var(--panel);border:1px solid var(--line);color:var(--txt);border-radius:6px;padding:8px 10px;font-family:'Inter';font-size:13px}
+  input[type=text]{width:220px}
+  .chip{border:1px solid var(--line);background:var(--panel);color:var(--mut);border-radius:16px;padding:6px 12px;cursor:pointer;font-size:12px;font-weight:600;user-select:none}
+  .chip.on{border-color:var(--verde);color:var(--verde)}
+  .chip .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:1px}
+  .tiers{display:flex;gap:6px}
+  .tierbtn{border:1px solid var(--line);background:var(--panel);color:var(--mut);padding:7px 12px;border-radius:6px;cursor:pointer;font-weight:600;font-size:12px}
+  .tierbtn.on{background:var(--verde-esc);border-color:var(--verde);color:#fff}
+  label.tg{display:flex;align-items:center;gap:6px;color:var(--mut);font-size:12px;cursor:pointer}
+  main{display:grid;grid-template-columns:440px 1fr;height:calc(100vh - 128px)}
+  #lista{overflow-y:auto;border-right:1px solid var(--line);padding:10px}
+  #map{height:100%}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin-bottom:8px;cursor:pointer}
+  .card:hover{border-color:#2E4038}
+  .card.sel{border-color:var(--verde)}
+  .card .top{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+  .card .nome{font-weight:600;font-size:14px}
+  .card .kwh{font-family:'Oxanium';font-weight:700;color:var(--verde);white-space:nowrap;font-size:14px}
+  .card .info{color:var(--mut);font-size:12px;margin-top:3px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .catchip{font-size:11px;font-weight:600;padding:1px 8px;border-radius:10px;color:#0B1210}
+  .card .fone a{color:var(--verde);text-decoration:none;font-weight:600}
+  .stats{display:flex;gap:4px;margin-top:8px}
+  .stbtn{border:1px solid var(--line);background:var(--panel2);color:var(--mut);font-size:11px;padding:4px 9px;border-radius:5px;cursor:pointer;font-weight:600}
+  .stbtn.on-P{background:#2A3530;color:var(--txt);border-color:#3A4A42}
+  .stbtn.on-V{background:#78350F;color:#FCD34D;border-color:#B45309}
+  .stbtn.on-C{background:var(--verde-esc);color:#fff;border-color:var(--verde)}
+  .stbtn.on-X{background:#450A0A;color:#FCA5A5;border-color:#7F1D1D}
+  .kwhreal{font-size:11px;color:#FCD34D;margin-left:6px}
+  .vazio{color:var(--mut);text-align:center;padding:40px 10px}
+  .leaflet-container{background:#0B1210}
+  .leaflet-popup-content-wrapper,.leaflet-popup-tip{background:var(--panel);color:var(--txt)}
+  .leaflet-popup-content a{color:var(--verde)}
+  footer{position:fixed;bottom:0;right:0;background:var(--panel);border:1px solid var(--line);border-radius:6px 0 0 0;color:var(--mut);font-size:10px;padding:4px 10px;z-index:1200}
+  @media(max-width:900px){main{grid-template-columns:1fr;height:auto}#map{height:45vh;order:-1}#lista{max-height:none}}
+  .planobtn{border:1px solid var(--verde);background:var(--verde-esc);color:#fff;padding:8px 14px;border-radius:6px;cursor:pointer;font-weight:700;font-size:12px;font-family:'Oxanium'}
+  #planoOverlay{display:none;position:fixed;inset:0;background:rgba(4,8,6,.7);z-index:2000}
+  #planoOverlay.aberto{display:block}
+  #plano{position:fixed;top:0;right:0;height:100vh;width:min(480px,100vw);background:var(--panel);border-left:1px solid var(--line);z-index:2001;overflow-y:auto;padding:20px;transform:translateX(100%);transition:transform .2s}
+  #planoOverlay.aberto #plano{transform:none}
+  #plano h2{font-size:18px;color:var(--verde);margin-bottom:2px}
+  #plano .psub{color:var(--mut);font-size:12px;margin-bottom:16px}
+  #plano .dia{margin-bottom:18px;background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:12px 14px}
+  #plano .dia h3{font-size:14px;margin-bottom:8px}
+  #plano .dia h3 span{color:var(--mut);font-weight:400;font-size:12px;margin-left:6px}
+  .tarefa{display:flex;gap:10px;align-items:flex-start;padding:6px 0;border-top:1px solid var(--line);cursor:pointer}
+  .tarefa:first-of-type{border-top:none}
+  .tarefa input{margin-top:3px;accent-color:var(--verde)}
+  .tarefa .h{font-family:'Oxanium';font-weight:600;color:var(--verde);white-space:nowrap;font-size:12px;min-width:74px}
+  .tarefa .d{font-size:13px}
+  .tarefa.feita .d{color:var(--mut);text-decoration:line-through}
+  .tarefa .meta-t{display:block;color:#FCD34D;font-size:11px;margin-top:2px}
+  .checkpoint{border:1px solid #B45309;background:#78350F22;border-radius:6px;padding:8px 10px;font-size:12px;color:#FCD34D;margin-top:8px}
+  #plano .fechar{position:absolute;top:14px;right:16px;background:none;border:1px solid var(--line);color:var(--mut);border-radius:6px;padding:4px 10px;cursor:pointer;font-size:12px}
+  #manualOverlay{display:none;position:fixed;inset:0;background:rgba(4,8,6,.7);z-index:2000}
+  #manualOverlay.aberto{display:block}
+  #manual{position:fixed;top:0;right:0;height:100vh;width:min(540px,100vw);background:var(--panel);border-left:1px solid var(--line);z-index:2001;overflow-y:auto;padding:20px}
+  #manual h2{font-size:18px;color:var(--verde);margin-bottom:2px}
+  #manual .psub{color:var(--mut);font-size:12px;margin-bottom:16px}
+  #manual .fechar{position:absolute;top:14px;right:16px;background:none;border:1px solid var(--line);color:var(--mut);border-radius:6px;padding:4px 10px;cursor:pointer;font-size:12px}
+  .bloco{margin-bottom:16px;background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:12px 14px}
+  .bloco h4{font-family:'Oxanium';font-size:13px;color:var(--verde);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+  .bloco p{font-size:13px;margin-bottom:8px;color:var(--txt)}
+  .bloco ul,.bloco ol{margin:0 0 8px 18px;font-size:13px}
+  .bloco li{margin-bottom:5px}
+  .bloco b{color:var(--verde)}
+  .bloco .alerta{color:#FCD34D}
+  .msgbox{background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:10px 12px;margin-bottom:8px;position:relative}
+  .msgbox .rot{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--mut);margin-bottom:4px}
+  .msgbox .msgtxt{font-size:13px;line-height:1.5;white-space:pre-wrap}
+  .copiar{position:absolute;top:8px;right:8px;background:var(--panel);border:1px solid var(--line);color:var(--verde);border-radius:5px;padding:3px 9px;cursor:pointer;font-size:11px;font-weight:600}
+  .bloco table{width:100%;border-collapse:collapse;font-size:12px}
+  .bloco th,.bloco td{text-align:left;padding:5px 8px;border-bottom:1px solid var(--line)}
+  .bloco th{color:var(--mut);font-weight:600;font-size:11px;text-transform:uppercase}
+  @media(max-width:700px){
+    body{font-size:15px}
+    header{padding:10px 12px;gap:8px;padding-top:calc(10px + env(safe-area-inset-top))}
+    .brand{width:100%;justify-content:space-between}
+    .brand .sub{display:none}
+    .meta{width:100%;gap:10px;align-items:stretch}
+    .kpi{text-align:left}
+    .kpi .v{font-size:15px}
+    .goal{flex:1 1 100%;min-width:0;order:5}
+    .planobtn{flex:1;padding:12px 8px;font-size:13px}
+    .controls{padding:10px 12px;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+    .controls::-webkit-scrollbar{display:none}
+    #chips{flex-wrap:nowrap}
+    .chip,.tierbtn{white-space:nowrap;padding:9px 14px}
+    input[type=text]{width:170px;font-size:16px;flex:none}
+    select{font-size:16px}
+    main{grid-template-columns:1fr;height:auto}
+    #map{height:38vh;order:-1}
+    #lista{border-right:none;padding:8px;padding-bottom:calc(20px + env(safe-area-inset-bottom))}
+    .card{padding:14px}
+    .card .nome{font-size:15px}
+    .stats{gap:6px}
+    .stbtn{padding:9px 13px;font-size:12px}
+    .tarefa{padding:9px 0}
+    #plano,#manual{width:100vw;padding:16px;padding-top:calc(16px + env(safe-area-inset-top));padding-bottom:calc(24px + env(safe-area-inset-bottom));-webkit-overflow-scrolling:touch}
+    footer{display:none}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <span class="logo">EXA</span>
+    <span class="tit">Painel PME Frio</span>
+    <span class="sub">Uberlândia · comércios com freezer/forno · ≥500 kWh/mês</span>
+  </div>
+  <div class="meta">
+    <div class="kpi"><div class="v" id="kLeads">0</div><div class="l">Leads visíveis</div></div>
+    <div class="kpi"><div class="v" id="kPot">0</div><div class="l">kWh potencial</div></div>
+    <div class="kpi"><div class="v" id="kContas">0</div><div class="l">Contas coletadas</div></div>
+    <div class="goal">
+      <div class="lbl"><span>Meta: mapear 10.000 kWh</span><b id="gTxt">0 kWh</b></div>
+      <div class="bar"><div class="fill" id="gFill"></div></div>
+    </div>
+    <button class="planobtn" id="abrePlano">Plano até 23/07</button>
+    <button class="planobtn" id="abreManual">Manual de campo</button>
+  </div>
+</header>
+
+<div id="manualOverlay">
+  <div id="manual">
+    <button class="fechar" id="fechaManual">Fechar</button>
+    <h2>Manual de campo</h2>
+    <div class="psub">Como buscar o cliente fora do pipe e colocar ele pra dentro — do primeiro contato até o HubSpot.</div>
+
+    <div class="bloco">
+      <h4>Regras de ouro</h4>
+      <ul>
+        <li><b>A conta é o produto da visita.</b> Quem te mostra a conta está 70% vendido. Não saia da porta sem tentar a foto.</li>
+        <li><b>Prometeu 24h, cumpre 24h.</b> A simulação no prazo é o que te separa de todo vendedor que já passou lá.</li>
+        <li><b>kWh só existe no HubSpot.</b> Conta coletada sem deal criado com consumo_medio preenchido = trabalho perdido pra meta.</li>
+        <li><b>Registre na hora.</b> Painel no celular na rua, HubSpot no fim do dia. Memória de noite não confia.</li>
+        <li><b>Todo fechamento pede 2 indicações.</b> Comerciante conhece comerciante.</li>
+      </ul>
+    </div>
+
+    <div class="bloco">
+      <h4>Script — WhatsApp (1º contato)</h4>
+      <div class="msgbox"><button class="copiar">Copiar</button><div class="rot">Mensagem-padrão</div><div class="msgtxt">Oi, tudo bem? Sou o Pablo, da Exa Energia aqui de Uberlândia. A gente tá reduzindo a conta de energia de comércios da região, sem obra e sem instalar nada — continua tudo com a CEMIG normal. Me manda uma foto da sua conta que em 24h te devolvo a simulação certinha de quanto dá pra economizar.</div></div>
+      <div class="msgbox"><button class="copiar">Copiar</button><div class="rot">Confirmação (assim que receber a conta)</div><div class="msgtxt">Recebi, obrigado! Amanhã até o fim do dia te mando a simulação certinha.</div></div>
+      <div class="msgbox"><button class="copiar">Copiar</button><div class="rot">Follow-up 48h sem resposta</div><div class="msgtxt">Oi! Conseguiu dar uma olhada na simulação que te mandei? Qualquer dúvida me fala — e se preferir, passo aí rapidinho pra te mostrar pessoalmente.</div></div>
+    </div>
+
+    <div class="bloco">
+      <h4>Script — presencial (6 min por porta)</h4>
+      <ol>
+        <li><b>Entra e pergunta pelo dono</b> (ou gerente). Sem dono por perto, não gasta o pitch com quem não decide.</li>
+        <li><b>Abertura:</b> "Oi, sou o Pablo da Exa. A gente cuida da conta de energia de vários comércios aqui da região — posso te mostrar uma coisa rápida?"</li>
+        <li><b>O pedido:</b> "Me deixa tirar uma foto da sua conta de energia que amanhã te mando exatamente quanto você economizaria. Sem compromisso nenhum."</li>
+        <li><b>Pega o WhatsApp</b> e manda um "oi" na hora, pra ficar com o contato salvo dos dois lados.</li>
+        <li><b>Dono não está?</b> Pega nome + WhatsApp do dono com o funcionário, deixa o material de 1 folha e manda a mensagem-padrão ainda no mesmo dia.</li>
+      </ol>
+      <p class="alerta">Não fecha na hora, não discute preço na porta. O objetivo da visita é UM: sair com a conta.</p>
+    </div>
+
+    <div class="bloco">
+      <h4>Como ler a conta CEMIG (30 segundos)</h4>
+      <ul>
+        <li><b>Consumo médio:</b> olha o gráfico/histórico de 12 meses, não o mês atual — comércio de frio varia com a estação.</li>
+        <li><b>Tipo de ligação:</b> monofásico (mínimo 30 kWh), bifásico (50) ou trifásico (100). O desconto vale só no que passa do mínimo — comércio trifásico de 2.000 kWh é perfeito.</li>
+        <li><b>Já tem GD?</b> Se aparecer "SCEE", "energia injetada" ou "crédito de energia", já tem desconto de alguém — pergunta de quem e quanto, anota e trata como concorrência.</li>
+        <li><b>Grupo A / demanda contratada</b> na conta = média tensão, fora do perfil por agora. Agradece e segue.</li>
+        <li><b>Titular:</b> anota se é CNPJ ou pessoa física — vai direto no cadastro do deal.</li>
+      </ul>
+    </div>
+
+    <div class="bloco">
+      <h4>Objeções — resposta pronta</h4>
+      <ul>
+        <li><b>"Isso é golpe?"</b> — "Justo perguntar. Você continua cliente da CEMIG, a conta continua vindo dela, ninguém mexe na sua instalação. A gente já faz isso com condomínio de 79 unidades aqui em Uberlândia. Te mostro tudo antes de qualquer assinatura."</li>
+        <li><b>"Já tenho desconto / tenho placa."</b> — Placa própria: agradece e marca "Fora" no painel. Desconto de concorrente: "quanto tá sendo? Me deixa ver a conta que se eu não melhorar, te falo na cara."</li>
+        <li><b>"Vou pensar."</b> — "Claro! Me deixa só tirar a foto da conta e te mandar a simulação, aí você pensa com o número na mão, não no escuro."</li>
+        <li><b>"Não tenho a conta aqui."</b> — "Ela chega no e-mail ou no app da CEMIG. Me passa seu WhatsApp que hoje à noite te lembro."</li>
+        <li><b>"Quanto custa?"</b> — "Nada. Sem taxa, sem obra, sem aparelho. O que muda é o desconto que aparece na sua conta."</li>
+      </ul>
+    </div>
+
+    <div class="bloco">
+      <h4>Do painel pro HubSpot (o que vale pra meta)</h4>
+      <ol>
+        <li><b>Coletou a conta</b> → marca "Conta" aqui no painel com o kWh real.</li>
+        <li><b>No HubSpot:</b> cria o contato (nome do dono + WhatsApp) e o negócio no Pipeline de Consumidores — nome no padrão "Comércio | Dono", estágio <b>Em atendimento</b>.</li>
+        <li><b>Preenche consumo_medio (kWh)</b> no negócio. Sem isso o kWh não soma na meta. É o campo, não o valor em R$.</li>
+        <li><b>Mandou a simulação</b> → move pra <b>Proposta enviada</b>. Respondeu discutindo condição → <b>Negociação</b>.</li>
+        <li><b>De "Recebimento de Docs" em diante</b>, preencher também distribuidora (CEMIG) e produto__plano — o HubSpot trava sem eles.</li>
+        <li><b>Conferência diária:</b> nº de "Conta" no painel = nº de deals criados no dia. Se não bate, tem kWh vazando.</li>
+      </ol>
+    </div>
+
+    <div class="bloco">
+      <h4>Melhor horário por categoria</h4>
+      <table>
+        <tr><th>Categoria</th><th>Melhor janela</th><th>Por quê</th></tr>
+        <tr><td>Padaria</td><td>14h–17h</td><td>Fora do pico da manhã; dono no caixa</td></tr>
+        <tr><td>Açougue</td><td>14h–16h30</td><td>Entre o movimento do almoço e o da tarde</td></tr>
+        <tr><td>Sorveteria / açaí</td><td>10h–12h</td><td>Antes do movimento; à tarde não te atendem</td></tr>
+        <tr><td>Restaurante</td><td>15h–17h30</td><td>Entre almoço e janta — única janela real</td></tr>
+        <tr><td>Supermercado</td><td>9h–11h</td><td>Pedir o gerente/proprietário na recepção</td></tr>
+        <tr><td>Distribuidora</td><td>9h–11h30</td><td>Antes do pico de fim de tarde</td></tr>
+        <tr><td>Sábado de manhã</td><td>9h–11h30</td><td>O dono está no balcão em quase tudo</td></tr>
+      </table>
+    </div>
+
+    <div class="bloco">
+      <h4>Qualificação rápida — onde investir os 6 minutos</h4>
+      <ul>
+        <li><b>Vale a visita:</b> Tier A do painel, comércio independente, dono acessível, freezer/forno visível da calçada.</li>
+        <li><b>Vale dobrar o tempo:</b> supermercado independente e padaria grande — 1 conta dessas vale 5 lojas pequenas.</li>
+        <li><b>Não gasta bala:</b> rede/franquia corporativa (Tier C — decisão fora de Uberlândia), quem já tem placa, Grupo A.</li>
+        <li><b>Fechou alguém na rua?</b> Pergunta na hora: "quem mais aqui da rua sofre com conta de energia?" — e vai lá com o nome do vizinho na boca.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div id="planoOverlay">
+  <div id="plano">
+    <button class="fechar" id="fechaPlano">Fechar</button>
+    <h2>Plano de guerra</h2>
+    <div class="psub">Qui 16/07 &rarr; Qui 23/07 &middot; meta: +10.000 kWh no HubSpot em "Em atendimento", "Negociação" ou fechado. Regra de ouro: deal só conta se o consumo_medio (kWh) estiver preenchido.</div>
+
+    <div class="dia">
+      <h3>HOJE &middot; Quinta 16/07 <span>contratos de manhã &middot; MALL 14h&ndash;16h</span></h3>
+      <label class="tarefa"><input type="checkbox" data-t="d1"><span class="h">9h&ndash;12h</span><span class="d">Montar os 5 contratos — e lançar cada um no HubSpot com consumo_medio preenchido<span class="meta-t">Esse kWh já abate a meta no ato</span></span></label>
+      <label class="tarefa"><input type="checkbox" data-t="d2"><span class="h">13h40</span><span class="d">Chegar no mall antes; identificar as âncoras (comida, farmácia) pra começar por elas</span></label>
+      <label class="tarefa"><input type="checkbox" data-t="d3"><span class="h">14h&ndash;16h</span><span class="d">AÇÃO UMUARAMA MALL — 20 lojas em 2h (~6 min por loja). Objetivo único: foto da conta + WhatsApp do dono. Sem pitch longo<span class="meta-t">Meta: 10 contas</span></span></label>
+      <label class="tarefa"><input type="checkbox" data-t="d4"><span class="h">16h30&ndash;17h30</span><span class="d">Registrar contas no painel + criar os deals no HubSpot (Em atendimento, com kWh) + mensagem de confirmação pra cada conta</span></label>
+      <label class="tarefa"><input type="checkbox" data-t="d5"><span class="h">Noite (30 min)</span><span class="d">Mesa: escolher 15 alvos com telefone + montar Rota 1 (sex tarde) e Rota 2 (seg manhã) + deixar mensagem-padrão pronta</span></label>
+    </div>
+
+    <div class="dia">
+      <h3>Sexta 17/07 <span>simulações + rota 1</span></h3>
+      <label class="tarefa"><input type="checkbox" data-t="e1"><span class="h">8h&ndash;8h30</span><span class="d">Disparo dos 15 WhatsApps preparados ontem — foto da conta em troca de simulação em 24h</span></label>
+      <label class="tarefa"><input type="checkbox" data-t="e2"><span class="h">9h&ndash;12h</span><span class="d">Simulações das contas do mall + envio individual (a promessa de 24h se cumpre aqui)</span></label>
+      <label class="tarefa"><input type="checkbox" data-t="e3"><span class="h">13h30&ndash;17h</span><span class="d">Rota 1 frio pesado — mínimo 1 supermercado independente + 2 padarias<span class="meta-t">Meta: 5 contas</span></span></label>
+      <label class="tarefa"><input type="checkbox" data-t="e4"><span class="h">17h&ndash;18h</span><span class="d">Deals no HubSpot com kWh + confirmações</span></label>
+      <div class="checkpoint">CHECKPOINT SEX 18h: &ge;5.000 kWh somando contratos de hoje + deals criados. Abaixo disso, o sábado deixa de ser opcional.</div>
+    </div>
+
+    <div class="dia">
+      <h3>Sábado 18/07 <span>opcional que vale ouro</span></h3>
+      <label class="tarefa"><input type="checkbox" data-t="f1"><span class="h">9h&ndash;11h30</span><span class="d">Mini-rota padarias e sorveterias — sábado de manhã o dono está no balcão<span class="meta-t">Meta: 3 contas</span></span></label>
+      <label class="tarefa"><input type="checkbox" data-t="f2"><span class="h">Tarde</span><span class="d">Simulações das contas de sexta</span></label>
+    </div>
+
+    <div class="dia">
+      <h3>Segunda 20/07 <span>rota 2 + follow-up 48h</span></h3>
+      <label class="tarefa"><input type="checkbox" data-t="g1"><span class="h">8h30&ndash;9h</span><span class="d">Follow-up de toda simulação enviada e sem resposta (regra das 48h)</span></label>
+      <label class="tarefa"><input type="checkbox" data-t="g2"><span class="h">9h&ndash;12h</span><span class="d">Rota 2 — segundo cluster do mapa<span class="meta-t">Meta: 5 contas</span></span></label>
+      <label class="tarefa"><input type="checkbox" data-t="g3"><span class="h">14h&ndash;17h</span><span class="d">Simulações + deals no HubSpot; ligar pra quem recebeu simulação e puxar pra Negociação</span></label>
+    </div>
+
+    <div class="dia">
+      <h3>Terça 21/07 <span>repescagem + primeiros fechamentos</span></h3>
+      <label class="tarefa"><input type="checkbox" data-t="h1"><span class="h">9h&ndash;12h</span><span class="d">Repescagem: todos os "Visitado" sem "Conta" + respostas pendentes do WhatsApp</span></label>
+      <label class="tarefa"><input type="checkbox" data-t="h2"><span class="h">14h&ndash;17h</span><span class="d">Conversas de fechamento com a leva do mall (D+5, ainda quente)</span></label>
+      <div class="checkpoint">CHECKPOINT TER 18h: &ge;7.500 kWh no pipe. Abaixo disso, quarta inteira vira rua.</div>
+    </div>
+
+    <div class="dia">
+      <h3>Quarta 22/07 <span>dia de conversão</span></h3>
+      <label class="tarefa"><input type="checkbox" data-t="i1"><span class="h">9h&ndash;17h</span><span class="d">2ª visita presencial nas contas grandes (supermercado, padarias) com proposta impressa na mão</span></label>
+      <label class="tarefa"><input type="checkbox" data-t="i2"><span class="h">Se pipe &lt; 9.000</span><span class="d">Blitz de resgate em tudo que está parado: WhatsApp + ligação nos que prometeram conta</span></label>
+    </div>
+
+    <div class="dia">
+      <h3>Quinta 23/07 <span>fechamento da meta</span></h3>
+      <label class="tarefa"><input type="checkbox" data-t="k1"><span class="h">9h&ndash;12h</span><span class="d">Últimas contas viram simulação relâmpago no mesmo dia + empurrar estágios no HubSpot</span></label>
+      <label class="tarefa"><input type="checkbox" data-t="k2"><span class="h">15h&ndash;17h</span><span class="d">Contagem final: soma do consumo_medio dos deals criados desde 16/07 em "Em atendimento" pra frente</span></label>
+      <div class="checkpoint">META: +10.000 kWh no pipe até as 18h.</div>
+    </div>
+  </div>
+</div>
+
+<div class="controls">
+  <input type="text" id="busca" placeholder="Buscar nome, bairro, rua...">
+  <div class="tiers">
+    <button class="tierbtn on" data-t="">Todos</button>
+    <button class="tierbtn" data-t="A">A · Frio pesado</button>
+    <button class="tierbtn" data-t="B">B · Food service</button>
+    <button class="tierbtn" data-t="C">C · Redes</button>
+  </div>
+  <div id="chips" style="display:flex;gap:6px;flex-wrap:wrap"></div>
+  <label class="tg"><input type="checkbox" id="soFone"> só com telefone</label>
+  <select id="ordem">
+    <option value="k">Maior kWh</option>
+    <option value="n">Nome (A-Z)</option>
+    <option value="bo">Bairro</option>
+  </select>
+</div>
+
+<main>
+  <div id="lista"></div>
+  <div id="map"></div>
+</main>
+<footer>Estimativas de kWh por categoria (média do segmento). Fonte de locais: OpenStreetMap.</footer>
+
+<script src="pme-frio-leads.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const CORES = {
+  "Padaria":"#F59E0B","Supermercado":"#22C55E","Acougue":"#EF4444","Sorveteria/Acai":"#C084FC",
+  "Restaurante":"#38BDF8","Lanchonete":"#F97316","Conveniencia":"#2DD4BF","Hortifruti":"#84CC16",
+  "Distribuidora":"#EAB308","Peixaria":"#60A5FA","Laticinios":"#E5E7EB","Congelados":"#93C5FD"
+};
+const ROTULOS = {
+  "Acougue":"Açougue","Sorveteria/Acai":"Sorveteria/Açaí","Conveniencia":"Conveniência",
+  "Laticinios":"Laticínios"
+};
+const rot = c => ROTULOS[c] || c;
+const META = 10000;
+const LS = "exaPmeFrioStatus";
+
+let dados = window.PME_FRIO || [];
+let status = JSON.parse(localStorage.getItem(LS) || "{}");
+let fTier = "", fCats = new Set(), fFone = false, fBusca = "", fOrdem = "k", selId = null;
+
+// mapa
+const map = L.map("map").setView([-18.9186, -48.2772], 12);
+L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
+  attribution: "&copy; OpenStreetMap &copy; CARTO", maxZoom: 19
+}).addTo(map);
+const markers = {};
+
+function salvar(){ localStorage.setItem(LS, JSON.stringify(status)); }
+function stDe(id){ return (status[id] && status[id].s) || "P"; }
+function kwhReal(id){ return (status[id] && status[id].kwh) || 0; }
+
+function setStatus(id, s){
+  if (s === "C") {
+    const atual = kwhReal(id) || "";
+    const v = prompt("kWh da conta coletada (média mensal):", atual);
+    if (v === null) return;
+    const n = parseInt(String(v).replace(/\D/g,""), 10) || 0;
+    status[id] = { s:"C", kwh:n };
+  } else {
+    status[id] = { s:s, kwh: s==="C" ? kwhReal(id) : 0 };
+  }
+  salvar(); render();
+}
+
+function filtrados(){
+  const b = fBusca.toLowerCase();
+  let r = dados.filter(d =>
+    (!fTier || d.tier === fTier) &&
+    (fCats.size === 0 || fCats.has(d.c)) &&
+    (!fFone || d.ph) &&
+    (!b || (d.n+" "+d.bo+" "+d.ad).toLowerCase().includes(b))
+  );
+  r.sort((a,z)=> fOrdem==="k" ? z.k-a.k : String(a[fOrdem]).localeCompare(String(z[fOrdem]),"pt"));
+  return r;
+}
+
+function foneLinks(ph){
+  if (!ph) return "";
+  const dig = ph.replace(/\D/g,"");
+  let out = `<a href="tel:${ph}">${ph}</a>`;
+  const local = dig.startsWith("55") ? dig.slice(2) : dig;
+  if (local.length === 11 && local[2] === "9") out += ` · <a href="https://wa.me/55${local}" target="_blank">WhatsApp</a>`;
+  return out;
+}
+
+function render(){
+  const r = filtrados();
+  // KPIs
+  document.getElementById("kLeads").textContent = r.length;
+  document.getElementById("kPot").textContent = (r.reduce((s,d)=>s+d.k,0)/1000).toFixed(0)+" mil";
+  const contas = Object.keys(status).filter(id => status[id].s==="C");
+  document.getElementById("kContas").textContent = contas.length;
+  const mapeado = contas.reduce((s,id)=>s+(status[id].kwh||0),0);
+  document.getElementById("gTxt").textContent = mapeado.toLocaleString("pt-BR")+" kWh";
+  document.getElementById("gFill").style.width = Math.min(100, mapeado/META*100)+"%";
+
+  // lista
+  const el = document.getElementById("lista");
+  if (!r.length){ el.innerHTML = '<div class="vazio">Nenhum lead nesse filtro.</div>'; }
+  else {
+    el.innerHTML = r.slice(0,400).map(d=>{
+      const st = stDe(d.id);
+      const kr = kwhReal(d.id);
+      return `<div class="card ${selId===d.id?"sel":""}" data-id="${d.id}">
+        <div class="top"><span class="nome">${d.n}</span><span class="kwh">~${d.k.toLocaleString("pt-BR")} kWh</span></div>
+        <div class="info">
+          <span class="catchip" style="background:${CORES[d.c]||"#8FA69C"}">${rot(d.c)}</span>
+          ${d.tier==="C"?'<span style="color:#FCA5A5">rede</span>':""}
+          <span>${[d.ad,d.bo].filter(Boolean).join(" · ") || "endereço não mapeado"}</span>
+          <span class="fone">${foneLinks(d.ph)}</span>
+        </div>
+        <div class="stats">
+          ${["P","V","C","X"].map(s=>`<button class="stbtn ${st===s?"on-"+s:""}" data-st="${s}" data-id="${d.id}">${{P:"Pendente",V:"Visitado",C:"Conta",X:"Fora"}[s]}</button>`).join("")}
+          ${st==="C"&&kr?`<span class="kwhreal">${kr.toLocaleString("pt-BR")} kWh reais</span>`:""}
+        </div>
+      </div>`;
+    }).join("");
+  }
+
+  // marcadores
+  const ids = new Set(r.map(d=>d.id));
+  for (const id in markers){ if(!ids.has(id)){ map.removeLayer(markers[id]); delete markers[id]; } }
+  r.forEach(d=>{
+    const st = stDe(d.id);
+    const estilo = {
+      radius: Math.max(5, Math.sqrt(d.k)/14),
+      color: st==="C" ? "#FFFFFF" : (CORES[d.c]||"#8FA69C"),
+      weight: st==="C"?2:1,
+      fillColor: CORES[d.c]||"#8FA69C",
+      fillOpacity: st==="X"?0.15:0.75
+    };
+    if (markers[d.id]) { markers[d.id].setStyle(estilo); return; }
+    const m = L.circleMarker([d.lat,d.lng], estilo).addTo(map);
+    m.bindPopup(`<b>${d.n}</b><br>${rot(d.c)} · ~${d.k.toLocaleString("pt-BR")} kWh/mês<br>${[d.ad,d.bo].filter(Boolean).join(" · ")}<br>${foneLinks(d.ph)}`);
+    m.on("click",()=>{ selId=d.id; render(); const c=document.querySelector(`.card[data-id="${d.id}"]`); if(c) c.scrollIntoView({block:"center"}); });
+    markers[d.id]=m;
+  });
+}
+
+// eventos
+document.getElementById("lista").addEventListener("click", e=>{
+  const b = e.target.closest(".stbtn");
+  if (b){ setStatus(b.dataset.id, b.dataset.st); e.stopPropagation(); return; }
+  const c = e.target.closest(".card");
+  if (c && !e.target.closest("a")){
+    selId = c.dataset.id;
+    const d = dados.find(x=>x.id===selId);
+    if (d){ map.setView([d.lat,d.lng], 16); markers[d.id] && markers[d.id].openPopup(); }
+    render();
+  }
+});
+document.getElementById("busca").addEventListener("input", e=>{ fBusca=e.target.value; render(); });
+document.getElementById("soFone").addEventListener("change", e=>{ fFone=e.target.checked; render(); });
+document.getElementById("ordem").addEventListener("change", e=>{ fOrdem=e.target.value; render(); });
+document.querySelectorAll(".tierbtn").forEach(b=>b.addEventListener("click",()=>{
+  document.querySelectorAll(".tierbtn").forEach(x=>x.classList.remove("on"));
+  b.classList.add("on"); fTier=b.dataset.t; render();
+}));
+
+// chips de categoria
+const cats = [...new Set(dados.map(d=>d.c))].sort((a,z)=>dados.filter(d=>d.c===z).length - dados.filter(d=>d.c===a).length);
+document.getElementById("chips").innerHTML = cats.map(c=>
+  `<span class="chip" data-c="${c}"><span class="dot" style="background:${CORES[c]||"#8FA69C"}"></span>${rot(c)} (${dados.filter(d=>d.c===c).length})</span>`
+).join("");
+document.querySelectorAll(".chip").forEach(ch=>ch.addEventListener("click",()=>{
+  const c = ch.dataset.c;
+  if (fCats.has(c)) { fCats.delete(c); ch.classList.remove("on"); }
+  else { fCats.add(c); ch.classList.add("on"); }
+  render();
+}));
+
+// plano de guerra
+const LSP = "exaPmeFrioPlano";
+let plano = JSON.parse(localStorage.getItem(LSP) || "{}");
+const ov = document.getElementById("planoOverlay");
+document.getElementById("abrePlano").addEventListener("click", ()=> ov.classList.add("aberto"));
+document.getElementById("fechaPlano").addEventListener("click", ()=> ov.classList.remove("aberto"));
+ov.addEventListener("click", e=>{ if (e.target === ov) ov.classList.remove("aberto"); });
+document.querySelectorAll(".tarefa input").forEach(cb=>{
+  const k = cb.dataset.t;
+  if (plano[k]) { cb.checked = true; cb.closest(".tarefa").classList.add("feita"); }
+  cb.addEventListener("change", ()=>{
+    plano[k] = cb.checked;
+    cb.closest(".tarefa").classList.toggle("feita", cb.checked);
+    localStorage.setItem(LSP, JSON.stringify(plano));
+  });
+});
+
+// manual de campo
+const ovM = document.getElementById("manualOverlay");
+document.getElementById("abreManual").addEventListener("click", ()=> ovM.classList.add("aberto"));
+document.getElementById("fechaManual").addEventListener("click", ()=> ovM.classList.remove("aberto"));
+ovM.addEventListener("click", e=>{ if (e.target === ovM) ovM.classList.remove("aberto"); });
+document.querySelectorAll(".copiar").forEach(b=>b.addEventListener("click", ()=>{
+  const txt = b.closest(".msgbox").querySelector(".msgtxt").innerText;
+  navigator.clipboard.writeText(txt).then(()=>{
+    b.textContent = "Copiado";
+    setTimeout(()=>{ b.textContent = "Copiar"; }, 1500);
+  });
+}));
+
+render();
+</script>
+</body>
+</html>
