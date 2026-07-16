@@ -5,6 +5,7 @@ Pacote completo: estudo de concorrência, o que converte em CTWA na Meta, e rote
 
 | Arquivo | O que tem |
 |---|---|
+| [index.html](index.html) | **Painel navegável com tudo** — abas (Resumo · Concorrentes · Meta Ads · Roteiros · WhatsApp · Plano de mídia), botões de copiar nas copies. Abrir no navegador. |
 | [01-estudo-concorrentes.md](01-estudo-concorrentes.md) | 8 concorrentes dissecados + benchmarks de oferta + lacunas pra atacar |
 | [02-meta-ads-o-que-converte.md](02-meta-ads-o-que-converte.md) | Dados de CTWA 2025-26: formatos, hooks, campanha, benchmarks de custo |
 | [03-roteiros.md](03-roteiros.md) | 8 roteiros prontos pra gravar + fluxo de WhatsApp + plano de gravação em 1 diária |
