@@ -361,6 +361,9 @@ L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
   attribution: "&copy; OpenStreetMap &copy; CARTO", maxZoom: 19
 }).addTo(map);
 const markers = {};
+window.addEventListener("resize", ()=> map.invalidateSize());
+window.addEventListener("orientationchange", ()=> setTimeout(()=> map.invalidateSize(), 200));
+setTimeout(()=> map.invalidateSize(), 400);
 
 function salvar(){ localStorage.setItem(LS, JSON.stringify(status)); }
 function stDe(id){ return (status[id] && status[id].s) || "P"; }
