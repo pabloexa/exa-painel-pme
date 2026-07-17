@@ -51,7 +51,21 @@ Dois destinos possíveis, e a resposta é **os dois, com pesos diferentes**:
 - [ ] **Unificar o número** de destino com o da campanha
 - [ ] **Instalar Meta Pixel**: `PageView` no load, `ViewContent` ao iniciar o form, **`Lead` no submit** (é o evento de otimização da campanha B)
 - [ ] **Capturar UTMs** (utm_source/medium/campaign/content) e carregar junto com as respostas até o WhatsApp/HubSpot — é o que liga criativo → lead → contrato
+- [ ] **Perguntas do form = eliminatórias da régua de score** (PJ/PF · faixa de conta · tem placa/GD? · cidade/distribuidora · é o decisor?) — o submit já nasce com tier A/B/C/Fora calculado
 - [ ] **Tela final** com botão wa.me com **mensagem pré-preenchida** contendo o resumo das respostas (ex.: "Vim do diagnóstico: empresa, conta ~R$ 6 mil, sem GD") — o vendedor já recebe o lead qualificado
+
+### Régua de qualificação (a mesma pros dois caminhos — form e CTWA)
+
+A qualificação tem 4 camadas: **(1) no criativo** (valor mínimo no hook — o desqualificado nem clica), **(2) primeira mensagem** (2 eliminatórias na saudação; chatbot com botões na fase 2), **(3) a foto da conta** — o qualificador definitivo: kWh de 12 meses, tipo de ligação, SCEE/GD de concorrente, Grupo A, titular CNPJ, **(4) score e roteamento**:
+
+| Tier | Critérios | Tratamento |
+|---|---|---|
+| **A — quente** | CNPJ · ≥ R$ 3.000 · Grupo B · sem GD ou GD insatisfeito · decisor | Simulação no mesmo dia + ligação. Deal na hora com consumo_medio. |
+| **B — morno** | CNPJ · R$ 800–3.000 · ou conta grande sem decisor na linha | Simulação em 24h. Sem decisor: pegar contato do dono. |
+| **C — leve** | Residencial ≥ R$ 250 | Fluxo leve, sem ligação. |
+| **Fora** | Placa cobre tudo · Grupo A (por agora) · franquia com decisão fora · < R$ 250 | Desqualificar com cordialidade + **pedir indicação**. Etiqueta Fora, sem follow-up. |
+
+Regra anti-lead-perdido: lead que não manda a conta não é lead — é conversa. Follow-up 48h, mais um toque D+5, arquiva. Zero energia de venda em quem não mostra a conta. Fase 2: CAPI devolve só "conta recebida" pra Meta — o algoritmo aprende a trazer quem qualifica.
 - [ ] **Enviar respostas pro HubSpot** (Forms API ou webhook) criando contato + deal automático com `consumo_medio`
 - [ ] Revisar copy do form contra os guardrails (15% só no Direto, 90 dias, sem "grátis"/"garantido")
 - [ ] (Opcional) Versão curta de 3 perguntas pra teste com tráfego frio

@@ -455,6 +455,29 @@ Pra eu já te passar o número certo, me conta rapidinho:
 2️⃣ Mais ou menos quanto vem por mês?
 📸 Se tiver a fatura aí, me manda a foto que em 24h te devolvo a simulação certinha.</div></div>
 
+  <h3>As 4 camadas de qualificação</h3>
+  <div class="grid" style="margin-bottom:14px">
+    <div class="card"><h4>1 · No criativo</h4><p class="mut">Valor mínimo falado no hook ("passa de R$ 5 mil") + linguagem "sua empresa". O desqualificado se desqualifica de graça, antes do clique.</p></div>
+    <div class="card"><h4>2 · Primeira mensagem</h4><p class="mut">Ice breakers + saudação com as 2 eliminatórias: empresa ou casa? quanto vem por mês? Fase 2 (API): chatbot com botões, 4-6 perguntas.</p></div>
+    <div class="card"><h4>3 · A foto da conta</h4><p class="mut"><b style="color:var(--txt)">O qualificador definitivo.</b> A conta responde o que pergunta nenhuma responde: kWh real de 12 meses, tipo de ligação, SCEE (já tem GD — e de quem), Grupo A, titular CNPJ. Quem mostra a conta está 70% vendido.</p></div>
+    <div class="card"><h4>4 · Score e roteamento</h4><p class="mut">Régua A/B/C/Fora define velocidade e esforço. Fase 2: CAPI devolve só "conta recebida" pra Meta — o algoritmo para de trazer curioso.</p></div>
+  </div>
+
+  <h3>Régua de score (aplicar quando a conta chegar)</h3>
+  <div class="tblwrap"><table>
+    <tr><th>Tier</th><th>Critérios</th><th>Tratamento</th></tr>
+    <tr><td><b style="color:var(--verde)">A — quente</b></td><td class="mut">CNPJ · conta ≥ R$ 3.000 · Grupo B · sem GD ou GD insatisfeito · fala com o dono/decisor</td><td><b>Simulação no mesmo dia</b> + ligação. Deal no HubSpot na hora, estágio Em atendimento, consumo_medio preenchido.</td></tr>
+    <tr><td><b>B — morno</b></td><td class="mut">CNPJ · conta R$ 800–3.000 · ou conta grande mas quem fala não decide</td><td>Simulação em 24h (promessa padrão). Se não é decisor: pegar nome + WhatsApp do dono.</td></tr>
+    <tr><td><b>C — leve</b></td><td class="mut">Residencial ≥ R$ 250 (perfil do Plano Direto)</td><td>Fluxo leve, sem ligação. Volume ajuda o algoritmo, não come tempo de venda.</td></tr>
+    <tr><td><b style="color:#FCA5A5">Fora</b></td><td class="mut">Placa própria que cobre tudo · Grupo A/média tensão (por agora) · rede/franquia com decisão fora · conta &lt; R$ 250</td><td>Desqualificar com cordialidade + <b>pedir indicação</b> ("quem você conhece que sofre com conta de energia?"). Etiqueta Fora — não recebe follow-up.</td></tr>
+  </table></div>
+
+  <div class="copybox"><button class="copiar">Copiar</button><div class="lbl">Desqualificação com cordialidade (placa cobre tudo)</div><div class="txt">Que bom que sua placa já resolve — de verdade, tá bem dimensionada, não faz sentido mexer. 👏
+Se um dia o consumo crescer (filial nova, mais equipamento), me chama que a gente cobre o que a placa não cobrir.
+E me ajuda numa coisa: quem você conhece aí da região que vive reclamando da conta de energia? Indicação de comerciante pra mim vale ouro 🤝</div></div>
+
+  <div class="okbox"><b>Regra anti-lead-perdido:</b> lead que não manda a conta não é lead — é conversa. Follow-up em 48h ("consegue me mandar a foto da conta? Sem ela eu não consigo te dar número de verdade"); sem resposta, mais um toque em D+5 e arquiva com etiqueta. Zero energia de venda em quem não mostra a conta.</div>
+
   <h3>Roteamento</h3>
   <div class="tblwrap"><table>
     <tr><th>Perfil</th><th>Ação</th></tr>
@@ -570,6 +593,7 @@ Pra eu já te passar o número certo, me conta rapidinho:
     <li>☐ Unificar o número de destino com o da campanha</li>
     <li>☐ Instalar Pixel: PageView no load · ViewContent ao iniciar · <b>Lead no submit</b> (evento de otimização da campanha B)</li>
     <li>☐ Capturar <b>UTMs</b> e carregar até o WhatsApp/HubSpot — é o que liga criativo → lead → contrato</li>
+    <li>☐ Perguntas do form = as eliminatórias da régua (PJ/PF · faixa de conta · tem placa/GD? · cidade/distribuidora · é o decisor?) — o submit já nasce com <b>tier A/B/C/Fora calculado</b> (as 7 etapas são a camada de qualificação automatizada; ver régua na aba WhatsApp)</li>
     <li>☐ Tela final com botão wa.me e <b>mensagem pré-preenchida com o resumo das respostas</b> ("Vim do diagnóstico: empresa, conta ~R$ 6 mil, sem GD") — vendedor recebe o lead já qualificado</li>
     <li>☐ Respostas → HubSpot (Forms API/webhook): contato + deal automático com consumo_medio</li>
     <li>☐ Revisar copy do form contra os guardrails (15% só no Direto, 90 dias, sem "grátis"/"garantido")</li>
