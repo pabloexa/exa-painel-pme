@@ -111,6 +111,7 @@
     <button class="tab" data-s="rot">Roteiros</button>
     <button class="tab" data-s="zap">WhatsApp</button>
     <button class="tab" data-s="plano">Plano de mídia</button>
+    <button class="tab" data-s="setup">Estrutura</button>
   </nav>
 </header>
 
@@ -518,6 +519,117 @@ Pra eu já te passar o número certo, me conta rapidinho:
     <li>1 diária de gravação (plano na aba Roteiros).</li>
     <li>Configurar ice breakers + saudação + etiquetas no WhatsApp Business antes de ligar a campanha.</li>
     <li>Radar de médio prazo: convênios ACIUB / CDL Uberlândia / Sindicomércio + narrativa "ponte pro mercado livre 2026/27" pra grandes contas.</li>
+  </ol>
+</section>
+
+<!-- ============ ESTRUTURA / SETUP ============ -->
+<section id="setup">
+  <div class="kicker">Antes do 1º real gasto</div>
+  <h2>Estrutura completa — tudo que precisa existir</h2>
+  <p class="lead">Checklist de implantação de ponta a ponta: contas, WhatsApp, formulário, medição, HubSpot e cronograma D-7 → D0.</p>
+
+  <div class="alerta"><b>⚠ Achados na infra atual (resolver antes de tudo):</b><br>
+  1. <b>Dois números de WhatsApp diferentes</b> — o diagnóstico (exa-diagnostico) aponta pra (34) 99990-2008 e a calculadora pra (34) 98442-2471. Unificar em UM número oficial: todo anúncio, form e CTA no mesmo.<br>
+  2. <b>Nenhuma das páginas tem Meta Pixel</b> — sem ele a campanha do formulário não otimiza e retargeting não existe.<br>
+  3. O diagnóstico tem <b>7 etapas</b> — ok pra tráfego morno, longo pra frio. Considerar versão curta (3 perguntas) como variante de teste.</div>
+
+  <h3>0 · Pra onde vai o clique? (arquitetura do funil)</h3>
+  <div class="tblwrap"><table>
+    <tr><th></th><th>A — WhatsApp direto (CTWA)</th><th>B — Formulário (exa-diagnostico)</th></tr>
+    <tr><td class="mut">Fricção</td><td>Mínima: 1 clique → conversa</td><td>7 etapas antes do contato</td></tr>
+    <tr><td class="mut">Qualificação</td><td>Na conversa (foto da conta)</td><td>Automática (respostas do form)</td></tr>
+    <tr><td class="mut">Custo/lead</td><td>Até 92% menor que LP (benchmark)</td><td>Mais caro, porém lead mais "cozido"</td></tr>
+    <tr><td class="mut">Otimização Meta</td><td>Nativa (objetivo Mensagens)</td><td>Exige Pixel + evento Lead</td></tr>
+    <tr><td class="mut">Risco</td><td>Curioso entra na conversa</td><td>Abandono no meio do form</td></tr>
+  </table></div>
+  <div class="okbox"><b>Recomendação: 70% CTWA direto / 30% formulário</b>, medindo os dois pelo mesmo número — <b>custo por conta recebida</b>, não por clique. O form ainda joga em mais dois papéis: link enviado dentro do WhatsApp pra quem prefere autoatendimento, e destino de retargeting pra quem conversou e sumiu. Depois de 2 semanas de dado, o vencedor leva a verba.</div>
+
+  <h3>1 · Contas e ativos Meta</h3>
+  <ul>
+    <li>☐ Business Manager com 2 admins (backup) · conta de anúncios BRL com pagamento e limite</li>
+    <li>☐ Página do Facebook + Instagram profissional conectados ao BM</li>
+    <li>☐ Conjunto de dados / <b>Pixel</b> criado no Gerenciador de Eventos</li>
+    <li>☐ <b>Verificação da empresa</b> (CNPJ) — necessária pra API do WhatsApp, aumenta limites</li>
+    <li>☐ Verificação de domínio — GitHub Pages não verifica; ideal: <b>diagnostico.exaenergia.com</b> via CNAME</li>
+    <li>☐ WhatsApp oficial conectado ao BM e à Página</li>
+  </ul>
+
+  <h3>2 · WhatsApp — o motor</h3>
+  <p><b>Fase 1 (sem. 1-2):</b> WhatsApp Business <b>App</b> basta — saudação, respostas rápidas, etiquetas e ice breakers funcionam. <b>Fase 2 (sem. 3+):</b> Cloud API (direto ou BSP) — destrava CAPI, automação de qualificação e múltiplos atendentes.</p>
+  <ul>
+    <li>☐ Perfil completo: logo, descrição ("Reduzimos a conta de energia de empresas do Triângulo — Lei 14.300/ANEEL"), site, horário</li>
+    <li>☐ Saudação automática (aba WhatsApp) + mensagem de ausência honesta ("respondo até às 9h — pode já mandar a foto da conta")</li>
+    <li>☐ Respostas rápidas: <b>/simulacao</b> · <b>/planos</b> · <b>/golpe</b> · <b>/followup</b> · <b>/indicacao</b></li>
+    <li>☐ Etiquetas espelhando o HubSpot: Novo lead · Conta recebida · Simulação enviada · Negociação · Fechado · Fora</li>
+    <li>☐ Ice breakers no nível do anúncio (os 3 da aba WhatsApp)</li>
+    <li>☐ Escala de resposta: quem cobre cada janela de anúncio ativo (SLA &lt; 5 min); anúncio pausado fora delas</li>
+  </ul>
+
+  <h3>3 · Formulário (exa-diagnostico) — upgrades</h3>
+  <ul>
+    <li>☐ Unificar o número de destino com o da campanha</li>
+    <li>☐ Instalar Pixel: PageView no load · ViewContent ao iniciar · <b>Lead no submit</b> (evento de otimização da campanha B)</li>
+    <li>☐ Capturar <b>UTMs</b> e carregar até o WhatsApp/HubSpot — é o que liga criativo → lead → contrato</li>
+    <li>☐ Tela final com botão wa.me e <b>mensagem pré-preenchida com o resumo das respostas</b> ("Vim do diagnóstico: empresa, conta ~R$ 6 mil, sem GD") — vendedor recebe o lead já qualificado</li>
+    <li>☐ Respostas → HubSpot (Forms API/webhook): contato + deal automático com consumo_medio</li>
+    <li>☐ Revisar copy do form contra os guardrails (15% só no Direto, 90 dias, sem "grátis"/"garantido")</li>
+    <li>☐ (Opcional) Versão curta de 3 perguntas pra tráfego frio</li>
+    <li>☐ A <b>exa-calculadora</b> vira arma do vendedor (link na negociação) + página de retargeting — mesmo Pixel nela</li>
+  </ul>
+
+  <h3>4 · Pixel, CAPI e medição</h3>
+  <ul>
+    <li>☐ Pixel nas duas páginas · eventos PageView / ViewContent / Lead / Contact (clique wa.me)</li>
+    <li>☐ Padrão de UTM: <b>utm_source=meta&amp;utm_medium=paid&amp;utm_campaign=gc-fase1&amp;utm_content=r1-h2</b> (r=roteiro, h=hook)</li>
+    <li>☐ Painel diário: gasto · conversas · contas recebidas · custo/conta · deals — conferência: nº contas = nº deals</li>
+    <li>☐ Fase 2: CAPI de Business Messaging — HubSpot devolve "conta recebida"/"fechado" pra Meta, campanha otimiza por isso</li>
+  </ul>
+
+  <h3>5 · HubSpot</h3>
+  <ul>
+    <li>☐ Pipeline de Consumidores com os estágios do manual de campo · <b>consumo_medio (kWh) obrigatório</b> em todo deal</li>
+    <li>☐ Propriedade de origem: trafego-pago + utm_content (qual criativo gerou)</li>
+    <li>☐ De "Recebimento de Docs" em diante: distribuidora (CEMIG) e produto__plano</li>
+    <li>☐ Todo lead vira contato + deal <b>no mesmo dia</b> (automático na fase 2; disciplina manual na fase 1)</li>
+  </ul>
+
+  <h3>6 · Criativos — specs</h3>
+  <ul>
+    <li>☐ Master 9:16 1080×1920 (Reels/Stories) + export 4:5 1080×1350 (feed)</li>
+    <li>☐ Legenda queimada (Inter bold, highlight verde #22C55E) · ícone WhatsApp · chat na tela nos 1,5s</li>
+    <li>☐ Naming: <b>R1-h2-m0.mp4</b> (roteiro-hook-música) — casa com o utm_content</li>
+    <li>☐ 1ª leva: 8 roteiros × 2-3 hooks × com/sem música ≈ 30-40 arquivos (edição em lote)</li>
+    <li>☐ Primeiro frame nunca preto: rosto + texto do hook</li>
+  </ul>
+
+  <h3>7 · Montagem no Gerenciador</h3>
+  <ul>
+    <li>☐ 2 campanhas: <b>[GC] CTWA</b> (Mensagens → WhatsApp, 70%) e <b>[GC] Form</b> (Conversões → Lead, 30%)</li>
+    <li>☐ Conjuntos A/B/C/D (aba Plano de mídia) · naming <b>[GC] CTWA · A-amplo · R1-h2</b></li>
+    <li>☐ Posicionamentos Advantage+ · otimização "conversas iniciadas" (CTWA) e "Lead" (form)</li>
+    <li>☐ Regras automáticas: pausar anúncio com custo/conversa &gt; 2× meta após R$ 50 gastos · alerta diário de gasto</li>
+    <li>☐ Públicos salvos: LAL 1-3% clientes fechados (export HubSpot) · envolvimento 365d · visitantes do diagnóstico 30d</li>
+  </ul>
+
+  <h3>8 · Cronograma D-7 → D0</h3>
+  <div class="tblwrap"><table>
+    <tr><th>Dia</th><th>Entrega</th></tr>
+    <tr><td><b>D-7</b></td><td>BM completo, verificação iniciada, <b>número unificado</b>, Pixel criado</td></tr>
+    <tr><td><b>D-5</b></td><td>Diária de gravação (plano na aba Roteiros)</td></tr>
+    <tr><td><b>D-4</b></td><td>Form atualizado: Pixel + UTM + redirect wa.me + número certo</td></tr>
+    <tr><td><b>D-3</b></td><td>Edição da 1ª leva (R1, R2, R3, R7 + hooks), naming aplicado</td></tr>
+    <tr><td><b>D-2</b></td><td>WhatsApp configurado, HubSpot pronto, escala de resposta definida</td></tr>
+    <tr><td><b>D-1</b></td><td>Campanhas em rascunho + <b>revisão de guardrails de marca em cada anúncio</b></td></tr>
+    <tr><td><b>D0</b></td><td>Publicar ter/qua ~9h. Primeiras 48h: só observar e responder &lt; 5 min — zero mexida</td></tr>
+  </table></div>
+
+  <h3>Decisões que só você pode tomar</h3>
+  <ol>
+    <li><b>Qual número de WhatsApp é o oficial de vendas?</b> (99990-2008 ou 98442-2471)</li>
+    <li>Nomes "Plano Direto"/"Plano Fixo" — validados pra publicar?</li>
+    <li>Quem além de você responde o WhatsApp (escala do SLA de 5 min)?</li>
+    <li>Verba total confirmada? (o plano assume R$ 70–100/dia)</li>
+    <li>Domínio próprio pro diagnóstico (diagnostico.exaenergia.com)? Melhora verificação, Pixel e confiança.</li>
   </ol>
 </section>
 
