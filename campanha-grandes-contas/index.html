@@ -589,17 +589,19 @@ E me ajuda numa coisa: quem você conhece aí da região que vive reclamando da 
   </ul>
 
   <h3>3 · Formulário (exa-diagnostico) — upgrades</h3>
+  <p class="sub" style="margin-bottom:8px">✅ = implementado na branch <b>claude/qualificacao-pixel-utm</b> do exa-diagnostico (entra no ar ao mergear na main).</p>
   <ul>
-    <li>☐ Unificar o número de destino com o da campanha</li>
-    <li>☐ Instalar Pixel: PageView no load · ViewContent ao iniciar · <b>Lead no submit</b> (evento de otimização da campanha B)</li>
-    <li>☐ Capturar <b>UTMs</b> e carregar até o WhatsApp/HubSpot — é o que liga criativo → lead → contrato</li>
-    <li>☐ Perguntas do form = as eliminatórias da régua (PJ/PF · faixa de conta · tem placa/GD? · cidade/distribuidora · é o decisor?) — o submit já nasce com <b>tier A/B/C/Fora calculado</b> (as 7 etapas são a camada de qualificação automatizada; ver régua na aba WhatsApp)</li>
-    <li>☐ Tela final com botão wa.me e <b>mensagem pré-preenchida com o resumo das respostas</b> ("Vim do diagnóstico: empresa, conta ~R$ 6 mil, sem GD") — vendedor recebe o lead já qualificado</li>
-    <li>☐ Respostas → HubSpot (Forms API/webhook): contato + deal automático com consumo_medio</li>
+    <li>✅ <b>Código do Pixel instalado e condicional</b> — PageView, ViewContent (início), Lead (contato), CompleteRegistration (fim), Contact (clique no CTA). <span class="pill at">FALTA</span> colar o PIXEL_ID no EXA_CFG (topo do arquivo)</li>
+    <li>✅ <b>UTMs completos</b> (source/medium/campaign/content/term) capturados, persistidos e entregues na mensagem do WhatsApp ("Origem: meta · gc-fase1 · r3-h1")</li>
+    <li>✅ <b>Pergunta eliminatória nova</b>: "já tem desconto ou placa?" — concorrente recebe o texto do duelo; casa com placa cai na rota honesta do excedente</li>
+    <li>✅ <b>Tier A/B/C/Fora calculado no submit</b> e incluído na mensagem ("Resultado: 82/100 · Plano Direto · A") — etiquetagem em 1 segundo</li>
+    <li>✅ <b>Envio ao HubSpot</b> via Forms API (portal 50958970 já configurado). <span class="pill at">FALTA</span> criar o formulário no HubSpot (Marketing → Formulários, campos: nome/telefone/email/mensagem) e colar o GUID no EXA_CFG</li>
+    <li>✅ Número centralizado numa constante única (ZAP) — trocar 1 linha muda o form inteiro. <span class="pill at">DECISÃO</span> qual é o número oficial</li>
     <li>☐ Revisar copy do form contra os guardrails (15% só no Direto, 90 dias, sem "grátis"/"garantido")</li>
     <li>☐ (Opcional) Versão curta de 3 perguntas pra tráfego frio</li>
     <li>☐ A <b>exa-calculadora</b> vira arma do vendedor (link na negociação) + página de retargeting — mesmo Pixel nela</li>
   </ul>
+  <div class="okbox">Propriedades da régua conferidas no HubSpot (portal 50958970): <b>consumo_medio · distribuidora · produto__plano · origem_do_lead</b> já existem nos deals — nada a criar, só preencher.</div>
 
   <h3>4 · Pixel, CAPI e medição</h3>
   <ul>
