@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0A0A0C">
+<title>Exa — Campanha Grandes Contas · Tráfego Pago → WhatsApp</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A0A0C; --card:#18181B; --card2:#121215; --line:#27272A;
+    --txt:#FAFAFA; --mut:#A1A1AA; --sut:#71717A;
+    --verde:#22C55E; --verde-h:#16A34A; --verde-cl:#86EFAC; --verde-pf:#052E13;
+    --amarelo:#FACC15;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--txt);font-family:'Inter',sans-serif;font-size:14px;line-height:1.55}
+  h1,h2,h3,h4,.ox{font-family:'Oxanium',sans-serif}
+  a{color:var(--verde)}
+
+  header{position:sticky;top:0;z-index:100;background:rgba(10,10,12,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:14px 20px}
+  .brandrow{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+  .logo{font-family:'Oxanium';font-weight:800;font-size:22px;background:linear-gradient(90deg,var(--verde),var(--verde-h));-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:1px}
+  .tit{font-family:'Oxanium';font-weight:600;font-size:15px}
+  .sub{color:var(--mut);font-size:12px}
+  nav{display:flex;gap:8px;margin-top:12px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  nav::-webkit-scrollbar{display:none}
+  .tab{border:1px solid var(--line);background:var(--card);color:var(--mut);border-radius:18px;padding:7px 16px;cursor:pointer;font-size:12.5px;font-weight:600;white-space:nowrap;font-family:'Oxanium'}
+  .tab.on{background:var(--verde-h);border-color:var(--verde);color:#fff}
+
+  main{max-width:980px;margin:0 auto;padding:22px 16px 80px}
+  section{display:none}
+  section.on{display:block}
+  .kicker{font-family:'Oxanium';font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--verde);margin-bottom:6px}
+  h2{font-size:22px;margin-bottom:4px}
+  .lead{color:var(--mut);font-size:13px;margin-bottom:20px}
+  h3{font-size:15px;margin:22px 0 10px;color:var(--verde-cl)}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px}
+  .card h4{font-size:13px;color:var(--verde);text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px}
+  .card p{color:var(--txt);font-size:13px;margin-bottom:6px}
+  .card .mut{color:var(--mut)}
+  .num{font-family:'Oxanium';font-weight:800;font-size:30px;color:var(--verde)}
+  .num small{font-size:13px;color:var(--mut);font-weight:500;font-family:'Inter'}
+
+  table{width:100%;border-collapse:collapse;font-size:12.5px;margin:10px 0 4px}
+  th{font-family:'Oxanium';font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--sut);text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
+  td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--txt)}
+  td.mut{color:var(--mut)}
+  .tblwrap{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:4px 8px}
+  .tblwrap table{margin:0}
+
+  ul,ol{margin:6px 0 12px 18px}
+  li{margin-bottom:6px;color:var(--txt)}
+  li .mut{color:var(--mut)}
+  b{font-weight:700}
+
+  .pill{display:inline-block;font-size:10.5px;font-weight:700;font-family:'Oxanium';padding:2px 9px;border-radius:10px;margin-right:6px;letter-spacing:.5px}
+  .pill.ok{background:var(--verde-pf);color:var(--verde-cl);border:1px solid var(--verde-h)}
+  .pill.no{background:#2a1212;color:#FCA5A5;border:1px solid #7F1D1D}
+  .pill.at{background:#2a2308;color:var(--amarelo);border:1px solid #854D0E}
+
+  .alerta{border:1px solid #854D0E;background:#2a230833;border-radius:8px;padding:10px 12px;font-size:12.5px;color:var(--amarelo);margin:10px 0}
+  .okbox{border:1px solid var(--verde-h);background:#052e1333;border-radius:8px;padding:10px 12px;font-size:12.5px;color:var(--verde-cl);margin:10px 0}
+
+  details.comp{background:var(--card);border:1px solid var(--line);border-radius:10px;margin-bottom:10px;overflow:hidden}
+  details.comp summary{cursor:pointer;padding:14px 16px;font-family:'Oxanium';font-weight:600;font-size:14px;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:10px}
+  details.comp summary::-webkit-details-marker{display:none}
+  details.comp summary .tag{font-size:11px;color:var(--mut);font-family:'Inter';font-weight:500;text-align:right}
+  details.comp .body{padding:0 16px 14px;border-top:1px solid var(--line)}
+  details.comp .body p{font-size:13px;margin:10px 0 4px}
+  details.comp[open] summary{color:var(--verde)}
+  .fraq{color:#FCA5A5}
+
+  .rot{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:16px;overflow:hidden}
+  .rot .head{padding:14px 16px;display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap;border-bottom:1px solid var(--line)}
+  .rot .head h3{margin:0;font-size:15px;color:var(--txt)}
+  .rot .head .obj{font-size:12px;color:var(--mut)}
+  .rot .dur{font-family:'Oxanium';font-weight:700;color:var(--verde);white-space:nowrap;font-size:13px}
+  .rot .body{padding:12px 16px 16px}
+  .beat{display:grid;grid-template-columns:64px 1fr;gap:10px;padding:9px 0;border-bottom:1px dashed var(--line)}
+  .beat:last-of-type{border-bottom:none}
+  .beat .t{font-family:'Oxanium';font-weight:700;color:var(--verde);font-size:12px;padding-top:2px}
+  .beat .f{font-size:13.5px}
+  .beat .tela{display:block;font-size:11.5px;color:var(--amarelo);margin-top:3px}
+  .copybox{background:var(--card2);border:1px solid var(--line);border-radius:8px;padding:12px;margin-top:12px;position:relative}
+  .copybox .lbl{font-family:'Oxanium';font-size:10.5px;text-transform:uppercase;letter-spacing:1px;color:var(--sut);margin-bottom:6px}
+  .copybox .txt{font-size:12.5px;color:var(--mut);white-space:pre-wrap}
+  .copiar{position:absolute;top:10px;right:10px;border:1px solid var(--verde-h);background:var(--verde-pf);color:var(--verde-cl);border-radius:6px;padding:4px 12px;cursor:pointer;font-size:11px;font-weight:700;font-family:'Oxanium'}
+  .copiar.feito{background:var(--verde-h);color:#fff}
+
+  .guard{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+  footer{position:fixed;bottom:0;right:0;background:var(--card);border:1px solid var(--line);border-radius:6px 0 0 0;color:var(--sut);font-size:10px;padding:4px 10px;z-index:120}
+  @media(max-width:640px){ main{padding:16px 12px 70px} h2{font-size:19px} .beat{grid-template-columns:56px 1fr} }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brandrow">
+    <span class="logo">EXA</span>
+    <span class="tit">Campanha Grandes Contas</span>
+    <span class="sub">Tráfego pago → WhatsApp · Uberlândia/Triângulo · jul 2026</span>
+  </div>
+  <nav id="nav">
+    <button class="tab on" data-s="resumo">Resumo</button>
+    <button class="tab" data-s="conc">Concorrentes</button>
+    <button class="tab" data-s="meta">Meta Ads</button>
+    <button class="tab" data-s="rot">Roteiros</button>
+    <button class="tab" data-s="zap">WhatsApp</button>
+    <button class="tab" data-s="plano">Plano de mídia</button>
+    <button class="tab" data-s="setup">Estrutura</button>
+  </nav>
+</header>
+
+<main>
+
+<!-- ============ RESUMO ============ -->
+<section id="resumo" class="on">
+  <div class="kicker">Resumo executivo</div>
+  <h2>O problema não é a oferta — é o ângulo</h2>
+  <p class="lead">"Já tem o serviço", "tem placa" e "não vejo urgência" são as 3 objeções de todo o mercado — e quase nenhum concorrente ataca elas de frente no criativo. Quem ataca objeção no anúncio filtra o lead certo e chega na conversa com metade da venda feita.</p>
+
+  <div class="grid">
+    <div class="card"><div class="num">R$ 2–10 mil<small>/mês</small></div><p><b>A faixa órfã do mercado.</b></p><p class="mut">Grande demais pros funis digitais residenciais (Lemon, Metha), pequena demais pro mercado livre ((re)energisa ≥ R$ 10 mil, Gud ≥ R$ 5 mil). É exatamente a nossa grande conta de Grupo B — e ninguém atende ela de forma consultiva e local.</p></div>
+    <div class="card"><div class="num">0<small> concorrentes</small></div><p><b>com conta travada 12 meses.</b></p><p class="mut">O Plano Fixo (modelo canadense) é território exclusivo. Perfeito pra comércio sazonal: freezer não desliga, forno não espera.</p></div>
+    <div class="card"><div class="num">12–24<small> meses</small></div><p><b>de fidelidade nos rivais.</b></p><p class="mut">Cemig SIM, Serena e Órigo prendem com multa e desconto que "varia mês a mês" — maior fonte de reclamação do setor. Nosso sem-fidelidade + sem multa + 90 dias de aviso, dito na cara, é arma.</p></div>
+    <div class="card"><div class="num">N usinas<small> = N preços</small></div><p><b>Marketplace explica o preço.</b></p><p class="mut">"Quem tem uma usina tem um preço; a gente negocia com várias." Ninguém comunica isso — e é a resposta natural ao "já tenho desconto".</p></div>
+  </div>
+
+  <h3>A mecânica que o mercado inteiro validou</h3>
+  <div class="okbox">O CTA que mais converte no nicho é literalmente o nosso manual de campo: <b>foto da conta no WhatsApp → simulação em 24h</b>. Pede algo que o lead tem à mão, qualifica de verdade (mostra o consumo real) e dá motivo concreto pra primeira mensagem. A conta é o produto.</div>
+
+  <h3>Cuidado com a guerra de %</h3>
+  <p class="lead" style="margin-bottom:8px">Os "26%", "30%", "40%" dos concorrentes são promos com vigência curta, fidelidade longa e desconto sobre "tarifa compensável" que vira 10–15% real. Não subir o número — <b style="color:var(--txt)">subir a honestidade do número</b>.</p>
+
+  <h3>Guardrails de marca nos anúncios</h3>
+  <div class="guard">
+    <div class="card"><h4 style="color:#FCA5A5">✗ Nunca</h4>
+      <ul>
+        <li>"grátis" · "garantido" · "100% solar" · "melhor que Cemig" (nominal) · "instale placa"</li>
+        <li>Tom infoproduto: "corre lá", "última chance", "não fique de fora"</li>
+        <li>"Desconto na conta toda" — é <b>na parte de energia</b></li>
+        <li>"Cancele a qualquer momento" — sempre citar os <b>90 dias</b></li>
+        <li>Misturar planos: Direto = 15% · Fixo = 10% + travada 12m + margem +20%</li>
+        <li>Vilão nomeado — o vilão é o sistema, o preço cheio, a letra miúda</li>
+      </ul>
+    </div>
+    <div class="card"><h4>✓ Sempre</h4>
+      <ul>
+        <li>"Adesão sem custo" · "sem obra, sem painel"</li>
+        <li>"Sua distribuidora continua a mesma" (Cemig no papel tranquilizador)</li>
+        <li>"Lei 14.300 · ANEEL" quando relevante</li>
+        <li>"Negociamos com várias geradoras"</li>
+        <li>Humor seco permitido: "eu tenho cara de eletricista?"</li>
+        <li>Simulação em 24h = promessa sagrada</li>
+      </ul>
+    </div>
+  </div>
+  <div class="alerta">⚠ Os nomes "Plano Direto" e "Plano Fixo" estão como <b>proposta</b> no manual de marca — validar antes de publicar qualquer anúncio.</div>
+</section>
+
+<!-- ============ CONCORRENTES ============ -->
+<section id="conc">
+  <div class="kicker">Estudo de concorrência</div>
+  <h2>Quem está brigando pela mesma conta</h2>
+  <p class="lead">MG é o 2º maior estado em GD do Brasil (~4,4 GW) e o mercado mais disputado de assinatura do país. Em Uberlândia, a Prefeitura fez parceria com a Cemig SIM (32% nos 2 primeiros meses, código SIMUBERLANDIA). E o relógio corre: mercado livre pra baixa tensão comercial abre entre ago/2026 e nov/2027.</p>
+
+  <details class="comp" open>
+    <summary>Cemig SIM — o incumbente <span class="tag">PJ: 30% por 3 meses, até 20% depois</span></summary>
+    <div class="body">
+      <p><b>Oferta (até 31/08/26):</b> PF até 26% (fidelidade 24 meses!) · PJ/MEI 30% nos 3 primeiros meses, até 20% depois. Mínimo R$ 160/mês.</p>
+      <p><b>Captação:</b> simulador, WhatsApp dedicado, Indique SIM (R$ 50), parceria com o Cruzeiro, convênios (CDL/BH, prefeituras), PR forte via Agência Minas.</p>
+      <p class="fraq"><b>Fraquezas:</b> fidelidade 12–24 meses com multa + saldo residual · duas faturas que confundem · desconto real fora da promo ~10% (Luz no Bolso: nota 56/100) · atendimento de massa, zero consultivo pra conta alta.</p>
+    </div>
+  </details>
+  <details class="comp">
+    <summary>Serena (ex-Omega) — o nacional agressivo <span class="tag">até 25% MG · ML "até 40%"</span></summary>
+    <div class="body">
+      <p><b>Oferta:</b> GD até 25% em MG (PJ ≥ R$ 500/mês) · mercado livre "4 contas grátis por ano". Co-marketing com Visa; logos Heineken, Cargill, Bayer.</p>
+      <p class="fraq"><b>Fraquezas:</b> Reclame Aqui com padrão grave — venda prometendo "sem fidelidade" e contrato com 12–14 meses + multa · aviso de 90 dias · casos de não repasse à distribuidora com risco de corte · pós-venda lento.</p>
+    </div>
+  </details>
+  <details class="comp">
+    <summary>Órigo — o maior em base <span class="tag">% não fixado em contrato (~10% real)</span></summary>
+    <div class="body">
+      <p><b>Oferta:</b> assinatura sem % divulgado (preço dinâmico mês a mês), cupom 20% na 1ª fatura. PJ Grupo B > R$ 300/mês. 60 mil+ clientes, 200+ fazendas.</p>
+      <p><b>Captação:</b> simulador na home, Clube Órigo, consultores porta-a-porta PJ, SEO forte.</p>
+      <p class="fraq"><b>Fraquezas:</b> desconto NÃO garantido em contrato ("pode variar mês a mês") · 90 dias + multa · histórico de dificuldade de cancelamento no RA.</p>
+    </div>
+  </details>
+  <details class="comp">
+    <summary>Matrix Conecta — GD + mercado livre <span class="tag">até 20% GD · até 35% ML</span></summary>
+    <div class="body">
+      <p><b>Oferta:</b> GD até 20% (mín. R$ 400/mês) · ML até 35% Grupo A. LPs por parceiro (EQI), rede de licenciados.</p>
+      <p class="fraq"><b>Fraquezas:</b> "sem fidelidade" porém aviso de 90–120 dias (3-4 faturas presas) · marca fraca no interior · duas faturas.</p>
+    </div>
+  </details>
+  <details class="comp">
+    <summary>Bulbe — o especialista mineiro <span class="tag">15% fixo · fatura única</span></summary>
+    <div class="body">
+      <p><b>Oferta:</b> 15% sobre a tarifa compensável, área Cemig, 50 mil+ famílias, usinas próprias. Convênio OAB-MG, mídia em O Tempo, forte em BH.</p>
+      <p><b>Diferencial real:</b> fatura única (resolve a dor das duas contas).</p>
+      <p class="fraq"><b>Fraquezas:</b> teto baixo vs. 20–26% dos rivais · base do desconto gera percepção "propaganda ≠ realidade" · foco residencial, não grandes contas.</p>
+    </div>
+  </details>
+  <details class="comp">
+    <summary>Evolua — máquina de convênios <span class="tag">10–24% conforme convênio</span></summary>
+    <div class="body">
+      <p><b>Captação:</b> quase toda via associações e sindicatos (APCEF, SERJUSMIG, SAEMG) e revendedores. Fatura única.</p>
+      <p class="fraq"><b>Fraquezas:</b> encerramento leva ~3 meses · % inconsistente por canal · dependente de intermediários.</p>
+    </div>
+  </details>
+  <details class="comp">
+    <summary>Lemon — o mais parecido com a Exa, já no Triângulo <span class="tag">10–20% · aviso de só 60 dias</span></summary>
+    <div class="body">
+      <p><b>Oferta:</b> 10–20%, mínimo R$ 200–500/mês. Entrou no Triângulo em jul/2024. Foco PME urbana: bares, restaurantes, padarias, academias. Parcerias Abrasel e Ambev (B2B2C via fornecedores). "15 mil+ empreendedores".</p>
+      <p><b>Força:</b> cancelamento com 60 dias sem multa (o mais leve do mercado) · adesão 5 min.</p>
+      <p class="fraq"><b>Fraquezas:</b> desconto médio menor (10–15%) · zero presença física local · não atende grandes contas.</p>
+    </div>
+  </details>
+  <details class="comp">
+    <summary>(re)energisa — o ecossistema de ticket alto <span class="tag">ML até 30% p/ conta ≥ R$ 10 mil</span></summary>
+    <div class="body">
+      <p><b>Oferta:</b> assinatura ≥ R$ 500/mês (promo 1ª fatura grátis) · mercado livre até 30% para contas ≥ R$ 10 mil. "R$ 50 mi economizados no último ano", solidez Energisa.</p>
+      <p class="fraq"><b>Fraquezas:</b> foco ≥ R$ 10 mil deixa o meio do mercado (R$ 2–10 mil) mal atendido · marca de fora de MG.</p>
+    </div>
+  </details>
+  <details class="comp">
+    <summary>Radar: Metha · Atmo · Bow-e · Alexandria · Gud/Vivo · Cinergia · comercializadoras <span class="tag"></span></summary>
+    <div class="body">
+      <ul>
+        <li><b>Metha</b> — mineira, até 15%, boleto único, 90 mil+ clientes, mídia local forte.</li>
+        <li><b>Atmo</b> — 25% via comparador Luz no Bolso, só MG (maior % listada).</li>
+        <li><b>Bow-e</b> — "operadora de energia", 10–15%, narrativa telecom.</li>
+        <li><b>Alexandria/Lex</b> — "até 40%" via afiliados; entrega real 5–20%.</li>
+        <li><b>Gud</b> — vende via Vivo Empresas: até 30% Grupo A, fatura > R$ 5 mil.</li>
+        <li><b>Cinergia</b> — atua especificamente em Uberlândia.</li>
+        <li><b>Auren, 2W, Comerc, Delta, Copel ML</b> — varejistas do mercado livre mirando PME; vêm com a abertura 2026/27.</li>
+      </ul>
+    </div>
+  </details>
+
+  <h3>Benchmarks de oferta</h3>
+  <div class="tblwrap"><table>
+    <tr><th>Dimensão</th><th>Piso</th><th>Padrão</th><th>Teto (promo)</th></tr>
+    <tr><td>Desconto GD baixa tensão</td><td class="mut">10%</td><td><b>15–20%</b></td><td class="mut">25–26%</td></tr>
+    <tr><td>Desconto PJ mercado livre</td><td class="mut">—</td><td>20–30%</td><td class="mut">35–40%</td></tr>
+    <tr><td>Conta mínima</td><td class="mut">R$ 160</td><td>R$ 300–500</td><td class="mut">R$ 5–10 mil (ML)</td></tr>
+    <tr><td>Fidelidade</td><td class="mut">Sem (Lemon, Matrix, Metha)</td><td>12 meses</td><td class="mut">24 meses (Cemig SIM)</td></tr>
+    <tr><td>Aviso prévio</td><td class="mut"><b>60 dias</b> (Lemon, Cemig SIM)</td><td>90 dias</td><td class="mut">120 dias (Matrix)</td></tr>
+    <tr><td>Fatura</td><td class="mut">Única (Bulbe, Evolua, Metha)</td><td><b>Duas faturas</b></td><td class="mut">—</td></tr>
+  </table></div>
+
+  <h3>As 8 lacunas pra atacar</h3>
+  <ol>
+    <li><b>Cancelamento como arma</b> — o setor prende com 90–120 dias + multa disfarçada; nossa condição real já é melhor. Dizer por escrito e na cara.</li>
+    <li><b>Duelo de simulação contra a base instalada</b> — ninguém ataca quem já assina concorrente. "Se não melhorar, falamos na cara" é campo aberto.</li>
+    <li><b>Faixa órfã R$ 2–10 mil/mês</b> — atendimento consultivo local que não existe nos funis 100% digitais.</li>
+    <li><b>Plano Fixo inédito</b> — nenhum player tem conta travada 12 meses.</li>
+    <li><b>Marketplace como resposta ao "até X%"</b> — explicar por que conseguimos brigar por preço.</li>
+    <li><b>Marca regional</b> — "empresa daqui, gente que você encontra na rua" vs. nacionais digitais.</li>
+    <li><b>Ponte GD → mercado livre</b> — entrar hoje, migrar quando abrir (2026/27). Urgência honesta.</li>
+    <li><b>Convênios livres no Triângulo</b> — ACIUB, CDL Uberlândia, Sindicomércio sem acordo com ninguém.</li>
+  </ol>
+  <p class="sub" style="margin-top:14px">Ressalva: promos (Cemig SIM 26%/30%, Uberlândia 32%) valem até 31/08/2026 e mudam com frequência. Fontes completas no arquivo <a href="01-estudo-concorrentes.md">01-estudo-concorrentes.md</a>.</p>
+</section>
+
+<!-- ============ META ADS ============ -->
+<section id="meta">
+  <div class="kicker">Pesquisa CTWA 2025–26</div>
+  <h2>O que está convertendo na Meta → WhatsApp</h2>
+  <p class="lead">Click-to-WhatsApp é o canal pago que mais cresce; bem implementado reporta custo por lead até 92% menor que landing page. E o clique do anúncio abre janela gratuita de 72h na API — 3 dias pra qualificar sem custo de mensagem.</p>
+
+  <div class="grid">
+    <div class="card"><div class="num">3s</div><p><b>é o prazo do hook.</b></p><p class="mut">O julgamento se forma em 1,7s; 73% dos vídeos morrem nos 3 primeiros segundos por "parecerem anúncio". Meta: hook rate (views de 3s/impressões) > 30%.</p></div>
+    <div class="card"><div class="num">+15–30%<small> CTR</small></div><p><b>ícone do WhatsApp no criativo.</b></p><p class="mut">E mostrar a tela do celular com o chat nos primeiros 1,5s. CTA conversacional ("me manda a foto da conta") rende +20–40% vs. "compre agora".</p></div>
+    <div class="card"><div class="num">15–40s</div><p><b>vídeo nativo 9:16, cara de orgânico.</b></p><p class="mut">UGC/talking-head esmaga produzido (até 10x conversão, ~4x CTR, metade do CPC). Legenda queimada sempre. Texto do anúncio &lt; 125 caracteres.</p></div>
+    <div class="card"><div class="num">7 dias</div><p><b>e o criativo cansa (−37%).</b></p><p class="mut">3-5 variações de hook por semana, matando as perdedoras no dia 4 — a mesma lógica de torneio da Campanha 1.</p></div>
+  </div>
+
+  <h3>Estrutura de campanha</h3>
+  <ul>
+    <li><b>Objetivo Mensagens/WhatsApp</b> — nunca Tráfego (otimiza clique, não conversa).</li>
+    <li><b>Públicos:</b> amplo com criativo que segmenta sozinho ("sua empresa", "seu caixa", valor mínimo no hook) + "Tomadores de decisão empresariais" + lookalike de <b>clientes fechados</b> do HubSpot (não leads brutos).</li>
+    <li><b>Verba:</b> R$ 20–50/dia por conjunto no teste; piso de escala R$ 60–100/dia (~50 conversas/semana pra sair do aprendizado).</li>
+    <li><b>Nível pro (semana 3+):</b> CAPI de Business Messaging — devolver pra Meta os eventos do HubSpot ("conta recebida", "proposta enviada") e otimizar por lead qualificado. O algoritmo para de buscar curioso.</li>
+    <li><b>Horários B2B:</b> ter–qui 9h–11h, qua 14h–16h (decisor em modo trabalho) — mas não cortar a noite: o dono de PME rola o Instagram no sofá com menos resistência. Racional de dia, storytelling à noite.</li>
+  </ul>
+
+  <h3>Benchmarks pra cobrar da campanha</h3>
+  <div class="tblwrap"><table>
+    <tr><th>Métrica</th><th>Alvo</th></tr>
+    <tr><td>Custo por conversa iniciada (BR, serviços)</td><td><b>&lt; R$ 15</b> (faixa saudável R$ 5–20)</td></tr>
+    <tr><td>CTR do anúncio</td><td>1,5–3,5%</td></tr>
+    <tr><td>Conversa → foto da conta enviada</td><td><b>&gt; 25%</b></td></tr>
+    <tr><td>Conta enviada → contrato</td><td>10–30%</td></tr>
+  </table></div>
+  <p class="sub" style="margin:8px 0 0">Com ticket de grande conta (fatura R$ 3–10 mil/mês), um único contrato paga meses de mídia.</p>
+
+  <h3>O que o setor está rodando</h3>
+  <ul>
+    <li><b>Serena:</b> "Economize já!" — até 35% PJ · R$ 50 por indicação. <b>Órigo:</b> "economize sem obras" + clube de pontos. <b>Bulbe:</b> 15% no headline + fatura única.</li>
+    <li><b>Padrões do nicho:</b> % explícito no headline · tríade "sem obra, sem investimento, sem fidelidade" · "adesão em 1 minuto" · simulação com a conta de luz · energia limpa como benefício secundário, nunca principal.</li>
+    <li><b>Ação manual:</b> varrer a <a href="https://facebook.com/ads/library" target="_blank" rel="noopener">Biblioteca de Anúncios</a> (Serena, Órigo, Bulbe, Lemon, filtro Brasil) — anúncio antigo no ar ≈ anúncio performando. Montar swipe file.</li>
+  </ul>
+
+  <h3>Objeções no criativo (técnicas validadas)</h3>
+  <ul>
+    <li><b>"Já tenho desconto"</b> → vender a <i>diferença auditada</i>, não o desconto: "De quanto, exatamente?" + "se o seu for melhor, a gente te fala".</li>
+    <li><b>"Já tenho placa"</b> → nunca confrontar o investimento (dissonância cognitiva) — complementar: "a placa cobre o quê? E o resto?"</li>
+    <li><b>"Sem urgência"</b> → custo da inércia quantificado (somar 12 meses), aversão à perda visual, bandeira/tarifa como inimigo externo. Zero escassez falsa.</li>
+  </ul>
+</section>
+
+<!-- ============ ROTEIROS ============ -->
+<section id="rot">
+  <div class="kicker">8 roteiros prontos</div>
+  <h2>Roteiros pra gravar</h2>
+  <p class="lead">Talking-head 9:16, legenda queimada, ambiente real (comércio, rua, escritório). Ícone do WhatsApp no frame e, quando der, o chat na tela nos primeiros 1,5s. CTA único em tudo: <b style="color:var(--txt)">foto da conta → simulação em 24h</b>. Cada roteiro rende 3-5 variações trocando só o hook (0–3s).</p>
+
+  <div class="rot">
+    <div class="head"><h3>R1 · "Conta de R$ 5 mil" — oferta direta</h3><span class="dur">~35s</span></div>
+    <div class="body">
+      <div class="obj sub" style="margin-bottom:8px">O cavalo de batalha: volume de conversas qualificadas. Hook com valor mínimo filtra curioso de graça.</div>
+      <div class="beat"><span class="t">0–3s</span><span class="f">"Se a conta de energia da sua empresa passa de <b>cinco mil reais</b>, você tá pagando caro à toa."<span class="tela">TELA: R$ 5.000+/mês?</span></span></div>
+      <div class="beat"><span class="t">3–10s</span><span class="f">"Eu sou o Pablo, da Exa, aqui de Uberlândia. A gente reduz a conta de energia de comércios e empresas da região — <b>sem obra, sem painel, sem trocar nada</b>."<span class="tela">B-ROLL: fachada, freezer, forno</span></span></div>
+      <div class="beat"><span class="t">10–18s</span><span class="f">"Sua energia continua vindo da Cemig, igualzinho. O que muda é o preço: <b>15% de desconto na parte de energia</b>, todo mês. Geração distribuída, Lei 14.300, tudo regulado pela ANEEL."<span class="tela">SELO: Lei 14.300 · ANEEL</span></span></div>
+      <div class="beat"><span class="t">18–27s</span><span class="f">"Numa conta de R$ 8 mil, isso é <b>mais de R$ 10 mil por ano</b> que hoje ficam na mesa. Adesão sem custo, sem fidelidade, sem multa — pra sair, é só avisar com 90 dias."<span class="tela">CONTADOR: R$ 10.000+/ano</span></span></div>
+      <div class="beat"><span class="t">27–35s</span><span class="f">"Quer saber quanto dá na <b>sua</b> conta? Clica aqui embaixo, me manda uma foto da fatura no WhatsApp, e <b>em 24 horas</b> eu te devolvo a simulação. Sem compromisso."<span class="tela">CTA: 📲 Manda a foto da conta</span></span></div>
+      <div class="copybox"><button class="copiar">Copiar</button><div class="lbl">Copy do anúncio</div><div class="txt">A conta de energia da sua empresa passa de R$ 5 mil? A Exa negocia com várias geradoras pra colocar 15% de desconto na parte de energia da sua fatura. Sem obra, sem painel — sua distribuidora continua a mesma. Manda a foto da sua conta no WhatsApp e em 24h te devolvemos a simulação. ⚡
+Título: Simulação em 24h para sua empresa · Descrição: Adesão sem custo</div></div>
+    </div>
+  </div>
+
+  <div class="rot">
+    <div class="head"><h3>R2 · "Quanto custou não decidir" — urgência honesta</h3><span class="dur">~30s</span></div>
+    <div class="body">
+      <div class="obj sub" style="margin-bottom:8px">Ataca o "não vejo urgência" com matemática, não com pressão.</div>
+      <div class="beat"><span class="t">0–3s</span><span class="f">"Faz a conta comigo: quanto você pagou de energia nos últimos 12 meses?"<span class="tela">TELA: calculadora</span></span></div>
+      <div class="beat"><span class="t">3–12s</span><span class="f">"Um mercado que paga R$ 10 mil por mês pagou <b>R$ 120 mil no ano</b>. Com 15% na parte de energia, uns <b>R$ 13 mil disso ficavam no seu caixa</b>. Não ficaram — porque decidir 'depois' também é uma decisão, e essa tem preço."<span class="tela">NÚMEROS: 120.000 → −13.000</span></span></div>
+      <div class="beat"><span class="t">12–22s</span><span class="f">"E não precisa de projeto, não precisa de obra, não trava seu capital. A papelada é nossa. Você continua com a Cemig — só passa a pagar um preço justo. Cada mês que passa é um mês que não volta."<span class="tela">B-ROLL: caixa, boleto</span></span></div>
+      <div class="beat"><span class="t">22–30s</span><span class="f">"Me manda a foto da sua conta no WhatsApp. Em 24 horas você sabe exatamente quanto tá deixando na mesa. Aí a decisão é sua — mas com o número na mão."<span class="tela">CTA: 📲 Simulação em 24h</span></span></div>
+      <div class="copybox"><button class="copiar">Copiar</button><div class="lbl">Copy do anúncio</div><div class="txt">"Vou ver isso depois" custa caro: numa conta de R$ 10 mil/mês, são ~R$ 13 mil/ano que não voltam. Simulação sem compromisso em 24h — manda a foto da sua conta. ⚡
+Título: Quanto sua empresa deixou na mesa este ano?</div></div>
+    </div>
+  </div>
+
+  <div class="rot">
+    <div class="head"><h3>R3 · "Já tenho desconto" — o duelo de simulação</h3><span class="dur">~35s</span></div>
+    <div class="body">
+      <div class="obj sub" style="margin-bottom:8px">Rouba cliente insatisfeito/acomodado de concorrente. Campo aberto: ninguém ataca a base instalada.</div>
+      <div class="beat"><span class="t">0–3s</span><span class="f">"Você já tem desconto na conta de energia? Ótimo. Quanto, exatamente?"<span class="tela">TELA: Já tem desconto? 🤔</span></span></div>
+      <div class="beat"><span class="t">3–12s</span><span class="f">"A maioria dos comerciantes que me responde isso… não sabe. Assinou há dois anos, o desconto era um número na propaganda, virou outro na fatura, e ninguém nunca mais conferiu. Tem contrato por aí que te prende 12, 24 meses — e desconto que 'pode variar mês a mês'. Tá no contrato, ó."<span class="tela">B-ROLL: conta com "SCEE" circulado; dedo na cláusula</span></span></div>
+      <div class="beat"><span class="t">12–22s</span><span class="f">"A Exa é diferente em duas coisas. Um: a gente <b>não é dono de usina nenhuma</b> — negocia com várias geradoras ao mesmo tempo, e é isso que deixa a gente brigar por preço. Dois: o nosso 15% na parte de energia é o combinado, sem fidelidade e sem multa — pra sair, é só avisar com 90 dias."<span class="tela">DIAGRAMA: várias usinas → Exa → você</span></span></div>
+      <div class="beat"><span class="t">22–35s</span><span class="f">"Então o desafio é esse: me manda a foto da sua conta <b>com o desconto atual</b>. Se eu não conseguir melhorar, eu te falo na cara — e você fica onde tá. Se eu conseguir, você troca sem obra e sem drama. Simulação em 24h, no WhatsApp."<span class="tela">CTA: 📲 Me desafia. Manda a conta</span></span></div>
+      <div class="copybox"><button class="copiar">Copiar</button><div class="lbl">Copy do anúncio</div><div class="txt">Já tem desconto? Manda a conta mesmo assim. Se a gente não melhorar, te falamos na cara. Se melhorar, você troca sem obra e sem multa (aviso de 90 dias, só isso). Quem negocia com várias geradoras briga por preço. ⚡
+Título: Se não melhorarmos seu desconto, falamos na cara</div></div>
+    </div>
+  </div>
+
+  <div class="rot">
+    <div class="head"><h3>R4 · "Tem placa no telhado?" — o teto do telhado</h3><span class="dur">~30s</span></div>
+    <div class="body">
+      <div class="obj sub" style="margin-bottom:8px">Converte quem tem placa mas conta ainda alta (excedente); descarta com elegância quem já resolveu.</div>
+      <div class="beat"><span class="t">0–3s</span><span class="f">"Você botou placa no telhado… e a conta de energia continua vindo alta?"<span class="tela">TELA: Tem placa e a conta ainda vem?</span></span></div>
+      <div class="beat"><span class="t">3–12s</span><span class="f">"Acontece direto com comércio: o telhado tem limite, o consumo cresceu — mais um freezer, mais um ar, uma filial nova — e a placa não acompanha. Tudo que passa da sua geração, você paga <b>preço cheio</b>."<span class="tela">B-ROLL: telhado com placas + freezers</span></span></div>
+      <div class="beat"><span class="t">12–22s</span><span class="f">"Nesse pedaço a gente entra: energia de geradoras parceiras com desconto na parte que a sua placa <b>não cobre</b>. Sem instalar mais nada, sem mexer no que você já tem."<span class="tela">DIAGRAMA: placa cobre X% → Exa no resto</span></span></div>
+      <div class="beat"><span class="t">22–30s</span><span class="f">"Manda a foto da sua conta no WhatsApp — se compensar, eu te mostro o número em 24h. Se a sua placa já resolve tudo, eu mesmo te falo: fica como tá."<span class="tela">CTA: 📲 Manda a conta</span></span></div>
+      <div class="copybox"><button class="copiar">Copiar</button><div class="lbl">Copy do anúncio</div><div class="txt">Placa no telhado não é conta zerada. O que passa da sua geração, você paga preço cheio — e é aí que a gente entra. Simulação honesta em 24h: se não compensar, a gente avisa. ⚡
+Título: Sua placa cobre quanto do seu consumo?</div></div>
+      <div class="alerta">⚠ Qualificação no WhatsApp: perguntar % da conta que a placa cobre antes de simular. Residencial com placa dimensionada = desqualificar com cordialidade.</div>
+    </div>
+  </div>
+
+  <div class="rot">
+    <div class="head"><h3>R5 · "Bandeira vermelha não manda no seu orçamento" — Plano Fixo</h3><span class="dur">~35s</span></div>
+    <div class="body">
+      <div class="obj sub" style="margin-bottom:8px">Território exclusivo: nenhum concorrente tem conta travada. Comércio sazonal: restaurante, sorveteria, hotel.</div>
+      <div class="beat"><span class="t">0–3s</span><span class="f">"Quem toca comércio sabe: o problema da conta de energia nem é só o preço. É <b>nunca saber quanto vem</b>."<span class="tela">TELA: Quanto vem sua conta mês que vem?</span></span></div>
+      <div class="beat"><span class="t">3–12s</span><span class="f">"Verão, bandeira vermelha, patamar 2… seu freezer não pode desligar, seu forno não pode esperar — e o orçamento do mês vira loteria."<span class="tela">B-ROLL: bandeiras, gráfico serrilhado</span></span></div>
+      <div class="beat"><span class="t">12–24s</span><span class="f">"Por isso a gente trouxe o <b>modelo canadense</b> pro Brasil: o Plano Fixo. Sua conta fica <b>travada por 12 meses</b>, começando com 10% de desconto na parte de energia — e você pode aumentar o consumo em <b>até 20%</b> sem mudar o valor da fatura. Bandeira vermelha? Não te atinge."<span class="tela">CARD: 12 meses travado · +20% de margem</span></span></div>
+      <div class="beat"><span class="t">24–35s</span><span class="f">"Orçamento anual fechado, sem surpresa. Me manda a foto da sua conta no WhatsApp que em 24h eu te mostro sua fatura travada. Aí é só comparar."<span class="tela">CTA: 📲 Trava minha conta</span></span></div>
+      <div class="copybox"><button class="copiar">Copiar</button><div class="lbl">Copy do anúncio</div><div class="txt">Freezer não desliga, forno não espera — mas sua conta não precisa ser loteria. Plano Fixo: fatura travada 12 meses, 10% de desconto na parte de energia e até +20% de consumo sem mudar o valor. Simulação em 24h no WhatsApp. ⚡
+Título: Conta de energia travada por 12 meses</div></div>
+    </div>
+  </div>
+
+  <div class="rot">
+    <div class="head"><h3>R6 · "80 boletos" — multi-filial e condomínios</h3><span class="dur">~35s</span></div>
+    <div class="body">
+      <div class="obj sub" style="margin-bottom:8px">ICP de maior ticket (gestão multi-UC). Roda também no LinkedIn.</div>
+      <div class="beat"><span class="t">0–3s</span><span class="f">"Quem administra várias unidades sabe o que é isso: <b>80 contas de luz, 80 boletos, 80 logins</b> no site da distribuidora."<span class="tela">TELA: 80 UCs = 80 boletos 🫠</span></span></div>
+      <div class="beat"><span class="t">3–12s</span><span class="f">"Rede de lojas, franquia, condomínio — todo mês alguém perde uma tarde caçando fatura, UC por UC. E ninguém tem visão do todo: qual unidade estourou, qual tá vazando dinheiro."<span class="tela">B-ROLL: pilha de boletos, planilha</span></span></div>
+      <div class="beat"><span class="t">12–24s</span><span class="f">"Com a Exa vira <b>1 boleto, com controle individual por unidade</b>: dashboard com consumo, valor e histórico de cada UC, alerta de consumo anômalo — e desconto na parte de energia de todas. Fim do tour pelo site da distribuidora."<span class="tela">CARD: 1 boleto · controle por unidade</span></span></div>
+      <div class="beat"><span class="t">24–35s</span><span class="f">"Se você toca mais de uma unidade, me chama no WhatsApp com uma conta de exemplo. Em 24h te mostro a simulação — e como fica a gestão."<span class="tela">CTA: 📲 Unifica minhas contas</span></span></div>
+      <div class="copybox"><button class="copiar">Copiar</button><div class="lbl">Copy do anúncio</div><div class="txt">Multi-filial ou condomínio: 1 boleto, controle individual por unidade, desconto na parte de energia em todas. Gestão energética com pagamento unificado. Manda uma conta de exemplo no WhatsApp — simulação em 24h. ⚡
+Título: Fim do tour pelo site da distribuidora</div></div>
+    </div>
+  </div>
+
+  <div class="rot">
+    <div class="head"><h3>R7 · "Isso é golpe?" — confiança e ancoragem local</h3><span class="dur">~40s</span></div>
+    <div class="body">
+      <div class="obj sub" style="margin-bottom:8px">Desarma a objeção dominante do setor inteiro. Formato "responder o comentário cético" é hook comprovado.</div>
+      <div class="beat"><span class="t">0–3s</span><span class="f">"'Desconto na conta de luz sem obra? Isso aí é golpe.' — Justo. Eu ia desconfiar também."<span class="tela">TELA: comentário "É golpe?"</span></span></div>
+      <div class="beat"><span class="t">3–14s</span><span class="f">"Então deixa eu te explicar no simples. Existe uma lei — a <b>14.300</b> — que criou a geração distribuída compartilhada, regulada pela ANEEL. Usinas geram energia limpa, injetam na rede, e você recebe esse crédito <b>na sua própria fatura da Cemig</b>. A conta continua vindo dela. Ninguém pisa na sua loja, ninguém mexe em fio — eu tenho cara de eletricista?"<span class="tela">SELO: Lei 14.300 · ANEEL · fatura com crédito circulado</span></span></div>
+      <div class="beat"><span class="t">14–26s</span><span class="f">"A Exa é daqui de Uberlândia. A gente não é dono de usina — negocia com várias geradoras pra buscar o melhor preço e cuida de toda a papelada. Você vê tudo antes de assinar qualquer coisa: contrato, condições, os 90 dias de aviso se quiser sair. <b>Honestidade vende mais que omissão</b> — é regra nossa."<span class="tela">B-ROLL: rua/ponto conhecido de Uberlândia</span></span></div>
+      <div class="beat"><span class="t">26–40s</span><span class="f">"Não precisa acreditar em mim: me manda a foto da sua conta no WhatsApp e recebe a simulação em 24h, preto no branco. Decide com o número na mão, não no escuro."<span class="tela">CTA: 📲 Quero ver preto no branco</span></span></div>
+      <div class="copybox"><button class="copiar">Copiar</button><div class="lbl">Copy do anúncio</div><div class="txt">Desconfiar é saudável — a gente explica preto no branco. Geração distribuída, Lei 14.300, ANEEL: o crédito aparece na sua própria fatura e a distribuidora continua a mesma. Empresa de Uberlândia, simulação em 24h. ⚡
+Título: A conta continua vindo da Cemig. O preço é que muda.</div></div>
+    </div>
+  </div>
+
+  <div class="rot">
+    <div class="head"><h3>R8 · Curto 15s — retargeting / hook único</h3><span class="dur">15s</span></div>
+    <div class="body">
+      <div class="obj sub" style="margin-bottom:8px">Re-impacta quem viu 50%+ dos vídeos e não clicou.</div>
+      <div class="beat"><span class="t">0–3s</span><span class="f">"Sobra energia no Brasil. Sua conta é que não sabe disso."<span class="tela">TELA: Sobra energia. 🤨</span></span></div>
+      <div class="beat"><span class="t">3–10s</span><span class="f">"A gente pega esse excedente, garante que quem gerou é pago, e o desconto aparece na <b>sua</b> fatura. 15% na parte de energia, sem obra."<span class="tela">DIAGRAMA rápido de 2s</span></span></div>
+      <div class="beat"><span class="t">10–15s</span><span class="f">"Foto da conta no WhatsApp → simulação em 24h. Só isso."<span class="tela">CTA: 📲</span></span></div>
+      <div class="copybox"><button class="copiar">Copiar</button><div class="lbl">Copy do anúncio</div><div class="txt">Se sobra energia no Brasil, por que sua empresa paga preço cheio? Foto da conta → simulação em 24h. ⚡</div></div>
+    </div>
+  </div>
+
+  <h3>Plano de gravação — 1 diária resolve tudo</h3>
+  <ol>
+    <li><b>Manhã:</b> R1, R2, R3, R8 no mesmo cenário (comércio parceiro/escritório) — mesma luz, troca de enquadramento entre roteiros pra não parecer lote.</li>
+    <li><b>Tarde:</b> R4 (local com placa visível), R5 (restaurante/sorveteria), R6 (escritório com tela do dashboard), R7 (rua reconhecível de Uberlândia).</li>
+    <li>Cada fala em 2 takes: um neutro, um mais solto. +10 min de B-roll genérico (freezers, fornos, boletos, fachadas, dashboard).</li>
+    <li>Variações por edição: com/sem música + hook alternativo nos 3 primeiros segundos (mesmo corpo) — alimenta o torneio sem regravar.</li>
+  </ol>
+</section>
+
+<!-- ============ WHATSAPP ============ -->
+<section id="zap">
+  <div class="kicker">Pós-clique</div>
+  <h2>Fluxo do WhatsApp</h2>
+  <p class="lead">Regra de ouro operacional: responder em <b style="color:var(--txt)">menos de 5 minutos</b> — o lead cota com 3+ players e quem responde primeiro leva. Não rodar anúncio em horário que ninguém responde. O clique abre janela gratuita de 72h: D0 simulação → D+1 prova social → D+2 fechamento.</p>
+
+  <h3>Ice breakers (configurar no anúncio)</h3>
+  <ul>
+    <li>"Quero simular a economia da minha empresa"</li>
+    <li>"Já tenho desconto — vale a pena trocar?"</li>
+    <li>"Quanto custa? Tem fidelidade?"</li>
+  </ul>
+  <p class="sub">Nunca deixar o genérico "Olá, tenho interesse".</p>
+
+  <h3>Saudação automática</h3>
+  <div class="copybox"><button class="copiar">Copiar</button><div class="lbl">Mensagem de boas-vindas</div><div class="txt">Opa, tudo bem? Aqui é o Pablo, da Exa ⚡ Que bom que você clicou!
+Pra eu já te passar o número certo, me conta rapidinho:
+1️⃣ A conta é da sua empresa/comércio ou da sua casa?
+2️⃣ Mais ou menos quanto vem por mês?
+📸 Se tiver a fatura aí, me manda a foto que em 24h te devolvo a simulação certinha.</div></div>
+
+  <h3>As 4 camadas de qualificação</h3>
+  <div class="grid" style="margin-bottom:14px">
+    <div class="card"><h4>1 · No criativo</h4><p class="mut">Valor mínimo falado no hook ("passa de R$ 5 mil") + linguagem "sua empresa". O desqualificado se desqualifica de graça, antes do clique.</p></div>
+    <div class="card"><h4>2 · Primeira mensagem</h4><p class="mut">Ice breakers + saudação com as 2 eliminatórias: empresa ou casa? quanto vem por mês? Fase 2 (API): chatbot com botões, 4-6 perguntas.</p></div>
+    <div class="card"><h4>3 · A foto da conta</h4><p class="mut"><b style="color:var(--txt)">O qualificador definitivo.</b> A conta responde o que pergunta nenhuma responde: kWh real de 12 meses, tipo de ligação, SCEE (já tem GD — e de quem), Grupo A, titular CNPJ. Quem mostra a conta está 70% vendido.</p></div>
+    <div class="card"><h4>4 · Score e roteamento</h4><p class="mut">Régua A/B/C/Fora define velocidade e esforço. Fase 2: CAPI devolve só "conta recebida" pra Meta — o algoritmo para de trazer curioso.</p></div>
+  </div>
+
+  <h3>Régua de score (aplicar quando a conta chegar)</h3>
+  <div class="tblwrap"><table>
+    <tr><th>Tier</th><th>Critérios</th><th>Tratamento</th></tr>
+    <tr><td><b style="color:var(--verde)">A — quente</b></td><td class="mut">CNPJ · conta ≥ R$ 3.000 · Grupo B · sem GD ou GD insatisfeito · fala com o dono/decisor</td><td><b>Simulação no mesmo dia</b> + ligação. Deal no HubSpot na hora, estágio Em atendimento, consumo_medio preenchido.</td></tr>
+    <tr><td><b>B — morno</b></td><td class="mut">CNPJ · conta R$ 800–3.000 · ou conta grande mas quem fala não decide</td><td>Simulação em 24h (promessa padrão). Se não é decisor: pegar nome + WhatsApp do dono.</td></tr>
+    <tr><td><b>C — leve</b></td><td class="mut">Residencial ≥ R$ 250 (perfil do Plano Direto)</td><td>Fluxo leve, sem ligação. Volume ajuda o algoritmo, não come tempo de venda.</td></tr>
+    <tr><td><b style="color:#FCA5A5">Fora</b></td><td class="mut">Placa própria que cobre tudo · Grupo A/média tensão (por agora) · rede/franquia com decisão fora · conta &lt; R$ 250</td><td>Desqualificar com cordialidade + <b>pedir indicação</b> ("quem você conhece que sofre com conta de energia?"). Etiqueta Fora — não recebe follow-up.</td></tr>
+  </table></div>
+
+  <div class="copybox"><button class="copiar">Copiar</button><div class="lbl">Desqualificação com cordialidade (placa cobre tudo)</div><div class="txt">Que bom que sua placa já resolve — de verdade, tá bem dimensionada, não faz sentido mexer. 👏
+Se um dia o consumo crescer (filial nova, mais equipamento), me chama que a gente cobre o que a placa não cobrir.
+E me ajuda numa coisa: quem você conhece aí da região que vive reclamando da conta de energia? Indicação de comerciante pra mim vale ouro 🤝</div></div>
+
+  <div class="okbox"><b>Regra anti-lead-perdido:</b> lead que não manda a conta não é lead — é conversa. Follow-up em 48h ("consegue me mandar a foto da conta? Sem ela eu não consigo te dar número de verdade"); sem resposta, mais um toque em D+5 e arquiva com etiqueta. Zero energia de venda em quem não mostra a conta.</div>
+
+  <h3>Roteamento</h3>
+  <div class="tblwrap"><table>
+    <tr><th>Perfil</th><th>Ação</th></tr>
+    <tr><td>Empresa, conta ≥ R$ 3.000</td><td><b>Prioridade máxima</b> — simulação no mesmo dia se possível. Deal no HubSpot (Pipeline de Consumidores) com <b>consumo_medio preenchido</b> (sem isso não conta pra meta).</td></tr>
+    <tr><td>Empresa, conta &lt; R$ 3.000</td><td class="mut">Fluxo normal (simulação em 24h).</td></tr>
+    <tr><td>Residencial</td><td class="mut">Oferta Plano Direto padrão, fluxo leve.</td></tr>
+    <tr><td>Tem placa própria</td><td>Perguntar: "sua placa cobre quanto da conta?" Cobre tudo → agradecer e marcar Fora. Cobre parte → simular o excedente.</td></tr>
+    <tr><td>Já tem GD de concorrente</td><td>Pedir a conta com o desconto atual visível: <b>"se eu não melhorar, te falo na cara."</b></td></tr>
+  </table></div>
+
+  <h3>Cadência (regras do manual de campo)</h3>
+  <ul>
+    <li>Confirmação assim que a conta chegar → <b>simulação em 24h (promessa sagrada)</b>.</li>
+    <li>Follow-up 48h sem resposta: "Conseguiu dar uma olhada na simulação? Se preferir, passo aí rapidinho pra te mostrar pessoalmente."</li>
+    <li>Todo fechamento pede <b>2 indicações</b> — comerciante conhece comerciante.</li>
+  </ul>
+</section>
+
+<!-- ============ PLANO ============ -->
+<section id="plano">
+  <div class="kicker">Fase 1 · 4 semanas</div>
+  <h2>Plano de mídia</h2>
+  <p class="lead">Objetivo <b style="color:var(--txt)">Mensagens/WhatsApp</b> (nunca Tráfego). Verba total: <b style="color:var(--txt)">R$ 70–100/dia</b> — piso pra ~50 conversas/semana e sair da fase de aprendizado.</p>
+
+  <div class="tblwrap"><table>
+    <tr><th>Conjunto</th><th>Público</th><th>Verba</th><th>Criativos</th></tr>
+    <tr><td><b>A — Amplo qualificado</b></td><td class="mut">Uberlândia +40km, 28–60, sem interesse (o criativo segmenta: "sua empresa" + valor mínimo no hook)</td><td>40%</td><td>R1 · R2 · R7</td></tr>
+    <tr><td><b>B — Decisores</b></td><td class="mut">"Tomadores de decisão empresariais" + admins de página + interesse PME</td><td>30%</td><td>R1 · R3 · R5 · R6</td></tr>
+    <tr><td><b>C — Lookalike</b></td><td class="mut">LAL 1–3% dos clientes fechados do HubSpot (não leads brutos)</td><td>20%</td><td>R1 · R5</td></tr>
+    <tr><td><b>D — Retargeting</b></td><td class="mut">Viu 50%+ de qualquer vídeo · visitou perfil · conversou e sumiu</td><td>10%</td><td>R8 · R3</td></tr>
+  </table></div>
+
+  <h3>Torneio de criativos (mesma lógica da Campanha 1)</h3>
+  <ul>
+    <li><b>Semana 1–2 — torneio de ângulo:</b> R1 (oferta) vs. R2 (urgência) vs. R3 (já tenho) vs. R7 (confiança), mesma edição. Métrica de vitória: <b>custo por conversa com conta enviada</b>, não por conversa iniciada.</li>
+    <li><b>Semana 3–4:</b> os 2 vencedores ganham 3-5 variações de hook (só os 0–3s mudam) + teste com/sem música. Matar perdedores no dia 4.</li>
+    <li>R5 (Plano Fixo) e R6 (multi-filial) rodam em paralelo no conjunto B com verba própria — apostas de território exclusivo, fora do torneio.</li>
+  </ul>
+
+  <h3>Metas</h3>
+  <div class="grid">
+    <div class="card"><div class="num">&lt; R$ 15</div><p class="mut">custo por conversa iniciada</p></div>
+    <div class="card"><div class="num">&gt; 25%</div><p class="mut">conversa → foto da conta enviada</p></div>
+    <div class="card"><div class="num">10–30%</div><p class="mut">conta enviada → contrato (uma grande conta paga meses de mídia)</p></div>
+  </div>
+
+  <h3>Operação (inegociável)</h3>
+  <ul>
+    <li>Resposta humana em <b>&lt; 5 min</b> no horário do anúncio; pausar anúncio quando ninguém pode responder.</li>
+    <li>Toda conta recebida vira deal no HubSpot com <b>consumo_medio</b> preenchido — estágio "Em atendimento".</li>
+    <li>Simulação em 24h é o que nos separa de todo mundo.</li>
+    <li>Semana 3+: CAPI de Business Messaging mandando "conta recebida" do HubSpot de volta pra Meta — otimizar por lead qualificado, não por conversa.</li>
+  </ul>
+
+  <h3>Horários</h3>
+  <p>Ter–qui <b>9h–11h</b> e qua <b>14h–16h</b> (decisor em modo trabalho) + noite <b>20h–22h</b> (dono de PME no sofá, menos resistência). Criativo racional de dia, storytelling à noite.</p>
+
+  <h3>Próximos passos</h3>
+  <ol>
+    <li>Validar internamente os nomes "Plano Direto"/"Plano Fixo" (proposta no manual de marca).</li>
+    <li>Swipe file manual: Biblioteca de Anúncios → Serena, Órigo, Bulbe, Lemon.</li>
+    <li>1 diária de gravação (plano na aba Roteiros).</li>
+    <li>Configurar ice breakers + saudação + etiquetas no WhatsApp Business antes de ligar a campanha.</li>
+    <li>Radar de médio prazo: convênios ACIUB / CDL Uberlândia / Sindicomércio + narrativa "ponte pro mercado livre 2026/27" pra grandes contas.</li>
+  </ol>
+</section>
+
+<!-- ============ ESTRUTURA / SETUP ============ -->
+<section id="setup">
+  <div class="kicker">Antes do 1º real gasto</div>
+  <h2>Estrutura completa — tudo que precisa existir</h2>
+  <p class="lead">Checklist de implantação de ponta a ponta: contas, WhatsApp, formulário, medição, HubSpot e cronograma D-7 → D0.</p>
+
+  <div class="alerta"><b>⚠ Achados na infra atual (resolver antes de tudo):</b><br>
+  1. <b>Dois números de WhatsApp diferentes</b> — o diagnóstico (exa-diagnostico) aponta pra (34) 99990-2008 e a calculadora pra (34) 98442-2471. Unificar em UM número oficial: todo anúncio, form e CTA no mesmo.<br>
+  2. <b>Nenhuma das páginas tem Meta Pixel</b> — sem ele a campanha do formulário não otimiza e retargeting não existe.<br>
+  3. O diagnóstico tem <b>7 etapas</b> — ok pra tráfego morno, longo pra frio. Considerar versão curta (3 perguntas) como variante de teste.</div>
+
+  <h3>0 · Pra onde vai o clique? (arquitetura do funil)</h3>
+  <div class="tblwrap"><table>
+    <tr><th></th><th>A — WhatsApp direto (CTWA)</th><th>B — Formulário (exa-diagnostico)</th></tr>
+    <tr><td class="mut">Fricção</td><td>Mínima: 1 clique → conversa</td><td>7 etapas antes do contato</td></tr>
+    <tr><td class="mut">Qualificação</td><td>Na conversa (foto da conta)</td><td>Automática (respostas do form)</td></tr>
+    <tr><td class="mut">Custo/lead</td><td>Até 92% menor que LP (benchmark)</td><td>Mais caro, porém lead mais "cozido"</td></tr>
+    <tr><td class="mut">Otimização Meta</td><td>Nativa (objetivo Mensagens)</td><td>Exige Pixel + evento Lead</td></tr>
+    <tr><td class="mut">Risco</td><td>Curioso entra na conversa</td><td>Abandono no meio do form</td></tr>
+  </table></div>
+  <div class="okbox"><b>Recomendação: 70% CTWA direto / 30% formulário</b>, medindo os dois pelo mesmo número — <b>custo por conta recebida</b>, não por clique. O form ainda joga em mais dois papéis: link enviado dentro do WhatsApp pra quem prefere autoatendimento, e destino de retargeting pra quem conversou e sumiu. Depois de 2 semanas de dado, o vencedor leva a verba.</div>
+
+  <h3>1 · Contas e ativos Meta</h3>
+  <ul>
+    <li>☐ Business Manager com 2 admins (backup) · conta de anúncios BRL com pagamento e limite</li>
+    <li>☐ Página do Facebook + Instagram profissional conectados ao BM</li>
+    <li>☐ Conjunto de dados / <b>Pixel</b> criado no Gerenciador de Eventos</li>
+    <li>☐ <b>Verificação da empresa</b> (CNPJ) — necessária pra API do WhatsApp, aumenta limites</li>
+    <li>☐ Verificação de domínio — GitHub Pages não verifica; ideal: <b>diagnostico.exaenergia.com</b> via CNAME</li>
+    <li>☐ WhatsApp oficial conectado ao BM e à Página</li>
+  </ul>
+
+  <h3>2 · WhatsApp — o motor</h3>
+  <p><b>Fase 1 (sem. 1-2):</b> WhatsApp Business <b>App</b> basta — saudação, respostas rápidas, etiquetas e ice breakers funcionam. <b>Fase 2 (sem. 3+):</b> Cloud API (direto ou BSP) — destrava CAPI, automação de qualificação e múltiplos atendentes.</p>
+  <ul>
+    <li>☐ Perfil completo: logo, descrição ("Reduzimos a conta de energia de empresas do Triângulo — Lei 14.300/ANEEL"), site, horário</li>
+    <li>☐ Saudação automática (aba WhatsApp) + mensagem de ausência honesta ("respondo até às 9h — pode já mandar a foto da conta")</li>
+    <li>☐ Respostas rápidas: <b>/simulacao</b> · <b>/planos</b> · <b>/golpe</b> · <b>/followup</b> · <b>/indicacao</b></li>
+    <li>☐ Etiquetas espelhando o HubSpot: Novo lead · Conta recebida · Simulação enviada · Negociação · Fechado · Fora</li>
+    <li>☐ Ice breakers no nível do anúncio (os 3 da aba WhatsApp)</li>
+    <li>☐ Escala de resposta: quem cobre cada janela de anúncio ativo (SLA &lt; 5 min); anúncio pausado fora delas</li>
+  </ul>
+
+  <h3>3 · Formulário (exa-diagnostico) — upgrades</h3>
+  <p class="sub" style="margin-bottom:8px">✅ = implementado na branch <b>claude/qualificacao-pixel-utm</b> do exa-diagnostico (entra no ar ao mergear na main).</p>
+  <ul>
+    <li>✅ <b>Código do Pixel instalado e condicional</b> — PageView, ViewContent (início), Lead (contato), CompleteRegistration (fim), Contact (clique no CTA). <span class="pill at">FALTA</span> colar o PIXEL_ID no EXA_CFG (topo do arquivo)</li>
+    <li>✅ <b>UTMs completos</b> (source/medium/campaign/content/term) capturados, persistidos e entregues na mensagem do WhatsApp ("Origem: meta · gc-fase1 · r3-h1")</li>
+    <li>✅ <b>Pergunta eliminatória nova</b>: "já tem desconto ou placa?" — concorrente recebe o texto do duelo; casa com placa cai na rota honesta do excedente</li>
+    <li>✅ <b>Tier A/B/C/Fora calculado no submit</b> e incluído na mensagem ("Resultado: 82/100 · Plano Direto · A") — etiquetagem em 1 segundo</li>
+    <li>✅ <b>Envio ao HubSpot</b> via Forms API (portal 50958970 já configurado). <span class="pill at">FALTA</span> criar o formulário no HubSpot (Marketing → Formulários, campos: nome/telefone/email/mensagem) e colar o GUID no EXA_CFG</li>
+    <li>✅ Número centralizado numa constante única (ZAP) — trocar 1 linha muda o form inteiro. <span class="pill at">DECISÃO</span> qual é o número oficial</li>
+    <li>☐ Revisar copy do form contra os guardrails (15% só no Direto, 90 dias, sem "grátis"/"garantido")</li>
+    <li>☐ (Opcional) Versão curta de 3 perguntas pra tráfego frio</li>
+    <li>☐ A <b>exa-calculadora</b> vira arma do vendedor (link na negociação) + página de retargeting — mesmo Pixel nela</li>
+  </ul>
+  <div class="okbox">Propriedades da régua conferidas no HubSpot (portal 50958970): <b>consumo_medio · distribuidora · produto__plano · origem_do_lead</b> já existem nos deals — nada a criar, só preencher.</div>
+
+  <h3>4 · Pixel, CAPI e medição</h3>
+  <ul>
+    <li>☐ Pixel nas duas páginas · eventos PageView / ViewContent / Lead / Contact (clique wa.me)</li>
+    <li>☐ Padrão de UTM: <b>utm_source=meta&amp;utm_medium=paid&amp;utm_campaign=gc-fase1&amp;utm_content=r1-h2</b> (r=roteiro, h=hook)</li>
+    <li>☐ Painel diário: gasto · conversas · contas recebidas · custo/conta · deals — conferência: nº contas = nº deals</li>
+    <li>☐ Fase 2: CAPI de Business Messaging — HubSpot devolve "conta recebida"/"fechado" pra Meta, campanha otimiza por isso</li>
+  </ul>
+
+  <h3>5 · HubSpot</h3>
+  <ul>
+    <li>☐ Pipeline de Consumidores com os estágios do manual de campo · <b>consumo_medio (kWh) obrigatório</b> em todo deal</li>
+    <li>☐ Propriedade de origem: trafego-pago + utm_content (qual criativo gerou)</li>
+    <li>☐ De "Recebimento de Docs" em diante: distribuidora (CEMIG) e produto__plano</li>
+    <li>☐ Todo lead vira contato + deal <b>no mesmo dia</b> (automático na fase 2; disciplina manual na fase 1)</li>
+  </ul>
+
+  <h3>6 · Criativos — specs</h3>
+  <ul>
+    <li>☐ Master 9:16 1080×1920 (Reels/Stories) + export 4:5 1080×1350 (feed)</li>
+    <li>☐ Legenda queimada (Inter bold, highlight verde #22C55E) · ícone WhatsApp · chat na tela nos 1,5s</li>
+    <li>☐ Naming: <b>R1-h2-m0.mp4</b> (roteiro-hook-música) — casa com o utm_content</li>
+    <li>☐ 1ª leva: 8 roteiros × 2-3 hooks × com/sem música ≈ 30-40 arquivos (edição em lote)</li>
+    <li>☐ Primeiro frame nunca preto: rosto + texto do hook</li>
+  </ul>
+
+  <h3>7 · Montagem no Gerenciador</h3>
+  <ul>
+    <li>☐ 2 campanhas: <b>[GC] CTWA</b> (Mensagens → WhatsApp, 70%) e <b>[GC] Form</b> (Conversões → Lead, 30%)</li>
+    <li>☐ Conjuntos A/B/C/D (aba Plano de mídia) · naming <b>[GC] CTWA · A-amplo · R1-h2</b></li>
+    <li>☐ Posicionamentos Advantage+ · otimização "conversas iniciadas" (CTWA) e "Lead" (form)</li>
+    <li>☐ Regras automáticas: pausar anúncio com custo/conversa &gt; 2× meta após R$ 50 gastos · alerta diário de gasto</li>
+    <li>☐ Públicos salvos: LAL 1-3% clientes fechados (export HubSpot) · envolvimento 365d · visitantes do diagnóstico 30d</li>
+  </ul>
+
+  <h3>8 · Cronograma D-7 → D0</h3>
+  <div class="tblwrap"><table>
+    <tr><th>Dia</th><th>Entrega</th></tr>
+    <tr><td><b>D-7</b></td><td>BM completo, verificação iniciada, <b>número unificado</b>, Pixel criado</td></tr>
+    <tr><td><b>D-5</b></td><td>Diária de gravação (plano na aba Roteiros)</td></tr>
+    <tr><td><b>D-4</b></td><td>Form atualizado: Pixel + UTM + redirect wa.me + número certo</td></tr>
+    <tr><td><b>D-3</b></td><td>Edição da 1ª leva (R1, R2, R3, R7 + hooks), naming aplicado</td></tr>
+    <tr><td><b>D-2</b></td><td>WhatsApp configurado, HubSpot pronto, escala de resposta definida</td></tr>
+    <tr><td><b>D-1</b></td><td>Campanhas em rascunho + <b>revisão de guardrails de marca em cada anúncio</b></td></tr>
+    <tr><td><b>D0</b></td><td>Publicar ter/qua ~9h. Primeiras 48h: só observar e responder &lt; 5 min — zero mexida</td></tr>
+  </table></div>
+
+  <h3>Decisões que só você pode tomar</h3>
+  <ol>
+    <li><b>Qual número de WhatsApp é o oficial de vendas?</b> (99990-2008 ou 98442-2471)</li>
+    <li>Nomes "Plano Direto"/"Plano Fixo" — validados pra publicar?</li>
+    <li>Quem além de você responde o WhatsApp (escala do SLA de 5 min)?</li>
+    <li>Verba total confirmada? (o plano assume R$ 70–100/dia)</li>
+    <li>Domínio próprio pro diagnóstico (diagnostico.exaenergia.com)? Melhora verificação, Pixel e confiança.</li>
+  </ol>
+</section>
+
+</main>
+
+<footer>Exa · campanha grandes contas · pesquisa jul/2026 · fontes nos .md da pasta</footer>
+
+<script>
+const tabs=document.querySelectorAll(".tab"),secs=document.querySelectorAll("section");
+tabs.forEach(t=>t.addEventListener("click",()=>{
+  tabs.forEach(x=>x.classList.remove("on"));secs.forEach(s=>s.classList.remove("on"));
+  t.classList.add("on");document.getElementById(t.dataset.s).classList.add("on");
+  window.scrollTo({top:0});
+}));
+document.querySelectorAll(".copiar").forEach(b=>b.addEventListener("click",async()=>{
+  const txt=b.parentElement.querySelector(".txt").innerText;
+  try{await navigator.clipboard.writeText(txt);}catch(e){
+    const ta=document.createElement("textarea");ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand("copy");ta.remove();
+  }
+  b.textContent="Copiado ✓";b.classList.add("feito");
+  setTimeout(()=>{b.textContent="Copiar";b.classList.remove("feito");},1800);
+}));
+</script>
+</body>
+</html>
