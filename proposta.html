@@ -83,6 +83,37 @@
   section p b{font-weight:700}
   .obj{color:var(--cinza-txt);font-size:12.5px}
 
+  /* ---------- painel interno (não sai no PDF) ---------- */
+  .interno{border:2px dashed var(--cinza-sutil);border-radius:10px;padding:14px;margin-bottom:14px;background:var(--fundo-suave)}
+  .interno .rot-interno{font-family:'Oxanium';font-weight:700;font-size:10px;letter-spacing:1.5px;
+    text-transform:uppercase;color:var(--cinza-txt);margin-bottom:10px}
+  .interno .linha{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end;margin-bottom:10px}
+  .interno label{display:block;font-size:11px;color:var(--cinza-txt);font-weight:600;margin-bottom:3px}
+  .interno input[type=text],.interno select{border:1px solid var(--borda);background:var(--papel);color:var(--preto);
+    border-radius:6px;padding:7px 9px;font-family:'Inter';font-size:13px;width:150px}
+  .interno .hist{width:100%;border-collapse:collapse;font-size:12px;background:var(--papel);border-radius:8px;overflow:hidden}
+  .interno .hist th{padding:6px 8px;font-size:9px}
+  .interno .hist td{padding:3px 6px;border-bottom:1px solid var(--borda)}
+  .interno .hist td:first-child{font-family:'Oxanium';font-weight:600;color:var(--cinza-txt);width:44px}
+  .interno .hist input{width:100%;border:none;background:none;font-family:'Inter';font-size:12.5px;
+    padding:5px 4px;color:var(--preto);outline:none;text-align:right}
+  .interno .hist input:focus{background:var(--fundo-suave)}
+  .interno .saida{display:flex;gap:18px;flex-wrap:wrap;align-items:center;margin-top:10px;font-size:12px;color:var(--cinza-txt)}
+  .interno .saida b{font-family:'Oxanium';font-weight:700;color:var(--preto);font-size:14px}
+  .interno .mini{border:1px solid var(--borda);background:var(--papel);color:var(--preto);border-radius:6px;
+    padding:7px 12px;cursor:pointer;font-weight:600;font-size:11px;font-family:'Oxanium';letter-spacing:.3px}
+  .interno .mini:hover{border-color:var(--cinza-sutil)}
+  .interno .mini.aplicar{background:var(--verde);border-color:var(--verde);color:var(--verde-profundo);font-weight:700}
+  .interno .mini.aplicar:hover{background:var(--verde-hover)}
+  .interno .form{font-size:11px;color:var(--cinza-sutil);margin-top:8px}
+
+  /* raio-x — números do histórico, sem gráficos */
+  .rx{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+  .rxc{border:1px solid var(--borda);border-radius:10px;padding:16px 14px;text-align:center}
+  .rxc .v{font-family:'Oxanium';font-weight:700;font-size:21px;color:var(--preto)}
+  .rxc .l{color:var(--cinza-txt);font-family:'Oxanium';font-weight:600;font-size:10px;
+    letter-spacing:1.5px;text-transform:uppercase;margin-top:5px}
+
   /* passos "como funciona" */
   .passos{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}
   .passo{border:1px solid var(--borda);border-radius:10px;padding:14px 12px;background:var(--papel)}
@@ -96,7 +127,7 @@
   th{background:var(--fundo-suave);color:var(--cinza-txt);font-family:'Oxanium';font-weight:600;font-size:10px;
     letter-spacing:1.2px;text-transform:uppercase;text-align:left;padding:9px 10px;border-bottom:1px solid var(--borda)}
   td{padding:10px;border-bottom:1px solid var(--borda);vertical-align:top}
-  .tcond td:first-child{font-family:'Oxanium';font-weight:600;font-size:12px;white-space:nowrap;width:130px}
+  .tcond td:first-child{font-family:'Oxanium';font-weight:600;font-size:12px;white-space:nowrap;width:150px}
 
   /* tabela de unidades */
   .tuc th.num,.tuc td.num{text-align:right;white-space:nowrap}
@@ -127,34 +158,40 @@
   .params .pl{color:var(--cinza-txt);font-family:'Oxanium';font-weight:600;font-size:10px;letter-spacing:1.2px;text-transform:uppercase}
   .params .pv{font-family:'Oxanium';font-weight:700;color:var(--preto);font-size:15px;padding:1px 6px}
   .params .un{font-family:'Oxanium';font-weight:600;color:var(--cinza-txt);font-size:12px}
+  .params select{border:1px solid var(--borda);background:var(--papel);color:var(--preto);border-radius:6px;
+    padding:5px 8px;font-family:'Inter';font-size:12.5px}
   .params .ajuda{color:var(--cinza-txt);font-size:12px}
 
-  /* rodapé e assinaturas */
-  .rodape{border-top:1px solid var(--borda);margin-top:30px;padding-top:14px;display:flex;
-    justify-content:space-between;gap:12px;color:var(--cinza-txt);font-size:11.5px;flex-wrap:wrap}
-  .assina{margin-top:38px;display:grid;grid-template-columns:1fr 1fr;gap:40px}
+  /* aceite e rodapé */
+  .aceite{margin-top:6px}
+  .assina{margin-top:34px;display:grid;grid-template-columns:1fr 1fr;gap:40px}
   .assina .campo{border-top:1px solid var(--preto);padding-top:8px;font-size:12px;text-align:center;color:var(--cinza-txt)}
   .assina .campo b{display:block;color:var(--preto);font-size:13px;font-weight:700}
+  .localdata{margin-top:20px;font-size:13px;color:var(--preto)}
+  .rodape{border-top:1px solid var(--borda);margin-top:30px;padding-top:14px;display:flex;
+    justify-content:space-between;gap:12px;color:var(--cinza-txt);font-size:11.5px;flex-wrap:wrap}
 
   @media(max-width:720px){
     .folha{padding:24px 18px;margin:12px 8px 40px}
-    .destaques,.passos,.resumo{grid-template-columns:1fr}
+    .destaques,.passos,.resumo,.rx{grid-template-columns:1fr}
     .cab .marcas{flex-direction:column;align-items:flex-start}
     .parceria .rot{text-align:left}
     .ident{grid-template-columns:1fr}
     .ident .k{border-bottom:none;padding-bottom:2px}
     .tuc-wrap{overflow-x:auto}
+    .interno input[type=text],.interno select{width:120px}
   }
 
   /* ---------- impressão / PDF ---------- */
   @media print{
     @page{size:A4;margin:14mm 12mm}
     html,body{background:#fff}
-    .toolbar,.addrow,.tuc .del{display:none !important}
+    .toolbar,.addrow,.tuc .del,.interno{display:none !important}
     .folha{max-width:none;margin:0;border:none;border-radius:0;box-shadow:none;padding:0}
     [contenteditable]:hover,[contenteditable]:focus{background:none;box-shadow:none}
     .dst,.res,.passo .n,th,.ident .k,.params{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-    section,.destaques,.resumo,.ident,.assina{break-inside:avoid}
+    .params{display:none}
+    section,.destaques,.resumo,.ident,.assina,.rx{break-inside:avoid}
     .tuc tr{break-inside:avoid}
   }
 </style>
@@ -193,13 +230,14 @@
     </div>
     <div class="doc">
       <div class="kicker" contenteditable="true" data-ed="kicker">Proposta comercial</div>
-      <h1 contenteditable="true" data-ed="docTitulo">Economia em energia elétrica por Geração Distribuída</h1>
-      <div class="sub" contenteditable="true" data-ed="docSub">Grupo B (baixa tensão) · Sistema de Compensação de Energia Elétrica · Lei 14.300/2022</div>
+      <h1 contenteditable="true" data-ed="docTitulo">Conta de luz mais barata, sem obra e sem susto</h1>
+      <div class="sub" contenteditable="true" data-ed="docSub">Economia por Geração Distribuída · Grupo B (baixa tensão) · Lei 14.300/2022 · ANEEL</div>
     </div>
   </div>
 
   <div class="ident">
     <div class="k">Cliente</div><div class="v"><b contenteditable="true" data-ed="cliente">NOME DO CLIENTE</b></div>
+    <div class="k">CPF / CNPJ</div><div class="v" contenteditable="true" data-ed="doc">—</div>
     <div class="k">Unidades</div><div class="v" contenteditable="true" data-ed="unidades">1 unidade consumidora · CEMIG (MG) · Grupo B</div>
     <div class="k">Modalidade</div><div class="v" contenteditable="true" data-ed="modalidade">Geração Distribuída · compensação de créditos (autoconsumo remoto)</div>
     <div class="k">Proponente</div><div class="v" contenteditable="true" data-ed="proponente">Exa Energia, em parceria com NuCharge</div>
@@ -208,7 +246,7 @@
 
   <div class="destaques">
     <div class="dst"><div class="v"><span data-bind="desc">32</span>% de desconto</div><div class="l" contenteditable="true" data-ed="dst1">sobre a parte de energia</div></div>
-    <div class="dst"><div class="v" contenteditable="true" data-ed="dst2v">Tarifa única</div><div class="l" contenteditable="true" data-ed="dst2">na energia compensada</div></div>
+    <div class="dst"><div class="v" contenteditable="true" data-ed="dst2v">Sem obra</div><div class="l" contenteditable="true" data-ed="dst2">nada muda na sua instalação</div></div>
     <div class="dst"><div class="v" contenteditable="true" data-ed="dst3v">R$ 0</div><div class="l" contenteditable="true" data-ed="dst3">adesão sem custo</div></div>
   </div>
 
@@ -219,35 +257,74 @@
   </section>
 
   <section>
-    <div class="sec-t"><span class="n">02</span><h2 contenteditable="true" data-ed="t2">Como funciona a compensação de energia</h2></div>
-    <p contenteditable="true" data-ed="comoFunciona">As usinas parceiras injetam energia na rede da CEMIG; essa injeção gera créditos em kWh que abatem o consumo faturado das unidades consumidoras, conforme o SCEE (Lei 14.300/2022 e REN ANEEL 1.000/2021).</p>
-    <div class="passos">
-      <div class="passo"><div class="n">1</div><h4 contenteditable="true" data-ed="p1t">Geração</h4><p contenteditable="true" data-ed="p1d">As usinas parceiras injetam energia na rede da CEMIG.</p></div>
-      <div class="passo"><div class="n">2</div><h4 contenteditable="true" data-ed="p2t">Créditos</h4><p contenteditable="true" data-ed="p2d">A energia vira crédito em kWh, alocado às unidades do cliente.</p></div>
-      <div class="passo"><div class="n">3</div><h4 contenteditable="true" data-ed="p3t">Compensação</h4><p contenteditable="true" data-ed="p3d">Os créditos abatem o consumo faturado pela distribuidora.</p></div>
-      <div class="passo"><div class="n">4</div><h4 contenteditable="true" data-ed="p4t">Economia</h4><p contenteditable="true" data-ed="p4d">Sobre a energia compensada, paga-se com o desconto contratado.</p></div>
+    <div class="sec-t"><span class="n">02</span><h2 contenteditable="true" data-ed="t2">Raio-X da sua energia</h2></div>
+
+    <div class="interno">
+      <div class="rot-interno">Painel interno · preencha com a fatura · não sai no PDF</div>
+      <div class="linha">
+        <span><label>Tipo de ligação</label>
+          <select id="cfgLig">
+            <option value="30">Monofásico (mín. 30 kWh)</option>
+            <option value="50">Bifásico (mín. 50 kWh)</option>
+            <option value="100" selected>Trifásico (mín. 100 kWh)</option>
+          </select></span>
+        <span><label>CIP / iluminação pública (R$)</label><input type="text" inputmode="decimal" id="cfgCip" value="0,00"></span>
+        <button class="mini" id="btnExemplo">Preencher exemplo</button>
+        <button class="mini" id="btnLimparHist">Limpar</button>
+      </div>
+      <table class="hist" id="hist">
+        <thead><tr><th>Mês</th><th style="text-align:right">Consumo (kWh)</th><th style="text-align:right">Valor pago (R$)</th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <div class="saida">
+        <span>Média de consumo: <b id="hKwh">—</b></span>
+        <span>Média paga: <b id="hPag">—</b></span>
+        <span>Tarifa implícita: <b id="hTar">—</b></span>
+        <button class="mini aplicar" id="btnAplicar">Aplicar na proposta</button>
+      </div>
+      <div class="form">Meses sem consumo e sem valor são ignorados. Se preencher só um dos lados, o outro é estimado pela tarifa média dos demais meses. Fórmula da economia (planilha Exa): (consumo − mínimo da ligação) × tarifa implícita × (1,015 × desconto − 0,015), onde tarifa implícita = (conta − CIP) ÷ consumo.</div>
+    </div>
+
+    <p contenteditable="true" data-ed="rxIntro">Antes de falar de desconto, olhamos o seu histórico real. Estes números vêm da sua própria fatura — é a sua realidade, não uma média de mercado.</p>
+    <div class="rx">
+      <div class="rxc"><div class="v"><span contenteditable="true" data-ed="rxKwh" id="rxKwh">—</span></div><div class="l">kWh · média mensal</div></div>
+      <div class="rxc"><div class="v"><span contenteditable="true" data-ed="rxPag" id="rxPag">—</span></div><div class="l">Média paga hoje</div></div>
+      <div class="rxc"><div class="v"><span contenteditable="true" data-ed="rxTot" id="rxTot">—</span></div><div class="l">Total no período</div></div>
     </div>
   </section>
 
   <section>
-    <div class="sec-t"><span class="n">03</span><h2 contenteditable="true" data-ed="t3">Condições comerciais</h2></div>
+    <div class="sec-t"><span class="n">03</span><h2 contenteditable="true" data-ed="t3">Como funciona</h2></div>
+    <p contenteditable="true" data-ed="comoFunciona">As usinas parceiras injetam energia na rede da CEMIG; essa injeção gera créditos em kWh que abatem o consumo faturado das unidades consumidoras, conforme o SCEE (Lei 14.300/2022 e REN ANEEL 1.000/2021).</p>
+    <div class="passos">
+      <div class="passo"><div class="n">1</div><h4 contenteditable="true" data-ed="p1t">Adesão digital</h4><p contenteditable="true" data-ed="p1d">Contrato assinado pelo celular, sem burocracia. Nada muda na sua instalação.</p></div>
+      <div class="passo"><div class="n">2</div><h4 contenteditable="true" data-ed="p2t">Créditos na sua UC</h4><p contenteditable="true" data-ed="p2d">As usinas parceiras injetam energia na rede e o crédito em kWh chega à sua unidade.</p></div>
+      <div class="passo"><div class="n">3</div><h4 contenteditable="true" data-ed="p3t">Compensação</h4><p contenteditable="true" data-ed="p3d">Os créditos abatem o consumo faturado; sobre a energia compensada, paga-se com o desconto contratado.</p></div>
+      <div class="passo"><div class="n">4</div><h4 contenteditable="true" data-ed="p4t">Acompanhamento</h4><p contenteditable="true" data-ed="p4d">Pelo painel da Exa você acompanha créditos, consumo e economia acumulada em tempo real.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-t"><span class="n">04</span><h2 contenteditable="true" data-ed="t4">Condições comerciais</h2></div>
     <table class="tcond">
-      <tr><th style="width:130px">Item</th><th>Condição</th></tr>
+      <tr><th style="width:150px">Item</th><th>Condição</th></tr>
       <tr><td>Desconto</td><td contenteditable="true" data-ed="condDesc"><b><span data-bind="desc">32</span>%</b> sobre a tarifa de energia, aplicado sobre toda a energia compensada, em relação à tarifa cheia da CEMIG — sem exceção.</td></tr>
       <tr><td>Fidelidade</td><td contenteditable="true" data-ed="condFid">12 meses, com renovação automática por iguais períodos de 12 meses.</td></tr>
-      <tr><td>Pagamento</td><td contenteditable="true" data-ed="condPag">Cobrança conforme o consumo mensal compensado, via boleto com vencimento todo dia 15.</td></tr>
-      <tr><td>Reajuste</td><td contenteditable="true" data-ed="condRea">Acompanha os reajustes da CEMIG/ANEEL, mantido o percentual de desconto.</td></tr>
+      <tr><td>Pagamento</td><td contenteditable="true" data-ed="condPag">Boleto ou PIX, mensal, conforme o consumo compensado, com vencimento todo dia 15.</td></tr>
+      <tr><td>Reajuste</td><td contenteditable="true" data-ed="condRea">Acompanha os reajustes oficiais da CEMIG/ANEEL, mantido o percentual de desconto. Reajustes da distribuidora são repassados — ninguém controla a tarifa da concessionária.</td></tr>
       <tr><td>Adesão</td><td contenteditable="true" data-ed="condInv">Sem custo. Sem obras, equipamentos ou alteração na instalação.</td></tr>
+      <tr><td>Início dos créditos</td><td contenteditable="true" data-ed="condIni">Em até 40 dias após a adesão.</td></tr>
+      <tr><td>Atendimento</td><td contenteditable="true" data-ed="condAte">WhatsApp direto: (34) 98442-2471.</td></tr>
     </table>
   </section>
 
   <section>
-    <div class="sec-t"><span class="n">04</span><h2 contenteditable="true" data-ed="t4">Unidades e projeção de economia</h2></div>
+    <div class="sec-t"><span class="n">05</span><h2 contenteditable="true" data-ed="t5">Unidades e projeção de economia</h2></div>
 
     <div class="params">
       <span><span class="pl">Desconto:</span> <span class="pv" contenteditable="true" id="cfgDesc">32</span><span class="un">%</span></span>
       <span><span class="pl">Tarifa média:</span> <span class="un">R$</span> <span class="pv" contenteditable="true" id="cfgTarifa">1,19</span><span class="un">/kWh</span></span>
-      <span class="ajuda">Edite o desconto, a tarifa ou o kWh de cada unidade — os valores recalculam sozinhos.</span>
+      <span class="ajuda">Edite o desconto, a tarifa ou o kWh de cada unidade — os valores recalculam pela fórmula da planilha Exa (desconto sobre o consumo acima do mínimo da ligação).</span>
     </div>
 
     <div class="tuc-wrap">
@@ -291,23 +368,28 @@
       <div class="res"><div class="v"><span data-bind="desc">32</span>%</div><div class="l">Desconto</div></div>
     </div>
 
-    <p class="nota" contenteditable="true" data-ed="nota">Tarifa média aplicada: R$ <span data-bind="tarifa">1,19</span>/kWh. Valores estimativos, calculados sobre o consumo médio de 13 meses. O desconto incide só sobre a parte de energia — não inclui componentes não compensáveis (disponibilidade/demanda, iluminação pública e Fio B).</p>
+    <p class="nota" contenteditable="true" data-ed="nota">Tarifa média aplicada: R$ <span data-bind="tarifa">1,19</span>/kWh. Valores estimativos, calculados sobre o consumo médio informado na fatura. O desconto incide só sobre a parte de energia acima do mínimo da ligação — não inclui componentes não compensáveis (disponibilidade/demanda, iluminação pública e Fio B).</p>
   </section>
 
-  <div class="assina">
-    <div class="campo"><b contenteditable="true" data-ed="ass1n">Exa Energia</b><span contenteditable="true" data-ed="ass1c">Proponente</span></div>
-    <div class="campo"><b contenteditable="true" data-ed="ass2n">Cliente</b><span contenteditable="true" data-ed="ass2c">De acordo</span></div>
-  </div>
+  <section class="aceite">
+    <div class="sec-t"><span class="n">06</span><h2 contenteditable="true" data-ed="t6">Aceite da proposta</h2></div>
+    <div class="assina">
+      <div class="campo"><b contenteditable="true" data-ed="ass1n">Nome do cliente</b><span contenteditable="true" data-ed="ass1c">Cliente</span></div>
+      <div class="campo"><b contenteditable="true" data-ed="ass2n">Pablo — Exa Energia</b><span contenteditable="true" data-ed="ass2c">Comercial · (34) 98442-2471</span></div>
+    </div>
+    <div class="localdata" contenteditable="true" data-ed="localdata">Local e data: Uberlândia, ____ / ____ / ________</div>
+  </section>
 
   <div class="rodape">
-    <span contenteditable="true" data-ed="rodEsq">Exa Energia · em parceria com NuCharge · Uberlândia - MG</span>
-    <span contenteditable="true" data-ed="rodDir">contato@exaenergia.com</span>
+    <span contenteditable="true" data-ed="rodEsq">exa energia · exaenergia.com · (34) 98442-2471 · em parceria com NuCharge</span>
+    <span contenteditable="true" data-ed="rodDir">Proposta válida pelo prazo indicado na capa. Valores calculados a partir do histórico informado na fatura do cliente.</span>
   </div>
 
 </div>
 
 <script>
 const LS = "exaPropostaEditavel";
+const MESES = ["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"];
 
 /* ---------- utilidades de número pt-BR ---------- */
 function parseNum(txt){
@@ -318,17 +400,93 @@ function parseNum(txt){
 }
 const fmtInt = n => n.toLocaleString("pt-BR", {maximumFractionDigits:2});
 const fmtBRL = n => n.toLocaleString("pt-BR", {style:"currency", currency:"BRL"});
+const fmtTar = n => n.toLocaleString("pt-BR", {minimumFractionDigits:2, maximumFractionDigits:2});
 
-/* ---------- cálculo ---------- */
+/* ---------- histórico de 12 meses (painel interno) ---------- */
+const histBody = document.querySelector("#hist tbody");
+MESES.forEach(m=>{
+  const tr = document.createElement("tr");
+  tr.innerHTML = `<td>${m}</td>
+    <td><input type="text" inputmode="decimal" data-hkwh placeholder="—"></td>
+    <td><input type="text" inputmode="decimal" data-hval placeholder="—"></td>`;
+  histBody.appendChild(tr);
+});
+
+/* média do histórico: linhas vazias são ignoradas; lado faltante é
+   estimado pela tarifa média (valor − CIP) ÷ kWh dos meses completos */
+function calcHistorico(){
+  const cip = parseNum(document.getElementById("cfgCip").value);
+  const linhas = [...histBody.rows].map(tr=>({
+    kwh: parseNum(tr.querySelector("[data-hkwh]").value),
+    val: parseNum(tr.querySelector("[data-hval]").value)
+  })).filter(l => l.kwh > 0 || l.val > 0);
+
+  const completos = linhas.filter(l => l.kwh > 0 && l.val > 0);
+  let tarMed = 0;
+  if (completos.length){
+    tarMed = completos.reduce((s,l)=> s + (l.val - cip)/l.kwh, 0) / completos.length;
+  }
+  const usaveis = linhas.map(l=>{
+    if (l.kwh > 0 && l.val > 0) return l;
+    if (tarMed <= 0) return null;
+    if (l.kwh > 0) return { kwh:l.kwh, val:l.kwh*tarMed + cip };
+    return { kwh:(l.val - cip)/tarMed, val:l.val };
+  }).filter(Boolean).filter(l => l.kwh > 0);
+
+  if (!usaveis.length) return null;
+  const mKwh = usaveis.reduce((s,l)=>s+l.kwh,0)/usaveis.length;
+  const mVal = usaveis.reduce((s,l)=>s+l.val,0)/usaveis.length;
+  const tot = usaveis.reduce((s,l)=>s+l.val,0);
+  const tarImp = mKwh > 0 ? (mVal - cip)/mKwh : 0;
+  return { mKwh, mVal, tot, tarImp, meses:usaveis.length };
+}
+
+function renderHistorico(){
+  const h = calcHistorico();
+  document.getElementById("hKwh").textContent = h ? fmtInt(Math.round(h.mKwh))+" kWh" : "—";
+  document.getElementById("hPag").textContent = h ? fmtBRL(h.mVal) : "—";
+  document.getElementById("hTar").textContent = h ? "R$ "+fmtTar(h.tarImp)+"/kWh" : "—";
+}
+
+document.getElementById("btnAplicar").addEventListener("click", ()=>{
+  const h = calcHistorico();
+  if (!h){ alert("Preencha ao menos um mês do histórico (kWh e valor)."); return; }
+  document.getElementById("cfgTarifa").textContent = fmtTar(h.tarImp);
+  const kwh1 = document.querySelector("#ucs [data-kwh]");
+  if (kwh1) kwh1.textContent = fmtInt(Math.round(h.mKwh));
+  document.getElementById("rxKwh").textContent = fmtInt(Math.round(h.mKwh));
+  document.getElementById("rxPag").textContent = fmtBRL(h.mVal);
+  document.getElementById("rxTot").textContent = fmtBRL(h.tot) + " · " + h.meses + (h.meses>1?" meses":" mês");
+  calcular(); salvar();
+});
+
+document.getElementById("btnExemplo").addEventListener("click", ()=>{
+  const base = 1500;
+  [...histBody.rows].forEach((tr,i)=>{
+    const varia = [0.94,0.9,0.97,1.0,0.95,1.02,1.05,1.08,1.1,1.06,0.98,1.12][i];
+    const kwh = Math.round(base*varia);
+    tr.querySelector("[data-hkwh]").value = fmtInt(kwh);
+    tr.querySelector("[data-hval]").value = fmtTar(kwh*1.19);
+  });
+  renderHistorico(); salvar();
+});
+document.getElementById("btnLimparHist").addEventListener("click", ()=>{
+  [...histBody.querySelectorAll("input")].forEach(i=> i.value = "");
+  renderHistorico(); salvar();
+});
+
+/* ---------- cálculo das unidades (fórmula da planilha Exa) ---------- */
 function calcular(){
   const desc = parseNum(document.getElementById("cfgDesc").textContent) / 100;
   const tarifa = parseNum(document.getElementById("cfgTarifa").textContent);
+  const minimo = parseNum(document.getElementById("cfgLig").value);
   let tKwh=0, tCusto=0, tCom=0, tEco=0;
 
   document.querySelectorAll("#ucs tr").forEach(tr=>{
     const kwh = parseNum(tr.querySelector("[data-kwh]").textContent);
     const custo = kwh * tarifa;
-    const eco = custo * desc;
+    const base = Math.max(0, kwh - minimo);
+    const eco = Math.max(0, base * tarifa * (1.015*desc - 0.015));
     const com = custo - eco;
     tr.querySelector("[data-custo]").textContent = fmtBRL(custo);
     tr.querySelector("[data-comexa]").textContent = fmtBRL(com);
@@ -381,7 +539,11 @@ document.getElementById("ucs").addEventListener("click", e=>{
 /* ---------- persistência local ---------- */
 function salvar(){
   const dados = { ed:{}, ucs:[], desc:document.getElementById("cfgDesc").textContent,
-                  tarifa:document.getElementById("cfgTarifa").textContent };
+                  tarifa:document.getElementById("cfgTarifa").textContent,
+                  lig:document.getElementById("cfgLig").value,
+                  cip:document.getElementById("cfgCip").value,
+                  hist:[...histBody.rows].map(tr=>[
+                    tr.querySelector("[data-hkwh]").value, tr.querySelector("[data-hval]").value ]) };
   document.querySelectorAll("[data-ed]").forEach(el=>{ dados.ed[el.dataset.ed] = el.innerHTML; });
   document.querySelectorAll("#ucs tr").forEach(tr=>{
     const tds = tr.querySelectorAll("td");
@@ -400,6 +562,12 @@ function restaurar(){
     });
     if (dados.desc) document.getElementById("cfgDesc").textContent = dados.desc;
     if (dados.tarifa) document.getElementById("cfgTarifa").textContent = dados.tarifa;
+    if (dados.lig) document.getElementById("cfgLig").value = dados.lig;
+    if (dados.cip) document.getElementById("cfgCip").value = dados.cip;
+    if (dados.hist) dados.hist.forEach((h,i)=>{
+      const tr = histBody.rows[i];
+      if (tr){ tr.querySelector("[data-hkwh]").value = h[0]||""; tr.querySelector("[data-hval]").value = h[1]||""; }
+    });
     if (dados.ucs && dados.ucs.length){
       const corpo = document.getElementById("ucs");
       corpo.innerHTML = "";
@@ -418,9 +586,11 @@ function restaurar(){
 let timerSalvar = null;
 document.getElementById("folha").addEventListener("input", e=>{
   if (e.target.closest("[data-kwh]") || e.target.id === "cfgDesc" || e.target.id === "cfgTarifa") calcular();
+  if (e.target.closest("#hist") || e.target.id === "cfgCip") renderHistorico();
   clearTimeout(timerSalvar);
   timerSalvar = setTimeout(salvar, 400);
 });
+document.getElementById("cfgLig").addEventListener("change", ()=>{ calcular(); salvar(); });
 
 document.getElementById("btnPrint").addEventListener("click", ()=> window.print());
 document.getElementById("btnReset").addEventListener("click", ()=>{
@@ -439,6 +609,7 @@ document.getElementById("folha").addEventListener("paste", e=>{
 });
 
 restaurar();
+renderHistorico();
 calcular();
 </script>
 </body>
