@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#FFFFFF">
+<title>Exa — Proposta Comercial · Geração Distribuída</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F2F5F3; --paper:#FFFFFF; --line:#E2EAE5; --line2:#CBD8D0;
+    --txt:#13221B; --mut:#5F7168; --verde:#16A34A; --verde-esc:#15803D;
+    --verde-claro:#ECFDF3; --verde-borda:#BBEFCE; --amarelo:#B45309;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{background:var(--bg)}
+  body{background:var(--bg);color:var(--txt);font-family:'Inter',sans-serif;font-size:14px;line-height:1.55}
+  h1,h2,h3,h4{font-family:'Oxanium',sans-serif}
+
+  /* ---------- barra de ferramentas (não imprime) ---------- */
+  .toolbar{position:sticky;top:0;z-index:100;background:var(--paper);border-bottom:1px solid var(--line);
+    padding:10px 18px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .toolbar .tlogo{font-family:'Oxanium';font-weight:700;font-size:17px;color:var(--verde-esc);letter-spacing:1px}
+  .toolbar .dica{color:var(--mut);font-size:12px;margin-right:auto}
+  .tbtn{border:1px solid var(--line2);background:var(--paper);color:var(--txt);border-radius:6px;
+    padding:8px 14px;cursor:pointer;font-weight:600;font-size:12px;font-family:'Inter'}
+  .tbtn:hover{border-color:var(--verde)}
+  .tbtn.primario{background:var(--verde-esc);border-color:var(--verde-esc);color:#fff;font-family:'Oxanium';font-weight:700}
+  .tbtn.primario:hover{background:var(--verde)}
+
+  /* ---------- folha ---------- */
+  .folha{max-width:860px;margin:24px auto 60px;background:var(--paper);border:1px solid var(--line);
+    border-radius:10px;padding:48px 56px;box-shadow:0 2px 14px rgba(19,34,27,.06)}
+
+  /* campos editáveis */
+  [contenteditable]{outline:none;border-radius:3px;transition:background .12s}
+  [contenteditable]:hover{background:#F4FBF6;box-shadow:0 0 0 1px var(--verde-borda)}
+  [contenteditable]:focus{background:#F0FAF4;box-shadow:0 0 0 2px var(--verde)}
+
+  /* cabeçalho da proposta */
+  .cab{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;
+    border-bottom:3px solid var(--verde-esc);padding-bottom:18px;margin-bottom:22px}
+  .cab .logo{font-family:'Oxanium';font-weight:700;font-size:34px;color:var(--verde-esc);letter-spacing:2px;line-height:1}
+  .cab .logo small{display:block;font-size:12px;letter-spacing:.5px;color:var(--mut);font-family:'Inter';font-weight:500;margin-top:4px}
+  .cab .doc{text-align:right}
+  .cab .doc .t{font-family:'Oxanium';font-weight:700;font-size:19px;color:var(--txt)}
+  .cab .doc .s{color:var(--mut);font-size:12px;margin-top:2px}
+
+  /* bloco de identificação */
+  .ident{display:grid;grid-template-columns:130px 1fr;border:1px solid var(--line);border-radius:8px;
+    overflow:hidden;margin-bottom:22px;font-size:13px}
+  .ident>div{padding:9px 14px;border-bottom:1px solid var(--line)}
+  .ident>div:nth-last-child(-n+2){border-bottom:none}
+  .ident .k{background:#F7FAF8;color:var(--mut);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.5px;display:flex;align-items:center}
+  .ident .v b{color:var(--verde-esc)}
+
+  /* destaques */
+  .destaques{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:26px}
+  .dst{background:var(--verde-claro);border:1px solid var(--verde-borda);border-radius:8px;padding:16px 14px;text-align:center}
+  .dst .v{font-family:'Oxanium';font-weight:700;font-size:24px;color:var(--verde-esc)}
+  .dst .l{color:var(--mut);font-size:12px;margin-top:3px}
+
+  /* seções */
+  section{margin-bottom:26px}
+  section h2{font-size:16px;color:var(--verde-esc);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+  section p{font-size:13.5px;margin-bottom:8px}
+  section p b{color:var(--verde-esc)}
+
+  /* passos "como funciona" */
+  .passos{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}
+  .passo{border:1px solid var(--line);border-radius:8px;padding:12px}
+  .passo .n{font-family:'Oxanium';font-weight:700;font-size:15px;color:#fff;background:var(--verde-esc);
+    width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:8px}
+  .passo h4{font-size:13px;margin-bottom:4px}
+  .passo p{font-size:12px;color:var(--mut);margin:0}
+
+  /* tabelas */
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th{background:#F7FAF8;color:var(--mut);font-weight:600;font-size:11px;text-transform:uppercase;
+    letter-spacing:.5px;text-align:left;padding:8px 10px;border-bottom:2px solid var(--line2)}
+  td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  .tcond td:first-child{font-weight:600;color:var(--verde-esc);white-space:nowrap;width:120px}
+
+  /* tabela de unidades */
+  .tuc th.num,.tuc td.num{text-align:right;white-space:nowrap}
+  .tuc td.auto{color:var(--txt)}
+  .tuc td.eco{color:var(--verde-esc);font-weight:600}
+  .tuc tr.total td{background:#F7FAF8;font-weight:700;border-top:2px solid var(--line2);border-bottom:none}
+  .tuc tr.total td.eco{color:var(--verde-esc)}
+  .tuc .del{border:none;background:none;color:#C2410C;cursor:pointer;font-size:14px;line-height:1;
+    padding:2px 6px;border-radius:4px;opacity:0;transition:opacity .12s}
+  .tuc tr:hover .del{opacity:1}
+  .tuc .del:hover{background:#FEF2F2}
+  .addrow{margin-top:8px;border:1px dashed var(--line2);background:none;color:var(--mut);border-radius:6px;
+    padding:7px 14px;cursor:pointer;font-size:12px;font-weight:600;font-family:'Inter'}
+  .addrow:hover{border-color:var(--verde);color:var(--verde-esc)}
+
+  /* resumo financeiro */
+  .resumo{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+  .res{border:1px solid var(--verde-borda);background:var(--verde-claro);border-radius:8px;padding:16px 14px;text-align:center}
+  .res .v{font-family:'Oxanium';font-weight:700;font-size:22px;color:var(--verde-esc)}
+  .res .l{color:var(--mut);font-size:11px;text-transform:uppercase;letter-spacing:.5px;margin-top:4px}
+
+  .nota{color:var(--mut);font-size:11.5px;margin-top:12px}
+
+  /* parâmetros de cálculo */
+  .params{display:flex;gap:18px;flex-wrap:wrap;background:#F7FAF8;border:1px solid var(--line);
+    border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:12.5px;align-items:center}
+  .params .pl{color:var(--mut);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.5px}
+  .params .pv{font-family:'Oxanium';font-weight:700;color:var(--verde-esc);font-size:15px;padding:1px 6px}
+
+  /* rodapé */
+  .rodape{border-top:1px solid var(--line);margin-top:30px;padding-top:14px;display:flex;
+    justify-content:space-between;gap:12px;color:var(--mut);font-size:11.5px;flex-wrap:wrap}
+  .assina{margin-top:34px;display:grid;grid-template-columns:1fr 1fr;gap:40px}
+  .assina .campo{border-top:1px solid var(--txt);padding-top:6px;font-size:12px;text-align:center;color:var(--mut)}
+  .assina .campo b{display:block;color:var(--txt);font-size:13px}
+
+  @media(max-width:720px){
+    .folha{padding:24px 18px;margin:12px 8px 40px}
+    .destaques,.passos,.resumo{grid-template-columns:1fr}
+    .cab{flex-direction:column}
+    .cab .doc{text-align:left}
+    .ident{grid-template-columns:1fr}
+    .ident .k{border-bottom:none;padding-bottom:2px}
+    .tuc-wrap{overflow-x:auto}
+  }
+
+  /* ---------- impressão / PDF ---------- */
+  @media print{
+    @page{size:A4;margin:14mm 12mm}
+    html,body{background:#fff}
+    .toolbar,.addrow,.tuc .del{display:none !important}
+    .folha{max-width:none;margin:0;border:none;border-radius:0;box-shadow:none;padding:0}
+    [contenteditable]:hover,[contenteditable]:focus{background:none;box-shadow:none}
+    section,.destaques,.resumo,.ident,.assina{break-inside:avoid}
+    .tuc tr{break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <span class="tlogo">EXA</span>
+  <span class="dica">Clique em qualquer texto para editar · as alterações ficam salvas neste navegador</span>
+  <button class="tbtn" id="btnReset">Restaurar padrão</button>
+  <button class="tbtn primario" id="btnPrint">Imprimir / Salvar PDF</button>
+</div>
+
+<div class="folha" id="folha">
+
+  <div class="cab">
+    <div class="logo">EXA<small contenteditable="true" data-ed="logoSub">Energia por Geração Distribuída</small></div>
+    <div class="doc">
+      <div class="t" contenteditable="true" data-ed="docTitulo">PROPOSTA COMERCIAL</div>
+      <div class="s" contenteditable="true" data-ed="docSub">Economia em energia elétrica por Geração Distribuída — Grupo B (baixa tensão)</div>
+    </div>
+  </div>
+
+  <div class="ident">
+    <div class="k">Cliente</div><div class="v"><b contenteditable="true" data-ed="cliente">NOME DO CLIENTE</b></div>
+    <div class="k">Unidades</div><div class="v" contenteditable="true" data-ed="unidades">1 unidade consumidora · CEMIG (MG) · Grupo B</div>
+    <div class="k">Modalidade</div><div class="v" contenteditable="true" data-ed="modalidade">Geração Distribuída · compensação de créditos (autoconsumo remoto)</div>
+    <div class="k">Proponente</div><div class="v" contenteditable="true" data-ed="proponente">Exa Energia</div>
+    <div class="k">Data</div><div class="v" contenteditable="true" data-ed="dataProp">Validade: 15 dias</div>
+  </div>
+
+  <div class="destaques">
+    <div class="dst"><div class="v"><span data-bind="desc">32</span>% de desconto</div><div class="l" contenteditable="true" data-ed="dst1">na tarifa de energia</div></div>
+    <div class="dst"><div class="v" contenteditable="true" data-ed="dst2v">Tarifa única</div><div class="l" contenteditable="true" data-ed="dst2">energia compensada</div></div>
+    <div class="dst"><div class="v" contenteditable="true" data-ed="dst3v">R$ 0</div><div class="l" contenteditable="true" data-ed="dst3">de investimento</div></div>
+  </div>
+
+  <section>
+    <h2>1. Apresentação</h2>
+    <p contenteditable="true" data-ed="apresentacao">A <b>Exa Energia</b> aloca créditos de geração distribuída às unidades do cliente pelo Sistema de Compensação de Energia Elétrica (SCEE), gerando economia direta de <b>32%</b> sobre a tarifa de energia hoje paga à distribuidora, <b>sem qualquer investimento</b>, obra ou alteração na instalação elétrica.</p>
+  </section>
+
+  <section>
+    <h2>2. Como funciona a compensação de energia</h2>
+    <p contenteditable="true" data-ed="comoFunciona">A Exa injeta energia na rede da CEMIG; essa injeção gera créditos em kWh que abatem o consumo faturado das unidades consumidoras, conforme o SCEE (Lei 14.300/2022 e REN ANEEL 1.000/2021).</p>
+    <div class="passos">
+      <div class="passo"><div class="n">1</div><h4 contenteditable="true" data-ed="p1t">Geração</h4><p contenteditable="true" data-ed="p1d">As usinas parceiras da Exa injetam energia na rede da CEMIG.</p></div>
+      <div class="passo"><div class="n">2</div><h4 contenteditable="true" data-ed="p2t">Créditos</h4><p contenteditable="true" data-ed="p2d">A energia vira crédito em kWh, alocado às UCs do cliente.</p></div>
+      <div class="passo"><div class="n">3</div><h4 contenteditable="true" data-ed="p3t">Compensação</h4><p contenteditable="true" data-ed="p3d">Os créditos abatem o consumo faturado pela distribuidora.</p></div>
+      <div class="passo"><div class="n">4</div><h4 contenteditable="true" data-ed="p4t">Economia</h4><p contenteditable="true" data-ed="p4d">Sobre a energia compensada, paga-se à Exa com o desconto contratado.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>3. Condições comerciais</h2>
+    <table class="tcond">
+      <tr><th style="width:120px">Item</th><th>Condição</th></tr>
+      <tr><td>Desconto</td><td contenteditable="true" data-ed="condDesc"><b><span data-bind="desc">32</span>%</b> sobre a tarifa de energia, aplicado sobre toda a energia compensada, em relação à tarifa cheia da CEMIG — sem exceção.</td></tr>
+      <tr><td>Fidelidade</td><td contenteditable="true" data-ed="condFid">12 meses, com renovação automática por iguais períodos de 12 meses.</td></tr>
+      <tr><td>Pagamento</td><td contenteditable="true" data-ed="condPag">Cobrança conforme o consumo mensal compensado, via boleto com vencimento todo dia 15.</td></tr>
+      <tr><td>Reajuste</td><td contenteditable="true" data-ed="condRea">Acompanha os reajustes da CEMIG/ANEEL, mantido o percentual de desconto.</td></tr>
+      <tr><td>Investimento</td><td contenteditable="true" data-ed="condInv">Zero. Sem obras, equipamentos ou alteração na instalação.</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>4. Unidades e projeção de economia</h2>
+
+    <div class="params">
+      <span><span class="pl">Desconto:</span> <span class="pv" contenteditable="true" id="cfgDesc">32</span><b style="color:var(--verde-esc)">%</b></span>
+      <span><span class="pl">Tarifa média:</span> <b style="color:var(--verde-esc)">R$</b> <span class="pv" contenteditable="true" id="cfgTarifa">1,19</span><b style="color:var(--verde-esc)">/kWh</b></span>
+      <span class="pl" style="font-weight:400;text-transform:none;letter-spacing:0">Edite o desconto, a tarifa ou o kWh de cada unidade — os valores recalculam sozinhos.</span>
+    </div>
+
+    <div class="tuc-wrap">
+    <table class="tuc">
+      <thead>
+        <tr>
+          <th>Titular</th><th>UC</th><th>Local</th>
+          <th class="num">kWh/mês</th><th class="num">Custo atual</th>
+          <th class="num">Com a Exa</th><th class="num">Economia/mês</th><th></th>
+        </tr>
+      </thead>
+      <tbody id="ucs">
+        <tr>
+          <td contenteditable="true">NOME DO CLIENTE</td>
+          <td contenteditable="true">0.000.000.000-0 / 1</td>
+          <td contenteditable="true">Uberlândia - MG</td>
+          <td class="num" contenteditable="true" data-kwh>31.040</td>
+          <td class="num auto" data-custo>—</td>
+          <td class="num auto" data-comexa>—</td>
+          <td class="num eco" data-eco>—</td>
+          <td><button class="del" title="Remover unidade">×</button></td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr class="total">
+          <td colspan="3">TOTAL DO PORTFÓLIO</td>
+          <td class="num" id="totKwh">—</td>
+          <td class="num" id="totCusto">—</td>
+          <td class="num" id="totComExa">—</td>
+          <td class="num eco" id="totEco">—</td>
+          <td></td>
+        </tr>
+      </tfoot>
+    </table>
+    </div>
+    <button class="addrow" id="btnAddUc">+ Adicionar unidade consumidora</button>
+
+    <div class="resumo">
+      <div class="res"><div class="v" id="resMes">—</div><div class="l">Economia mensal</div></div>
+      <div class="res"><div class="v" id="resAno">—</div><div class="l">Economia anual</div></div>
+      <div class="res"><div class="v"><span data-bind="desc">32</span>%</div><div class="l">Desconto</div></div>
+    </div>
+
+    <p class="nota" contenteditable="true" data-ed="nota">Tarifa média aplicada: R$ <span data-bind="tarifa">1,19</span>/kWh. Valores estimativos, calculados sobre o consumo médio de 13 meses. Não inclui componentes não compensáveis (disponibilidade/demanda, iluminação pública e Fio B).</p>
+  </section>
+
+  <div class="assina">
+    <div class="campo"><b contenteditable="true" data-ed="ass1n">Exa Energia</b><span contenteditable="true" data-ed="ass1c">Proponente</span></div>
+    <div class="campo"><b contenteditable="true" data-ed="ass2n">Cliente</b><span contenteditable="true" data-ed="ass2c">De acordo</span></div>
+  </div>
+
+  <div class="rodape">
+    <span contenteditable="true" data-ed="rodEsq">Exa Energia · Energia por Geração Distribuída · Uberlândia - MG</span>
+    <span contenteditable="true" data-ed="rodDir">contato@exaenergia.com</span>
+  </div>
+
+</div>
+
+<script>
+const LS = "exaPropostaEditavel";
+
+/* ---------- utilidades de número pt-BR ---------- */
+function parseNum(txt){
+  if (txt == null) return 0;
+  const limpo = String(txt).replace(/[^\d.,-]/g,"").replace(/\./g,"").replace(",",".");
+  const n = parseFloat(limpo);
+  return isNaN(n) ? 0 : n;
+}
+const fmtInt = n => n.toLocaleString("pt-BR", {maximumFractionDigits:2});
+const fmtBRL = n => n.toLocaleString("pt-BR", {style:"currency", currency:"BRL"});
+
+/* ---------- cálculo ---------- */
+function calcular(){
+  const desc = parseNum(document.getElementById("cfgDesc").textContent) / 100;
+  const tarifa = parseNum(document.getElementById("cfgTarifa").textContent);
+  let tKwh=0, tCusto=0, tCom=0, tEco=0;
+
+  document.querySelectorAll("#ucs tr").forEach(tr=>{
+    const kwh = parseNum(tr.querySelector("[data-kwh]").textContent);
+    const custo = kwh * tarifa;
+    const eco = custo * desc;
+    const com = custo - eco;
+    tr.querySelector("[data-custo]").textContent = fmtBRL(custo);
+    tr.querySelector("[data-comexa]").textContent = fmtBRL(com);
+    tr.querySelector("[data-eco]").textContent = fmtBRL(eco);
+    tKwh+=kwh; tCusto+=custo; tCom+=com; tEco+=eco;
+  });
+
+  document.getElementById("totKwh").textContent = fmtInt(tKwh);
+  document.getElementById("totCusto").textContent = fmtBRL(tCusto);
+  document.getElementById("totComExa").textContent = fmtBRL(tCom);
+  document.getElementById("totEco").textContent = fmtBRL(tEco);
+  document.getElementById("resMes").textContent = fmtBRL(tEco);
+  document.getElementById("resAno").textContent = fmtBRL(tEco*12);
+
+  document.querySelectorAll('[data-bind="desc"]').forEach(el=>{
+    el.textContent = document.getElementById("cfgDesc").textContent.trim();
+  });
+  document.querySelectorAll('[data-bind="tarifa"]').forEach(el=>{
+    el.textContent = document.getElementById("cfgTarifa").textContent.trim();
+  });
+}
+
+/* ---------- unidades: adicionar / remover ---------- */
+function novaLinha(){
+  const tr = document.createElement("tr");
+  tr.innerHTML = `
+    <td contenteditable="true">Titular</td>
+    <td contenteditable="true">0.000.000.000-0 / 1</td>
+    <td contenteditable="true">Uberlândia - MG</td>
+    <td class="num" contenteditable="true" data-kwh>1.000</td>
+    <td class="num auto" data-custo>—</td>
+    <td class="num auto" data-comexa>—</td>
+    <td class="num eco" data-eco>—</td>
+    <td><button class="del" title="Remover unidade">×</button></td>`;
+  return tr;
+}
+document.getElementById("btnAddUc").addEventListener("click", ()=>{
+  document.getElementById("ucs").appendChild(novaLinha());
+  calcular(); salvar();
+});
+document.getElementById("ucs").addEventListener("click", e=>{
+  const b = e.target.closest(".del");
+  if (!b) return;
+  const corpo = document.getElementById("ucs");
+  if (corpo.rows.length <= 1) { alert("A proposta precisa de pelo menos uma unidade."); return; }
+  b.closest("tr").remove();
+  calcular(); salvar();
+});
+
+/* ---------- persistência local ---------- */
+function salvar(){
+  const dados = { ed:{}, ucs:[], desc:document.getElementById("cfgDesc").textContent,
+                  tarifa:document.getElementById("cfgTarifa").textContent };
+  document.querySelectorAll("[data-ed]").forEach(el=>{ dados.ed[el.dataset.ed] = el.innerHTML; });
+  document.querySelectorAll("#ucs tr").forEach(tr=>{
+    const tds = tr.querySelectorAll("td");
+    dados.ucs.push({ titular:tds[0].innerHTML, uc:tds[1].innerHTML, local:tds[2].innerHTML, kwh:tds[3].innerHTML });
+  });
+  localStorage.setItem(LS, JSON.stringify(dados));
+}
+
+function restaurar(){
+  const raw = localStorage.getItem(LS);
+  if (!raw) return;
+  try{
+    const dados = JSON.parse(raw);
+    document.querySelectorAll("[data-ed]").forEach(el=>{
+      if (dados.ed && dados.ed[el.dataset.ed] != null) el.innerHTML = dados.ed[el.dataset.ed];
+    });
+    if (dados.desc) document.getElementById("cfgDesc").textContent = dados.desc;
+    if (dados.tarifa) document.getElementById("cfgTarifa").textContent = dados.tarifa;
+    if (dados.ucs && dados.ucs.length){
+      const corpo = document.getElementById("ucs");
+      corpo.innerHTML = "";
+      dados.ucs.forEach(u=>{
+        const tr = novaLinha();
+        const tds = tr.querySelectorAll("td");
+        tds[0].innerHTML = u.titular; tds[1].innerHTML = u.uc;
+        tds[2].innerHTML = u.local; tds[3].innerHTML = u.kwh;
+        corpo.appendChild(tr);
+      });
+    }
+  }catch(e){ /* dados corrompidos: ignora e usa o padrão */ }
+}
+
+/* ---------- eventos ---------- */
+let timerSalvar = null;
+document.getElementById("folha").addEventListener("input", e=>{
+  if (e.target.closest("[data-kwh]") || e.target.id === "cfgDesc" || e.target.id === "cfgTarifa") calcular();
+  clearTimeout(timerSalvar);
+  timerSalvar = setTimeout(salvar, 400);
+});
+
+document.getElementById("btnPrint").addEventListener("click", ()=> window.print());
+document.getElementById("btnReset").addEventListener("click", ()=>{
+  if (confirm("Descartar todas as edições e voltar ao modelo padrão?")){
+    localStorage.removeItem(LS);
+    location.reload();
+  }
+});
+
+/* colar sempre como texto puro, sem formatação externa */
+document.getElementById("folha").addEventListener("paste", e=>{
+  if (!e.target.closest("[contenteditable]")) return;
+  e.preventDefault();
+  const txt = (e.clipboardData || window.clipboardData).getData("text/plain");
+  document.execCommand("insertText", false, txt);
+});
+
+restaurar();
+calcular();
+</script>
+</body>
+</html>
