@@ -3,125 +3,144 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#FFFFFF">
-<title>Exa — Proposta Comercial · Geração Distribuída</title>
+<meta name="theme-color" content="#FAFAFA">
+<title>Exa Energia — Proposta Comercial · Geração Distribuída</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
+  /* Paleta oficial Exa (manual v1.0) — verde é a única cor de marca;
+     preto/cinza/branco pra todo o resto. Amarelo só como destaque pontual. */
   :root{
-    --bg:#F2F5F3; --paper:#FFFFFF; --line:#E2EAE5; --line2:#CBD8D0;
-    --txt:#13221B; --mut:#5F7168; --verde:#16A34A; --verde-esc:#15803D;
-    --verde-claro:#ECFDF3; --verde-borda:#BBEFCE; --amarelo:#B45309;
+    --verde:#22C55E; --verde-hover:#16A34A; --verde-claro:#86EFAC; --verde-profundo:#052E13;
+    --preto:#0A0A0C; --branco:#FAFAFA; --papel:#FFFFFF;
+    --cinza-txt:#71717A; --cinza-sutil:#A1A1AA;
+    --borda:#E4E4E7; --fundo-suave:#F4F4F5;
   }
   *{margin:0;padding:0;box-sizing:border-box}
-  html{background:var(--bg)}
-  body{background:var(--bg);color:var(--txt);font-family:'Inter',sans-serif;font-size:14px;line-height:1.55}
+  html{background:var(--branco)}
+  body{background:var(--branco);color:var(--preto);font-family:'Inter',sans-serif;font-size:14px;line-height:1.55}
   h1,h2,h3,h4{font-family:'Oxanium',sans-serif}
+  .num{font-family:'Oxanium',sans-serif}
 
   /* ---------- barra de ferramentas (não imprime) ---------- */
-  .toolbar{position:sticky;top:0;z-index:100;background:var(--paper);border-bottom:1px solid var(--line);
+  .toolbar{position:sticky;top:0;z-index:100;background:var(--papel);border-bottom:1px solid var(--borda);
     padding:10px 18px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-  .toolbar .tlogo{font-family:'Oxanium';font-weight:700;font-size:17px;color:var(--verde-esc);letter-spacing:1px}
-  .toolbar .dica{color:var(--mut);font-size:12px;margin-right:auto}
-  .tbtn{border:1px solid var(--line2);background:var(--paper);color:var(--txt);border-radius:6px;
-    padding:8px 14px;cursor:pointer;font-weight:600;font-size:12px;font-family:'Inter'}
-  .tbtn:hover{border-color:var(--verde)}
-  .tbtn.primario{background:var(--verde-esc);border-color:var(--verde-esc);color:#fff;font-family:'Oxanium';font-weight:700}
-  .tbtn.primario:hover{background:var(--verde)}
+  .toolbar .dica{color:var(--cinza-txt);font-size:12px;margin-right:auto}
+  .tbtn{border:1px solid var(--borda);background:var(--papel);color:var(--preto);border-radius:8px;
+    padding:9px 16px;cursor:pointer;font-weight:600;font-size:12px;font-family:'Oxanium';letter-spacing:.3px}
+  .tbtn:hover{border-color:var(--cinza-sutil)}
+  .tbtn.primario{background:var(--verde);border-color:var(--verde);color:var(--verde-profundo);font-weight:700}
+  .tbtn.primario:hover{background:var(--verde-hover)}
 
   /* ---------- folha ---------- */
-  .folha{max-width:860px;margin:24px auto 60px;background:var(--paper);border:1px solid var(--line);
-    border-radius:10px;padding:48px 56px;box-shadow:0 2px 14px rgba(19,34,27,.06)}
+  .folha{max-width:860px;margin:24px auto 60px;background:var(--papel);border:1px solid var(--borda);
+    border-radius:12px;padding:48px 56px;box-shadow:0 2px 14px rgba(10,10,12,.06)}
 
   /* campos editáveis */
   [contenteditable]{outline:none;border-radius:3px;transition:background .12s}
-  [contenteditable]:hover{background:#F4FBF6;box-shadow:0 0 0 1px var(--verde-borda)}
-  [contenteditable]:focus{background:#F0FAF4;box-shadow:0 0 0 2px var(--verde)}
+  [contenteditable]:hover{background:var(--fundo-suave);box-shadow:0 0 0 1px var(--borda)}
+  [contenteditable]:focus{background:var(--fundo-suave);box-shadow:0 0 0 2px var(--verde)}
 
-  /* cabeçalho da proposta */
-  .cab{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;
-    border-bottom:3px solid var(--verde-esc);padding-bottom:18px;margin-bottom:22px}
-  .cab .logo{font-family:'Oxanium';font-weight:700;font-size:34px;color:var(--verde-esc);letter-spacing:2px;line-height:1}
-  .cab .logo small{display:block;font-size:12px;letter-spacing:.5px;color:var(--mut);font-family:'Inter';font-weight:500;margin-top:4px}
-  .cab .doc{text-align:right}
-  .cab .doc .t{font-family:'Oxanium';font-weight:700;font-size:19px;color:var(--txt)}
-  .cab .doc .s{color:var(--mut);font-size:12px;margin-top:2px}
+  /* kicker — CAPS só aqui e em botões (regra tipográfica do manual) */
+  .kicker{font-family:'Oxanium';font-weight:600;font-size:11px;letter-spacing:2px;
+    text-transform:uppercase;color:var(--verde-hover)}
+
+  /* cabeçalho com as duas marcas */
+  .cab{border-bottom:1px solid var(--borda);padding-bottom:20px;margin-bottom:24px}
+  .cab .marcas{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+  .logo-exa{display:flex;align-items:center;gap:10px}
+  .logo-exa svg{width:40px;height:40px;flex:none}
+  .logo-exa .nome{font-family:'Inter';font-weight:700;font-size:24px;letter-spacing:-.5px;color:var(--preto)}
+  .parceria{display:flex;align-items:center;gap:12px}
+  .parceria .rot{font-family:'Oxanium';font-weight:600;font-size:10px;letter-spacing:1.5px;
+    text-transform:uppercase;color:var(--cinza-sutil);text-align:right}
+  .parceria img{height:26px;width:auto;display:block}
+  .cab .doc h1{font-size:26px;font-weight:700;line-height:1.15}
+  .cab .doc .sub{color:var(--cinza-txt);font-size:13.5px;margin-top:4px}
 
   /* bloco de identificação */
-  .ident{display:grid;grid-template-columns:130px 1fr;border:1px solid var(--line);border-radius:8px;
+  .ident{display:grid;grid-template-columns:140px 1fr;border:1px solid var(--borda);border-radius:10px;
     overflow:hidden;margin-bottom:22px;font-size:13px}
-  .ident>div{padding:9px 14px;border-bottom:1px solid var(--line)}
+  .ident>div{padding:10px 14px;border-bottom:1px solid var(--borda)}
   .ident>div:nth-last-child(-n+2){border-bottom:none}
-  .ident .k{background:#F7FAF8;color:var(--mut);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.5px;display:flex;align-items:center}
-  .ident .v b{color:var(--verde-esc)}
+  .ident .k{background:var(--fundo-suave);display:flex;align-items:center;
+    font-family:'Oxanium';font-weight:600;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--cinza-txt)}
+  .ident .v b{font-weight:700}
 
-  /* destaques */
-  .destaques{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:26px}
-  .dst{background:var(--verde-claro);border:1px solid var(--verde-borda);border-radius:8px;padding:16px 14px;text-align:center}
-  .dst .v{font-family:'Oxanium';font-weight:700;font-size:24px;color:var(--verde-esc)}
-  .dst .l{color:var(--mut);font-size:12px;margin-top:3px}
+  /* destaques — verde com Verde Profundo por cima (contraste AA+ do manual) */
+  .destaques{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:28px}
+  .dst{background:var(--verde);border-radius:10px;padding:18px 14px;text-align:center;color:var(--verde-profundo)}
+  .dst .v{font-family:'Oxanium';font-weight:700;font-size:24px}
+  .dst .l{font-size:12px;margin-top:3px;font-weight:500}
 
   /* seções */
-  section{margin-bottom:26px}
-  section h2{font-size:16px;color:var(--verde-esc);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--line)}
-  section p{font-size:13.5px;margin-bottom:8px}
-  section p b{color:var(--verde-esc)}
+  section{margin-bottom:28px}
+  section .sec-t{display:flex;align-items:baseline;gap:10px;margin-bottom:12px;
+    padding-bottom:8px;border-bottom:1px solid var(--borda)}
+  section .sec-t .n{font-family:'Oxanium';font-weight:700;font-size:14px;color:var(--verde-hover)}
+  section h2{font-size:17px;font-weight:700}
+  section p{font-size:13.5px;margin-bottom:8px;color:var(--preto)}
+  section p b{font-weight:700}
+  .obj{color:var(--cinza-txt);font-size:12.5px}
 
   /* passos "como funciona" */
   .passos{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}
-  .passo{border:1px solid var(--line);border-radius:8px;padding:12px}
-  .passo .n{font-family:'Oxanium';font-weight:700;font-size:15px;color:#fff;background:var(--verde-esc);
-    width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:8px}
-  .passo h4{font-size:13px;margin-bottom:4px}
-  .passo p{font-size:12px;color:var(--mut);margin:0}
+  .passo{border:1px solid var(--borda);border-radius:10px;padding:14px 12px;background:var(--papel)}
+  .passo .n{font-family:'Oxanium';font-weight:700;font-size:14px;color:var(--verde-profundo);background:var(--verde);
+    width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:10px}
+  .passo h4{font-size:13px;font-weight:700;margin-bottom:4px}
+  .passo p{font-size:12px;color:var(--cinza-txt);margin:0}
 
   /* tabelas */
   table{width:100%;border-collapse:collapse;font-size:13px}
-  th{background:#F7FAF8;color:var(--mut);font-weight:600;font-size:11px;text-transform:uppercase;
-    letter-spacing:.5px;text-align:left;padding:8px 10px;border-bottom:2px solid var(--line2)}
-  td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
-  .tcond td:first-child{font-weight:600;color:var(--verde-esc);white-space:nowrap;width:120px}
+  th{background:var(--fundo-suave);color:var(--cinza-txt);font-family:'Oxanium';font-weight:600;font-size:10px;
+    letter-spacing:1.2px;text-transform:uppercase;text-align:left;padding:9px 10px;border-bottom:1px solid var(--borda)}
+  td{padding:10px;border-bottom:1px solid var(--borda);vertical-align:top}
+  .tcond td:first-child{font-family:'Oxanium';font-weight:600;font-size:12px;white-space:nowrap;width:130px}
 
   /* tabela de unidades */
   .tuc th.num,.tuc td.num{text-align:right;white-space:nowrap}
-  .tuc td.auto{color:var(--txt)}
-  .tuc td.eco{color:var(--verde-esc);font-weight:600}
-  .tuc tr.total td{background:#F7FAF8;font-weight:700;border-top:2px solid var(--line2);border-bottom:none}
-  .tuc tr.total td.eco{color:var(--verde-esc)}
-  .tuc .del{border:none;background:none;color:#C2410C;cursor:pointer;font-size:14px;line-height:1;
+  .tuc td.num{font-family:'Oxanium';font-weight:600;font-size:12.5px}
+  .tuc td.eco{color:var(--verde-hover);font-weight:700}
+  .tuc tr.total td{background:var(--fundo-suave);font-weight:700;border-top:2px solid var(--preto);border-bottom:none}
+  .tuc tr.total td.eco{color:var(--verde-hover)}
+  .tuc .del{border:none;background:none;color:var(--cinza-sutil);cursor:pointer;font-size:15px;line-height:1;
     padding:2px 6px;border-radius:4px;opacity:0;transition:opacity .12s}
   .tuc tr:hover .del{opacity:1}
-  .tuc .del:hover{background:#FEF2F2}
-  .addrow{margin-top:8px;border:1px dashed var(--line2);background:none;color:var(--mut);border-radius:6px;
-    padding:7px 14px;cursor:pointer;font-size:12px;font-weight:600;font-family:'Inter'}
-  .addrow:hover{border-color:var(--verde);color:var(--verde-esc)}
+  .tuc .del:hover{color:var(--preto);background:var(--fundo-suave)}
+  .addrow{margin-top:8px;border:1px dashed var(--borda);background:none;color:var(--cinza-txt);border-radius:8px;
+    padding:8px 14px;cursor:pointer;font-size:12px;font-weight:600;font-family:'Oxanium';letter-spacing:.3px}
+  .addrow:hover{border-color:var(--verde);color:var(--verde-hover)}
 
   /* resumo financeiro */
   .resumo{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
-  .res{border:1px solid var(--verde-borda);background:var(--verde-claro);border-radius:8px;padding:16px 14px;text-align:center}
-  .res .v{font-family:'Oxanium';font-weight:700;font-size:22px;color:var(--verde-esc)}
-  .res .l{color:var(--mut);font-size:11px;text-transform:uppercase;letter-spacing:.5px;margin-top:4px}
+  .res{border-radius:10px;padding:18px 14px;text-align:center;background:var(--preto);color:var(--branco)}
+  .res .v{font-family:'Oxanium';font-weight:700;font-size:22px;color:var(--verde)}
+  .res .l{color:var(--cinza-sutil);font-family:'Oxanium';font-weight:600;font-size:10px;
+    letter-spacing:1.5px;text-transform:uppercase;margin-top:5px}
 
-  .nota{color:var(--mut);font-size:11.5px;margin-top:12px}
+  .nota{color:var(--cinza-sutil);font-size:11.5px;margin-top:12px}
 
   /* parâmetros de cálculo */
-  .params{display:flex;gap:18px;flex-wrap:wrap;background:#F7FAF8;border:1px solid var(--line);
-    border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:12.5px;align-items:center}
-  .params .pl{color:var(--mut);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.5px}
-  .params .pv{font-family:'Oxanium';font-weight:700;color:var(--verde-esc);font-size:15px;padding:1px 6px}
+  .params{display:flex;gap:18px;flex-wrap:wrap;background:var(--fundo-suave);border:1px solid var(--borda);
+    border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:12.5px;align-items:center}
+  .params .pl{color:var(--cinza-txt);font-family:'Oxanium';font-weight:600;font-size:10px;letter-spacing:1.2px;text-transform:uppercase}
+  .params .pv{font-family:'Oxanium';font-weight:700;color:var(--preto);font-size:15px;padding:1px 6px}
+  .params .un{font-family:'Oxanium';font-weight:600;color:var(--cinza-txt);font-size:12px}
+  .params .ajuda{color:var(--cinza-txt);font-size:12px}
 
-  /* rodapé */
-  .rodape{border-top:1px solid var(--line);margin-top:30px;padding-top:14px;display:flex;
-    justify-content:space-between;gap:12px;color:var(--mut);font-size:11.5px;flex-wrap:wrap}
-  .assina{margin-top:34px;display:grid;grid-template-columns:1fr 1fr;gap:40px}
-  .assina .campo{border-top:1px solid var(--txt);padding-top:6px;font-size:12px;text-align:center;color:var(--mut)}
-  .assina .campo b{display:block;color:var(--txt);font-size:13px}
+  /* rodapé e assinaturas */
+  .rodape{border-top:1px solid var(--borda);margin-top:30px;padding-top:14px;display:flex;
+    justify-content:space-between;gap:12px;color:var(--cinza-txt);font-size:11.5px;flex-wrap:wrap}
+  .assina{margin-top:38px;display:grid;grid-template-columns:1fr 1fr;gap:40px}
+  .assina .campo{border-top:1px solid var(--preto);padding-top:8px;font-size:12px;text-align:center;color:var(--cinza-txt)}
+  .assina .campo b{display:block;color:var(--preto);font-size:13px;font-weight:700}
 
   @media(max-width:720px){
     .folha{padding:24px 18px;margin:12px 8px 40px}
     .destaques,.passos,.resumo{grid-template-columns:1fr}
-    .cab{flex-direction:column}
-    .cab .doc{text-align:left}
+    .cab .marcas{flex-direction:column;align-items:flex-start}
+    .parceria .rot{text-align:left}
     .ident{grid-template-columns:1fr}
     .ident .k{border-bottom:none;padding-bottom:2px}
     .tuc-wrap{overflow-x:auto}
@@ -134,6 +153,7 @@
     .toolbar,.addrow,.tuc .del{display:none !important}
     .folha{max-width:none;margin:0;border:none;border-radius:0;box-shadow:none;padding:0}
     [contenteditable]:hover,[contenteditable]:focus{background:none;box-shadow:none}
+    .dst,.res,.passo .n,th,.ident .k,.params{-webkit-print-color-adjust:exact;print-color-adjust:exact}
     section,.destaques,.resumo,.ident,.assina{break-inside:avoid}
     .tuc tr{break-inside:avoid}
   }
@@ -142,7 +162,6 @@
 <body>
 
 <div class="toolbar">
-  <span class="tlogo">EXA</span>
   <span class="dica">Clique em qualquer texto para editar · as alterações ficam salvas neste navegador</span>
   <button class="tbtn" id="btnReset">Restaurar padrão</button>
   <button class="tbtn primario" id="btnPrint">Imprimir / Salvar PDF</button>
@@ -151,10 +170,31 @@
 <div class="folha" id="folha">
 
   <div class="cab">
-    <div class="logo">EXA<small contenteditable="true" data-ed="logoSub">Energia por Geração Distribuída</small></div>
+    <div class="marcas">
+      <div class="logo-exa">
+        <svg viewBox="0 0 48 48" aria-label="Exa Energia">
+          <defs>
+            <linearGradient id="gexa" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#22C55E"/><stop offset="1" stop-color="#16A34A"/>
+            </linearGradient>
+          </defs>
+          <g fill="none" stroke="url(#gexa)" stroke-width="2.6" stroke-linecap="round">
+            <circle cx="24" cy="24" r="20.5"/>
+            <ellipse cx="24" cy="24" rx="12" ry="5.6" transform="rotate(-45 24 24) translate(0 -3)"/>
+            <ellipse cx="24" cy="24" rx="12" ry="5.6" transform="rotate(-45 24 24) translate(0 3)"/>
+          </g>
+        </svg>
+        <span class="nome">exa energia</span>
+      </div>
+      <div class="parceria">
+        <span class="rot">Em parceria<br>com</span>
+        <img src="data:image/png;base64,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" alt="NuCharge">
+      </div>
+    </div>
     <div class="doc">
-      <div class="t" contenteditable="true" data-ed="docTitulo">PROPOSTA COMERCIAL</div>
-      <div class="s" contenteditable="true" data-ed="docSub">Economia em energia elétrica por Geração Distribuída — Grupo B (baixa tensão)</div>
+      <div class="kicker" contenteditable="true" data-ed="kicker">Proposta comercial</div>
+      <h1 contenteditable="true" data-ed="docTitulo">Economia em energia elétrica por Geração Distribuída</h1>
+      <div class="sub" contenteditable="true" data-ed="docSub">Grupo B (baixa tensão) · Sistema de Compensação de Energia Elétrica · Lei 14.300/2022</div>
     </div>
   </div>
 
@@ -162,51 +202,52 @@
     <div class="k">Cliente</div><div class="v"><b contenteditable="true" data-ed="cliente">NOME DO CLIENTE</b></div>
     <div class="k">Unidades</div><div class="v" contenteditable="true" data-ed="unidades">1 unidade consumidora · CEMIG (MG) · Grupo B</div>
     <div class="k">Modalidade</div><div class="v" contenteditable="true" data-ed="modalidade">Geração Distribuída · compensação de créditos (autoconsumo remoto)</div>
-    <div class="k">Proponente</div><div class="v" contenteditable="true" data-ed="proponente">Exa Energia</div>
+    <div class="k">Proponente</div><div class="v" contenteditable="true" data-ed="proponente">Exa Energia, em parceria com NuCharge</div>
     <div class="k">Data</div><div class="v" contenteditable="true" data-ed="dataProp">Validade: 15 dias</div>
   </div>
 
   <div class="destaques">
-    <div class="dst"><div class="v"><span data-bind="desc">32</span>% de desconto</div><div class="l" contenteditable="true" data-ed="dst1">na tarifa de energia</div></div>
-    <div class="dst"><div class="v" contenteditable="true" data-ed="dst2v">Tarifa única</div><div class="l" contenteditable="true" data-ed="dst2">energia compensada</div></div>
-    <div class="dst"><div class="v" contenteditable="true" data-ed="dst3v">R$ 0</div><div class="l" contenteditable="true" data-ed="dst3">de investimento</div></div>
+    <div class="dst"><div class="v"><span data-bind="desc">32</span>% de desconto</div><div class="l" contenteditable="true" data-ed="dst1">sobre a parte de energia</div></div>
+    <div class="dst"><div class="v" contenteditable="true" data-ed="dst2v">Tarifa única</div><div class="l" contenteditable="true" data-ed="dst2">na energia compensada</div></div>
+    <div class="dst"><div class="v" contenteditable="true" data-ed="dst3v">R$ 0</div><div class="l" contenteditable="true" data-ed="dst3">adesão sem custo</div></div>
   </div>
 
   <section>
-    <h2>1. Apresentação</h2>
-    <p contenteditable="true" data-ed="apresentacao">A <b>Exa Energia</b> aloca créditos de geração distribuída às unidades do cliente pelo Sistema de Compensação de Energia Elétrica (SCEE), gerando economia direta de <b>32%</b> sobre a tarifa de energia hoje paga à distribuidora, <b>sem qualquer investimento</b>, obra ou alteração na instalação elétrica.</p>
+    <div class="sec-t"><span class="n">01</span><h2 contenteditable="true" data-ed="t1">Apresentação</h2></div>
+    <p contenteditable="true" data-ed="apresentacao">A <b>Exa Energia</b>, em parceria com a <b>NuCharge</b>, aloca créditos de geração distribuída às unidades do cliente pelo Sistema de Compensação de Energia Elétrica (SCEE), gerando economia direta de <b>32%</b> sobre a tarifa de energia hoje paga à distribuidora — <b>sem custo de adesão</b>, sem obra e sem alteração na instalação elétrica.</p>
+    <p class="obj" contenteditable="true" data-ed="apresentacao2">Sua distribuidora continua a mesma: a conta segue vindo da CEMIG e a economia aparece como crédito de energia na fatura.</p>
   </section>
 
   <section>
-    <h2>2. Como funciona a compensação de energia</h2>
-    <p contenteditable="true" data-ed="comoFunciona">A Exa injeta energia na rede da CEMIG; essa injeção gera créditos em kWh que abatem o consumo faturado das unidades consumidoras, conforme o SCEE (Lei 14.300/2022 e REN ANEEL 1.000/2021).</p>
+    <div class="sec-t"><span class="n">02</span><h2 contenteditable="true" data-ed="t2">Como funciona a compensação de energia</h2></div>
+    <p contenteditable="true" data-ed="comoFunciona">As usinas parceiras injetam energia na rede da CEMIG; essa injeção gera créditos em kWh que abatem o consumo faturado das unidades consumidoras, conforme o SCEE (Lei 14.300/2022 e REN ANEEL 1.000/2021).</p>
     <div class="passos">
-      <div class="passo"><div class="n">1</div><h4 contenteditable="true" data-ed="p1t">Geração</h4><p contenteditable="true" data-ed="p1d">As usinas parceiras da Exa injetam energia na rede da CEMIG.</p></div>
-      <div class="passo"><div class="n">2</div><h4 contenteditable="true" data-ed="p2t">Créditos</h4><p contenteditable="true" data-ed="p2d">A energia vira crédito em kWh, alocado às UCs do cliente.</p></div>
+      <div class="passo"><div class="n">1</div><h4 contenteditable="true" data-ed="p1t">Geração</h4><p contenteditable="true" data-ed="p1d">As usinas parceiras injetam energia na rede da CEMIG.</p></div>
+      <div class="passo"><div class="n">2</div><h4 contenteditable="true" data-ed="p2t">Créditos</h4><p contenteditable="true" data-ed="p2d">A energia vira crédito em kWh, alocado às unidades do cliente.</p></div>
       <div class="passo"><div class="n">3</div><h4 contenteditable="true" data-ed="p3t">Compensação</h4><p contenteditable="true" data-ed="p3d">Os créditos abatem o consumo faturado pela distribuidora.</p></div>
-      <div class="passo"><div class="n">4</div><h4 contenteditable="true" data-ed="p4t">Economia</h4><p contenteditable="true" data-ed="p4d">Sobre a energia compensada, paga-se à Exa com o desconto contratado.</p></div>
+      <div class="passo"><div class="n">4</div><h4 contenteditable="true" data-ed="p4t">Economia</h4><p contenteditable="true" data-ed="p4d">Sobre a energia compensada, paga-se com o desconto contratado.</p></div>
     </div>
   </section>
 
   <section>
-    <h2>3. Condições comerciais</h2>
+    <div class="sec-t"><span class="n">03</span><h2 contenteditable="true" data-ed="t3">Condições comerciais</h2></div>
     <table class="tcond">
-      <tr><th style="width:120px">Item</th><th>Condição</th></tr>
+      <tr><th style="width:130px">Item</th><th>Condição</th></tr>
       <tr><td>Desconto</td><td contenteditable="true" data-ed="condDesc"><b><span data-bind="desc">32</span>%</b> sobre a tarifa de energia, aplicado sobre toda a energia compensada, em relação à tarifa cheia da CEMIG — sem exceção.</td></tr>
       <tr><td>Fidelidade</td><td contenteditable="true" data-ed="condFid">12 meses, com renovação automática por iguais períodos de 12 meses.</td></tr>
       <tr><td>Pagamento</td><td contenteditable="true" data-ed="condPag">Cobrança conforme o consumo mensal compensado, via boleto com vencimento todo dia 15.</td></tr>
       <tr><td>Reajuste</td><td contenteditable="true" data-ed="condRea">Acompanha os reajustes da CEMIG/ANEEL, mantido o percentual de desconto.</td></tr>
-      <tr><td>Investimento</td><td contenteditable="true" data-ed="condInv">Zero. Sem obras, equipamentos ou alteração na instalação.</td></tr>
+      <tr><td>Adesão</td><td contenteditable="true" data-ed="condInv">Sem custo. Sem obras, equipamentos ou alteração na instalação.</td></tr>
     </table>
   </section>
 
   <section>
-    <h2>4. Unidades e projeção de economia</h2>
+    <div class="sec-t"><span class="n">04</span><h2 contenteditable="true" data-ed="t4">Unidades e projeção de economia</h2></div>
 
     <div class="params">
-      <span><span class="pl">Desconto:</span> <span class="pv" contenteditable="true" id="cfgDesc">32</span><b style="color:var(--verde-esc)">%</b></span>
-      <span><span class="pl">Tarifa média:</span> <b style="color:var(--verde-esc)">R$</b> <span class="pv" contenteditable="true" id="cfgTarifa">1,19</span><b style="color:var(--verde-esc)">/kWh</b></span>
-      <span class="pl" style="font-weight:400;text-transform:none;letter-spacing:0">Edite o desconto, a tarifa ou o kWh de cada unidade — os valores recalculam sozinhos.</span>
+      <span><span class="pl">Desconto:</span> <span class="pv" contenteditable="true" id="cfgDesc">32</span><span class="un">%</span></span>
+      <span><span class="pl">Tarifa média:</span> <span class="un">R$</span> <span class="pv" contenteditable="true" id="cfgTarifa">1,19</span><span class="un">/kWh</span></span>
+      <span class="ajuda">Edite o desconto, a tarifa ou o kWh de cada unidade — os valores recalculam sozinhos.</span>
     </div>
 
     <div class="tuc-wrap">
@@ -215,7 +256,7 @@
         <tr>
           <th>Titular</th><th>UC</th><th>Local</th>
           <th class="num">kWh/mês</th><th class="num">Custo atual</th>
-          <th class="num">Com a Exa</th><th class="num">Economia/mês</th><th></th>
+          <th class="num">Com desconto</th><th class="num">Economia/mês</th><th></th>
         </tr>
       </thead>
       <tbody id="ucs">
@@ -224,15 +265,15 @@
           <td contenteditable="true">0.000.000.000-0 / 1</td>
           <td contenteditable="true">Uberlândia - MG</td>
           <td class="num" contenteditable="true" data-kwh>31.040</td>
-          <td class="num auto" data-custo>—</td>
-          <td class="num auto" data-comexa>—</td>
+          <td class="num" data-custo>—</td>
+          <td class="num" data-comexa>—</td>
           <td class="num eco" data-eco>—</td>
           <td><button class="del" title="Remover unidade">×</button></td>
         </tr>
       </tbody>
       <tfoot>
         <tr class="total">
-          <td colspan="3">TOTAL DO PORTFÓLIO</td>
+          <td colspan="3">Total do portfólio</td>
           <td class="num" id="totKwh">—</td>
           <td class="num" id="totCusto">—</td>
           <td class="num" id="totComExa">—</td>
@@ -250,7 +291,7 @@
       <div class="res"><div class="v"><span data-bind="desc">32</span>%</div><div class="l">Desconto</div></div>
     </div>
 
-    <p class="nota" contenteditable="true" data-ed="nota">Tarifa média aplicada: R$ <span data-bind="tarifa">1,19</span>/kWh. Valores estimativos, calculados sobre o consumo médio de 13 meses. Não inclui componentes não compensáveis (disponibilidade/demanda, iluminação pública e Fio B).</p>
+    <p class="nota" contenteditable="true" data-ed="nota">Tarifa média aplicada: R$ <span data-bind="tarifa">1,19</span>/kWh. Valores estimativos, calculados sobre o consumo médio de 13 meses. O desconto incide só sobre a parte de energia — não inclui componentes não compensáveis (disponibilidade/demanda, iluminação pública e Fio B).</p>
   </section>
 
   <div class="assina">
@@ -259,7 +300,7 @@
   </div>
 
   <div class="rodape">
-    <span contenteditable="true" data-ed="rodEsq">Exa Energia · Energia por Geração Distribuída · Uberlândia - MG</span>
+    <span contenteditable="true" data-ed="rodEsq">Exa Energia · em parceria com NuCharge · Uberlândia - MG</span>
     <span contenteditable="true" data-ed="rodDir">contato@exaenergia.com</span>
   </div>
 
@@ -318,8 +359,8 @@ function novaLinha(){
     <td contenteditable="true">0.000.000.000-0 / 1</td>
     <td contenteditable="true">Uberlândia - MG</td>
     <td class="num" contenteditable="true" data-kwh>1.000</td>
-    <td class="num auto" data-custo>—</td>
-    <td class="num auto" data-comexa>—</td>
+    <td class="num" data-custo>—</td>
+    <td class="num" data-comexa>—</td>
     <td class="num eco" data-eco>—</td>
     <td><button class="del" title="Remover unidade">×</button></td>`;
   return tr;
