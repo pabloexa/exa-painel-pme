@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0B1210">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Exa Parceiros">
+<title>Exa — Playbook de Parceiros · Encontro de Síndicos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B1210; --panel:#121A17; --panel2:#0F1614; --line:#1E2B26;
+    --txt:#E7EFEA; --mut:#8FA69C; --verde:#22C55E; --verde-esc:#15803D;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--txt);font-family:'Inter',sans-serif;font-size:14px}
+  h1,h2,h3,h4{font-family:'Oxanium',sans-serif}
+  header{position:sticky;top:0;z-index:100;background:var(--panel);border-bottom:1px solid var(--line);padding:14px 20px;display:flex;flex-wrap:wrap;gap:10px;align-items:baseline;padding-top:calc(14px + env(safe-area-inset-top))}
+  .logo{font-family:'Oxanium';font-weight:700;font-size:20px;color:var(--verde);letter-spacing:1px}
+  .tit{font-family:'Oxanium';font-weight:600;font-size:16px}
+  .sub{color:var(--mut);font-size:12px}
+  main{max-width:760px;margin:0 auto;padding:20px 16px calc(40px + env(safe-area-inset-bottom))}
+  .bloco{margin-bottom:16px;background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:12px 14px}
+  .bloco h4{font-family:'Oxanium';font-size:13px;color:var(--verde);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+  .bloco p{font-size:13px;margin-bottom:8px;color:var(--txt)}
+  .bloco ul,.bloco ol{margin:0 0 8px 18px;font-size:13px}
+  .bloco li{margin-bottom:5px}
+  .bloco b{color:var(--verde)}
+  .bloco .alerta{color:#FCD34D}
+  .msgbox{background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:10px 12px;margin-bottom:8px;position:relative}
+  .msgbox .rot{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--mut);margin-bottom:4px;padding-right:64px}
+  .msgbox .msgtxt{font-size:13px;line-height:1.5;white-space:pre-wrap}
+  .copiar{position:absolute;top:8px;right:8px;background:var(--panel);border:1px solid var(--line);color:var(--verde);border-radius:5px;padding:3px 9px;cursor:pointer;font-size:11px;font-weight:600}
+  .bloco table{width:100%;border-collapse:collapse;font-size:12px}
+  .bloco th,.bloco td{text-align:left;padding:5px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+  .bloco th{color:var(--mut);font-weight:600;font-size:11px;text-transform:uppercase}
+  .secao{font-family:'Oxanium';font-size:15px;color:var(--txt);margin:24px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+  .secao span{color:var(--mut);font-size:12px;font-family:'Inter';font-weight:400;margin-left:8px}
+  .nota{color:var(--mut);font-size:12px;margin-bottom:12px}
+  @media(max-width:700px){body{font-size:15px}}
+</style>
+</head>
+<body>
+
+<header>
+  <span class="logo">EXA</span>
+  <span class="tit">Playbook de Parceiros</span>
+  <span class="sub">Encontro de Síndicos · Uberlândia</span>
+</header>
+
+<main>
+
+<div class="bloco">
+  <h4>Regras de ouro da parceria</h4>
+  <ul>
+    <li><b>Você não está pedindo, está oferecendo.</b> O parceiro ganha palco, lista de leads e um evento pronto sem trabalho. Fale como quem convida, não como quem precisa.</li>
+    <li><b>Um pedido por conversa.</b> Primeiro contato = marcar 20 minutos de reunião. Não explica o evento inteiro no WhatsApp.</li>
+    <li><b>Âncora primeiro.</b> Só convide os parceiros de conteúdo e de custo depois de ter a administradora (ou associação) confirmada — o nome dela puxa os outros.</li>
+    <li><b>Exclusividade por categoria.</b> Um parceiro de cada ramo, no máximo. É o seu principal argumento de venda da cota.</li>
+    <li><b>Lista compartilhada, follow-up separado.</b> Todo parceiro recebe a lista de presença completa; cada um faz o próprio follow-up. Deixe isso combinado por escrito antes do evento.</li>
+  </ul>
+</div>
+
+<div class="secao">1 · Administradora de condomínios <span>parceiro-âncora — traz a lista de síndicos</span></div>
+<div class="nota">O que ela ganha: evento com o nome dela junto, conteúdo pros clientes dela, e a imagem de quem traz economia pro condomínio. O que você quer: a lista de convidados e o convite saindo pelo canal dela.</div>
+
+<div class="bloco">
+  <h4>Script — WhatsApp (1º contato)</h4>
+  <div class="msgbox"><button class="copiar">Copiar</button><div class="rot">Mensagem-padrão · dono ou gerente da administradora</div><div class="msgtxt">Oi, [nome], tudo bem? Sou o Pablo, da Exa Energia aqui de Uberlândia. A gente reduz a conta de energia das áreas comuns de condomínios — sem obra, sem instalar nada, continua tudo com a CEMIG. Já atendemos um condomínio de 79 unidades aqui na cidade.
+
+Estou organizando um encontro gratuito para síndicos sobre redução de custos no condomínio, e quero fazer isso junto com uma administradora de referência — pensei na [administradora]. A ideia é o evento sair com o nome de vocês, sem custo nenhum pra vocês.
+
+Consigo 20 minutos essa semana pra te mostrar o formato?</div></div>
+  <div class="msgbox"><button class="copiar">Copiar</button><div class="rot">Follow-up 48h sem resposta</div><div class="msgtxt">Oi, [nome]! Só reforçando o convite — o encontro de síndicos já está de pé e eu queria muito a [administradora] como parceira principal antes de fechar com outra. São 20 minutos, posso passar aí no escritório de vocês. Qual dia fica melhor?</div></div>
+</div>
+
+<div class="bloco">
+  <h4>Roteiro da reunião de 20 min</h4>
+  <ol>
+    <li><b>2 min — quem é a Exa:</b> desconto na conta CEMIG das áreas comuns, sem obra, caso real do condomínio de 79 unidades.</li>
+    <li><b>5 min — o evento:</b> café da manhã / fim de tarde de 1h30 para 20–40 síndicos, pauta de gestão de custos (não é palestra de vendas), simulação de economia na hora.</li>
+    <li><b>5 min — o que a administradora ganha:</b> nome no convite como realizadora, fala de abertura, relacionamento com os síndicos dela, zero custo.</li>
+    <li><b>5 min — o que você pede:</b> convite disparado pelo canal dela (WhatsApp/e-mail dos síndicos), indicação de 1 síndico pra dar depoimento, e ajuda pra validar data e local.</li>
+    <li><b>3 min — fechar data.</b> Saia da reunião com data-alvo e próximo passo marcado. <span class="alerta">Sem data, não houve reunião.</span></li>
+  </ol>
+</div>
+
+<div class="secao">2 · Advogado / contador condominial <span>parceiro de conteúdo — a palestra-isca</span></div>
+<div class="nota">O que ele ganha: palco diante de dezenas de potenciais clientes. O que você quer: um tema "neutro" que faça o síndico querer ir (inadimplência, responsabilidade civil do síndico, prestação de contas).</div>
+
+<div class="bloco">
+  <h4>Script — WhatsApp (convite pra palestrar)</h4>
+  <div class="msgbox"><button class="copiar">Copiar</button><div class="rot">Mensagem-padrão · advogado ou contador</div><div class="msgtxt">Oi, [nome], tudo bem? Sou o Pablo, da Exa Energia. Estou organizando com a [administradora] um encontro para síndicos de Uberlândia sobre redução de custos e boa gestão do condomínio — formato café da manhã, 20 a 40 síndicos na sala.
+
+Queria te convidar pra ser o palestrante principal, com um tema jurídico que síndico paga pra ouvir — tipo inadimplência ou responsabilidade civil do síndico. Palco seu, 25 minutos, público inteiro de potencial cliente. Sem custo pra você.
+
+Topa uma ligação de 15 minutos pra eu te mostrar o formato?</div></div>
+</div>
+
+<div class="secao">3 · Parceiro comercial <span>portaria remota, individualização de água, seguros — divide o custo</span></div>
+<div class="nota">O que ele ganha: acesso ao mesmo público que ele caça porta a porta, com exclusividade da categoria. O que você quer: dividir o custo do buffet/local e reforçar a pauta de economia.</div>
+
+<div class="bloco">
+  <h4>Script — WhatsApp (venda da cota)</h4>
+  <div class="msgbox"><button class="copiar">Copiar</button><div class="rot">Mensagem-padrão · empresa complementar</div><div class="msgtxt">Oi, [nome], tudo bem? Sou o Pablo, da Exa Energia. Estou organizando com a [administradora] um encontro fechado para síndicos de Uberlândia — 20 a 40 síndicos na sala, pauta de redução de custos do condomínio.
+
+Estou montando um grupo pequeno de parceiros, um por segmento, e o de [segmento] ainda está aberto. O parceiro entra com [valor] (divisão do buffet e material), e leva: fala de 10 minutos, mesa própria no evento e a lista de presença completa com contato dos síndicos.
+
+Te mando o resumo de 1 página? Se fizer sentido, a gente se fala essa semana.</div></div>
+  <div class="msgbox"><button class="copiar">Copiar</button><div class="rot">Follow-up 48h sem resposta</div><div class="msgtxt">Oi, [nome]! A cota de [segmento] do encontro de síndicos ainda está aberta, mas estou fechando o time de parceiros até [data]. Consegue me dar um retorno até lá? Qualquer dúvida te ligo rapidinho.</div></div>
+</div>
+
+<div class="secao">4 · Proposta de 1 página <span>texto pronto — cole no doc/PDF e ajuste os colchetes</span></div>
+
+<div class="bloco">
+  <h4>Texto da proposta</h4>
+  <div class="msgbox"><button class="copiar">Copiar</button><div class="rot">Proposta de parceria · 1 página</div><div class="msgtxt">ENCONTRO DE SÍNDICOS DE UBERLÂNDIA
+Como cortar os maiores custos do condomínio
+
+O QUE É
+Encontro gratuito e fechado para síndicos e administradoras de Uberlândia, com pauta prática de redução de custos: energia, inadimplência e gestão. Formato café da manhã (1h30), com palestra jurídica, caso real de economia e simulações na hora.
+
+QUANDO E ONDE
+[data] · [horário] · [local]
+Público-alvo: 20 a 40 síndicos (moradores e profissionais)
+
+REALIZAÇÃO
+Exa Energia + [administradora parceira]
+
+O QUE O PARCEIRO RECEBE
+· Exclusividade no seu segmento (um parceiro por ramo)
+· Fala de 10 minutos no palco + mesa própria no evento
+· Logo no convite, na recepção e no material entregue
+· Lista de presença completa (nome, condomínio e WhatsApp)
+· Menção nos disparos de divulgação antes e depois do evento
+
+INVESTIMENTO
+[valor] por parceiro — cobre buffet, material e recepção.
+Administradora parceira e palestrante convidado: sem custo.
+
+COMPROMISSOS COMBINADOS
+· Cada parceiro divulga o evento pra sua própria base (mínimo 1 disparo)
+· Follow-up com os síndicos é individual, após o evento
+· Nenhum parceiro aborda leads durante o evento fora da sua mesa
+
+CONTATO
+Pablo · Exa Energia · [WhatsApp] · [e-mail]</div></div>
+  <p class="nota">Dica: gere o PDF em papel timbrado simples com o logo da Exa e o da administradora lado a lado no topo.</p>
+</div>
+
+<div class="secao">5 · Objeções do parceiro <span>resposta pronta</span></div>
+
+<div class="bloco">
+  <h4>O que você vai ouvir</h4>
+  <ul>
+    <li><b>"Não tenho verba pra evento."</b> — "A administradora e o palestrante entram sem custo — o que eu peço é o canal de vocês pra convidar os síndicos. Quem divide custo são os parceiros comerciais."</li>
+    <li><b>"Já fazemos nossos próprios eventos."</b> — "Melhor ainda: encaixo esse formato num evento que vocês já têm marcado. A pauta de economia é minha, a casa é sua."</li>
+    <li><b>"O que vocês ganham com isso?"</b> — "Transparência total: a gente apresenta a redução da conta de energia e sai com simulações pra fazer. Todo mundo na sala sabe que os parceiros estão lá pra gerar negócio — o formato é limpo."</li>
+    <li><b>"Isso não concorre com fornecedor que já indicamos?"</b> — "Por isso a exclusividade por categoria. Se vocês já têm parceiro de energia, me fala quem é — se for GD concorrente, a conversa é outra e é melhor saber agora."</li>
+    <li><b>"Me manda por e-mail que eu vejo."</b> — "Mando agora — e te ligo [dia] pra colher tua resposta, porque a cota do segmento é uma só."</li>
+  </ul>
+</div>
+
+<div class="secao">6 · Controle <span>quem procurar primeiro e onde parar</span></div>
+
+<div class="bloco">
+  <h4>Ordem de ataque</h4>
+  <table>
+    <tr><th>#</th><th>Alvo</th><th>Papel</th><th>Meta</th></tr>
+    <tr><td>1</td><td>Administradoras (3 a 5 maiores da cidade)</td><td>Âncora / lista</td><td>1 fechada</td></tr>
+    <tr><td>2</td><td>Advogado ou contador condominial</td><td>Palestra-isca</td><td>1 fechado</td></tr>
+    <tr><td>3</td><td>Portaria remota · individualização de água · seguro condominial</td><td>Cota / custo</td><td>1 a 2 fechados</td></tr>
+    <tr><td>4</td><td>Associação de síndicos · ACIUB</td><td>Chancela</td><td>opcional</td></tr>
+  </table>
+  <p style="margin-top:8px" class="alerta">Pare em no máximo 4 marcas além da Exa. Mais que isso vira feira e o síndico se sente caçado.</p>
+</div>
+
+<div class="bloco">
+  <h4>Checklist ao fechar cada parceiro</h4>
+  <ul>
+    <li>Data e local validados com ele</li>
+    <li>Valor da cota acertado (ou "sem custo" registrado) por escrito no WhatsApp</li>
+    <li>Logo recebido em boa qualidade</li>
+    <li>Disparo de divulgação dele agendado com data</li>
+    <li>Combinado da lista de presença e do follow-up confirmado por escrito</li>
+    <li>Contato salvo e registrado no HubSpot como parceiro</li>
+  </ul>
+</div>
+
+</main>
+
+<script>
+document.querySelectorAll(".copiar").forEach(b=>b.addEventListener("click", ()=>{
+  const txt = b.closest(".msgbox").querySelector(".msgtxt").innerText;
+  navigator.clipboard.writeText(txt).then(()=>{
+    b.textContent = "Copiado";
+    setTimeout(()=>{ b.textContent = "Copiar"; }, 1500);
+  });
+}));
+</script>
+</body>
+</html>
